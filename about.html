@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     background: var(--bg); 
     color: #fff; 
     font-family: 'Noto Sans Devanagari', sans-serif; 
-    overflow-x: hidden; 
+    overflow: hidden; 
   }
 
   #spaceCanvas { 
@@ -45,7 +45,7 @@
     will-change: transform, filter;
   }
 
-  /* 350px Profile Image with Glow */
+  /* 350px Profile Image with Glow[cite: 3] */
   .profile-image {
     width: 350px; height: 350px;
     border-radius: 25px;
@@ -60,7 +60,7 @@
     transform: scale(1.02) !important;
   }
 
-  /* Bold Devanagari Name with Glow */
+  /* Bold Devanagari Name with Glow[cite: 3] */
   .name { 
     font-family: 'Tiro Devanagari Hindi', serif; 
     font-size: 3.8rem; font-weight: 700; 
@@ -79,7 +79,7 @@
     text-transform: uppercase;
   }
 
-  /* Corrected AI Badge & Icon Alignment */
+  /* Corrected AI Badge & Icon Alignment[cite: 3] */
   .ai-badge {
     display: inline-flex; align-items: center; gap: 1.2rem;
     padding: 1rem 2.5rem; border: 2px solid #fff; border-radius: 50px;
@@ -105,7 +105,7 @@
 
   .main-icon { width: 24px; height: 24px; z-index: 5; position: relative; }
 
-  /* Center-Aligned 8-Particle Explosion */
+  /* Center-Aligned 8-Particle Explosion[cite: 3] */
   .palette { 
     position: absolute; top: 50%; left: 50%;
     width: 6px; height: 6px; 
@@ -123,27 +123,28 @@
   .ai-badge:hover .p6 { transform: translate(0, 45px); }
   .ai-badge:hover .p7 { transform: translate(-45px, 0); }
   .ai-badge:hover .p8 { transform: translate(45px, 0); }
-
-  /* ── GLOBAL NAV & FOOTER VARS ── */
-  :root {
-      --bg-matte: #0a0a0a;
-      --bg-card: rgba(18,18,18,0.85);
-      --accent: #E1AD01; --accent-blue: #58CCED;
-      --accent-glow: rgba(225,173,1,0.35);
-      --text-main: #ffffff; --text-muted: #a0a0a0;
-      --border: rgba(225,173,1,0.2);
-      --nav-bg: rgba(0,0,0,0.88);
-      --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-  }
-  [data-theme="light"] {
-      --bg-matte: #ececec;
-      --bg-card: rgba(255,255,255,0.92);
-      --accent: #b88a00; --accent-blue: #007bbd;
-      --accent-glow: rgba(184,138,0,0.25);
-      --text-main: #111111; --text-muted: #555555;
-      --border: rgba(0,0,0,0.12);
-      --nav-bg: rgba(255,255,255,0.92);
-  }
+</style>
+<style>
+/* ── GLOBAL NAV & FOOTER VARS ── */
+:root {
+    --bg-matte: #0a0a0a;
+    --bg-card: rgba(18,18,18,0.85);
+    --accent: #E1AD01; --accent-blue: #58CCED;
+    --accent-glow: rgba(225,173,1,0.35);
+    --text-main: #ffffff; --text-muted: #a0a0a0;
+    --border: rgba(225,173,1,0.2);
+    --nav-bg: rgba(0,0,0,0.88);
+    --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"] {
+    --bg-matte: #ececec;
+    --bg-card: rgba(255,255,255,0.92);
+    --accent: #b88a00; --accent-blue: #007bbd;
+    --accent-glow: rgba(184,138,0,0.25);
+    --text-main: #111111; --text-muted: #555555;
+    --border: rgba(0,0,0,0.12);
+    --nav-bg: rgba(255,255,255,0.92);
+}
 /* ── NAV ── */
 nav {
     position:sticky; top:0; z-index:1000;
@@ -202,7 +203,7 @@ nav {
 .mobile-menu {
     display:none; background:var(--nav-bg); backdrop-filter:blur(18px);
     border-bottom:1px solid var(--border); max-height:0;
-    overflow-x: hidden; transition:max-height 0.4s ease, padding 0.3s ease;
+    overflow:hidden; transition:max-height 0.4s ease, padding 0.3s ease;
     position: fixed; width: 100%; z-index: 999; left: 0;
 }
 .mobile-menu.open { max-height:500px; padding:1rem 0; }
@@ -324,13 +325,6 @@ footer { background:var(--bg-matte); border-top:1px solid var(--border); padding
     </ul>
 </div>
 
-
-<!-- ═══ MAIN ABOUT CONTENT ═══ -->
-
-<section class="about-section">
-  <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=600" alt="PrajnaAGI AI Agent" class="profile-image distort-target">
-  <h1 class="name distort-target">PrajnaAGI</h1>
-  <div class="designation distort-target">एआई साइंस कम्युनिकेटर</div>
 <div class="ai-badge distort-target">
     <div class="icon-wrapper">
       <svg class="main-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -348,7 +342,7 @@ const canvas = document.getElementById('spaceCanvas');
 const ctx = canvas.getContext('2d');
 let width, height;
 
-// Solar System Elements
+// Solar System Elements[cite: 3]
 const planets = [
   { name: 'Sun', r: 50, orbit: 0, speed: 0, color: '#F4C430', mass: 450, angle: 0 },
   { name: 'Earth', r: 18, orbit: 260, speed: 0.007, color: '#4a90e2', mass: 130, angle: 1.5 },
@@ -383,7 +377,7 @@ function draw() {
     }
   });
 
-  // Grid with Curvature Distortion
+  // Grid with Curvature Distortion[cite: 3]
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
   const step = 45;
   for(let x = 0; x < width + step; x += step) {

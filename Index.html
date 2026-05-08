@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrajnaAGI — ब्रह्मांड की हर खबर</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #000000;
@@ -20,6 +23,7 @@
             --nav-bg: rgba(0, 0, 0, 0.88);
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         [data-theme="light"] {
             --bg: #f7f7f7;
             --bg-matte: #ececec;
@@ -32,187 +36,1143 @@
             --border: rgba(0, 0, 0, 0.12);
             --nav-bg: rgba(255, 255, 255, 0.92);
         }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background: var(--bg);
             color: var(--text-main);
             font-family: 'Noto Sans Devanagari', sans-serif;
-            margin: 0;
             overflow-x: hidden;
             transition: background 0.4s, color 0.4s;
         }
-        canvas#spaceCanvas {
+
+        #spaceCanvas {
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             z-index: -1;
-            width: 100%; height: 100%;
             pointer-events: none;
+            width: 100%;
+            height: 100%;
         }
+
+        /* â”€â”€ NAV â”€â”€ */
         nav {
-            position: sticky; top: 0; z-index: 1000;
-            background: var(--nav-bg); backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border); padding: 0 2rem;
-            display: flex; align-items: center; justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            transition: background 0.4s;
         }
+
         .nav-inner {
-            width: 100%; max-width: 1400px; height: 70px;
-            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
         }
-        .brand-container { display: flex; align-items: center; gap: 12px; }
-        #headerBlackHole { width: 50px; height: 50px; }
-        .logo { font-family: 'Tiro Devanagari Hindi', serif; font-size: 1.7rem; font-weight: bold; color: var(--text-main); text-decoration: none; }
-        .logo span { color: var(--accent); }
-        .menu-tabs { display: flex; list-style: none; gap: 20px; margin-left: 30px; }
-        .menu-tabs a { color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem; opacity: 0.8; transition: 0.3s; }
-        .menu-tabs a:hover { opacity: 1; color: var(--accent); }
-        .nav-controls { display: flex; align-items: center; gap: 15px; }
-        #theme-toggle { background: none; border: 1px solid var(--border); color: var(--accent); padding: 8px 16px; border-radius: 50px; cursor: pointer; font-family: inherit; font-weight: bold; transition: 0.3s; }
-        #theme-toggle:hover { background: var(--accent); color: #000; }
-        .subscribe-nav-btn { background: var(--accent); color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-        .subscribe-nav-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        
-        .hero { height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
-        .hero h1 { font-family: 'Tiro Devanagari Hindi', serif; font-size: 5rem; margin-bottom: 1rem; color: #fff; text-shadow: 0 0 30px var(--accent-glow); }
-        .hero p { font-size: 1.5rem; color: var(--text-muted); max-width: 800px; line-height: 1.6; }
-        
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 5% 10%; }
-        .category-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 40px; text-align: center; transition: 0.4s; text-decoration: none; color: inherit; }
-        .category-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 0 30px var(--accent-glow); }
-        .category-card i { font-size: 3rem; margin-bottom: 1rem; display: block; }
-        .category-card h3 { font-family: 'Tiro Devanagari Hindi', serif; font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
-        .category-card p { color: var(--text-muted); }
 
-        .newsletter-section { background: var(--bg-matte); border: 1px solid var(--border); border-radius: 28px; padding: 4rem 2rem; text-align: center; margin: 4rem auto; max-width: 1100px; }
-        .newsletter-section h2 { font-family: 'Tiro Devanagari Hindi', serif; font-size: 2.5rem; margin-bottom: 1rem; }
-        .newsletter-input-group { display: flex; justify-content: center; gap: 15px; margin-top: 2rem; flex-wrap: wrap; }
-        .newsletter-input { background: var(--bg-card); border: 1px solid var(--border); color: #fff; padding: 15px 30px; border-radius: 50px; width: 350px; font-size: 1rem; outline: none; }
-        .subscribe-btn { background: var(--accent-blue); color: #000; border: none; padding: 15px 40px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .subscribe-btn:hover { transform: scale(1.05); }
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        footer { background: var(--bg-matte); border-top: 1px solid var(--border); padding: 4rem 2rem; text-align: center; color: var(--text-muted); }
-        .footer-logo { font-family: 'Tiro Devanagari Hindi', serif; font-size: 2rem; color: var(--accent); font-weight: bold; margin-bottom: 1rem; }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .menu-tabs { display: none; }
+        #headerBlackHole {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: 1.7rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .menu-tabs {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            margin-left: 28px;
+        }
+
+        .menu-tabs li a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.92rem;
+            opacity: 0.8;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .menu-tabs li a:hover {
+            color: var(--accent);
+            opacity: 1;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            transition: var(--transition);
+        }
+
+        #theme-toggle:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .subscribe-nav-btn {
+            background: var(--accent);
+            border: none;
+            padding: 0.7rem 1.3rem;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            color: #000;
+            font-size: 0.85rem;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .subscribe-nav-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        /* â”€â”€ HAMBURGER â”€â”€ */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* â”€â”€ MOBILE DROPDOWN MENU â”€â”€ */
+        .mobile-menu {
+            display: none;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            max-height: 500px;
+            padding: 1rem 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .mobile-menu ul li a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .mobile-menu ul li:last-child a {
+            border-bottom: none;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 .hindi-line {
+            display: block;
+            color: var(--accent);
+            font-size: 0.62em;
+            margin-top: 14px;
+            text-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            margin-top: 2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            max-width: 600px;
+        }
+
+        /* ── TICKER ── */
+        .ticker-wrap {
+            background: var(--bg-matte);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            height: 45px;
+            align-items: center;
+        }
+
+        .ticker-label {
+            background: var(--accent);
+            color: #000;
+            padding: 0 1.2rem;
+            font-weight: 800;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+
+        .ticker-inner {
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-track span {
+            padding: 0 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ── SECTIONS ── */
+        .section {
+            padding: 4rem 2rem 0;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 2.5rem;
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        /* â”€â”€ FEATURED GRID â”€â”€ */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            align-items: start;
+        }
+
+        .clickable-card {
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+
+        .clickable-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 35px var(--accent-glow);
+        }
+
+        .featured-main {
+            padding: 0;
+        }
+
+        .featured-img {
+            height: 300px;
+            background: #1a1a2e url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000') center/cover;
+        }
+
+        .featured-content {
+            padding: 1.8rem;
+        }
+
+        .featured-content .tag {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured-content h3 {
+            font-size: clamp(1.2rem, 3vw, 1.7rem);
+            margin: 10px 0 8px;
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* â”€â”€ SIDE NEWS â”€â”€ */
+        .side-news {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .side-news .clickable-card {
+            padding: 1.5rem;
+        }
+
+        .side-news h4 {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 5px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            margin-top: 0.8rem;
+            overflow: hidden;
+        }
+
+        [data-theme="light"] .progress-bar {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 1.8s ease;
+            width: 0;
+            border-radius: 10px;
+        }
+
+        /* â”€â”€ CARD GRID â”€â”€ */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight-blue {
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        .card-grid .clickable-card {
+            padding: 1.8rem;
+            line-height: 1.7;
+        }
+
+        /* â”€â”€ NEWSLETTER â”€â”€ */
+        .newsletter-section {
+            background: var(--bg-matte);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem auto;
+            max-width: 1100px;
+        }
+
+        .newsletter-section h2 {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+        }
+
+        .newsletter-input-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 1.8rem auto;
+            max-width: 600px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-input {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            flex: 1;
+            min-width: 220px;
+            font-size: 0.95rem;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent);
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .subscribe-btn {
+            background: var(--accent-blue);
+            color: #000;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            transition: var(--transition);
+        }
+
+        .subscribe-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* â”€â”€ FOOTER â”€â”€ */
+        footer {
+            background: var(--bg-matte);
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-col p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-col ul li:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* â”€â”€ EXPANDABLE ARTICLES â”€â”€ */
+        .full-article-content {
+            display: none;
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .full-article-content p {
+            margin-bottom: 0.8rem;
+        }
+
+        .full-article-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .read-more-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            transition: var(--transition);
+        }
+
+        .read-more-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* â”€â”€ ANIMATIONS â”€â”€ */
+        @keyframes ticker {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* â”€â”€ RESPONSIVE â”€â”€ */
+        @media (max-width:1024px) {
+            .menu-tabs {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+        }
+
+        @media (max-width:768px) {
+            .nav-inner {
+                height: 62px;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .side-news {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .side-news .clickable-card {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .subscribe-nav-btn {
+                display: none;
+            }
+
+            .hero {
+                padding: 3.5rem 1.5rem 2.5rem;
+            }
+
+            .section {
+                padding: 3rem 1.5rem 0;
+            }
+
+            .newsletter-section {
+                margin: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width:480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            #headerBlackHole {
+                width: 40px;
+                height: 40px;
+            }
+
+            .featured-img {
+                height: 200px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ticker-label {
+                padding: 0 0.8rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
-<body data-theme="dark">
-    <canvas id="spaceCanvas"></canvas>
-    
-    <nav>
-        <div class="nav-inner">
-            <div class="brand-container">
-                <canvas id="headerBlackHole"></canvas>
-                <a href="index.html" class="logo">Prajna<span>AGI</span></a>
-                <ul class="menu-tabs">
-                    <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-                    <li><a href="about.html">🙏 हमारे बारे में</a></li>
-                </ul>
-            </div>
-            <div class="nav-controls">
-                <button id="theme-toggle">☀️ दिन</button>
-                <button class="subscribe-nav-btn">सब्सक्रिप्शन</button>
-            </div>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <h1>PrajnaAGI</h1>
-        <p>ब्रह्मांड, विज्ञान और तकनीक की हर खबर अब हिंदी में। भविष्य को समझने का आपका डिजिटल साथी।</p>
+<body data-theme="dark">
+
+    <canvas id="spaceCanvas"></canvas>
+
+    <!-- â•â•â• NAVIGATION â•â•â• -->
+    <nav>
+    <div class="nav-inner">
+        <div class="brand-container">
+            <canvas id="headerBlackHole"></canvas>
+            <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
+            <ul class="menu-tabs">
+                <li><a href="space.html">🌌 अंतरिक्ष</a></li>
+                <li><a href="science.html">🔬 विज्ञान</a></li>
+                <li><a href="tech.html">💻 तकनीक</a></li>
+                <li><a href="environment.html">🌿 पर्यावरण</a></li>
+                <li><a href="health.html">❤️ स्वास्थ्य</a></li>
+                <li><a href="about.html">🙏 हमारे बारे में</a></li>
+            </ul>
+        </div>
+        <div class="nav-controls">
+            <button id="theme-toggle">☀️ दिन</button>
+            <button class="subscribe-nav-btn">सब्सक्रिप्शन</button>
+            <button class="hamburger" id="hamburger" aria-label="मेनू खोलें">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+    <!-- â•â•â• MOBILE DROPDOWN â•â•â• -->
+    <div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="space.html">🌌 अंतरिक्ष</a></li>
+        <li><a href="science.html">🔬 विज्ञान</a></li>
+        <li><a href="tech.html">💻 तकनीक</a></li>
+        <li><a href="environment.html">🌿 पर्यावरण</a></li>
+        <li><a href="health.html">❤️ स्वास्थ्य</a></li>
+        <li><a href="about.html">🙏 हमारे बारे में</a></li>
+        <li><a href="#">📩 सब्सक्रिप्शन</a></li>
+    </ul>
+</div>
+
+<section class="hero">
+        <h1>ब्रह्मांड की हर खबर<span class="hindi-line">हिंदी में</span></h1>
+        <p>विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत</p>
     </section>
 
-    <div class="category-grid">
-        <a href="space.html" class="category-card">
-            <i>🌌</i>
-            <h3>अंतरिक्ष</h3>
-            <p>तारों, ग्रहों और ब्रह्मांड के रहस्यों की खोज।</p>
-        </a>
-        <a href="science.html" class="category-card">
-            <i>🔬</i>
-            <h3>विज्ञान</h3>
-            <p>आधुनिक शोध और वैज्ञानिक आविष्कारों की दुनिया।</p>
-        </a>
-        <a href="tech.html" class="category-card">
-            <i>💻</i>
-            <h3>तकनीक</h3>
-            <p>एआई, गैजेट्स और बदलती डिजिटल तकनीक।</p>
-        </a>
-        <a href="environment.html" class="category-card">
-            <i>🌿</i>
-            <h3>पर्यावरण</h3>
-            <p>हमारी पृथ्वी और जलवायु परिवर्तन की चुनौतियां।</p>
-        </a>
-        <a href="health.html" class="category-card">
-            <i>❤️</i>
-            <h3>स्वास्थ्य</h3>
-            <p>मेडिकल साइंस और बेहतर जीवन के लिए शोध।</p>
-        </a>
-        <a href="about.html" class="category-card">
-            <i>🙏</i>
-            <h3>हमारे बारे में</h3>
-            <p>PrajnaAGI के पीछे की कहानी और हमारा मिशन।</p>
-        </a>
+    <!-- ── TICKER ── -->
+    <div class="ticker-wrap">
+        <div class="ticker-label">🔴 अभी-अभी</div>
+        <div class="ticker-inner">
+            <div class="ticker-track">
+                <span>राष्ट्रीय क्वांटम मिशन 2026: 1000 किमी क्वांटम नेटवर्क का सफल परीक्षण</span><span>•</span>
+                <span>गगनयान मिशन के लिए 4 अंतरिक्ष यात्री तैयार</span><span>•</span>
+                <span>ISRO 2025 में रचेगा इतिहास</span><span>•</span>
+                <span>James Webb की नई खोज</span><span>•</span>
+                <span>दुनिया की #1 विज्ञान वेबसाइट जल्द लाइव</span><span>•</span>
+                <span>मंगल पर पानी के नए प्रमाण मिले</span><span>•</span>
+                <span>राष्ट्रीय क्वांटम मिशन 2026: 1000 किमी क्वांटम नेटवर्क का सफल परीक्षण</span><span>•</span>
+                <span>गगनयान मिशन के लिए 4 अंतरिक्ष यात्री तैयार</span><span>•</span>
+                <span>ISRO 2025 में रचेगा इतिहास</span><span>•</span>
+                <span>James Webb की नई खोज</span><span>•</span>
+                <span>दुनिया की #1 विज्ञान वेबसाइट जल्द लाइव</span><span>•</span>
+                <span>मंगल पर पानी के नए प्रमाण मिले</span><span>•</span>
+            </div>
+        </div>
     </div>
 
-    <section class="newsletter-section">
-        <h2>अपडेट रहें 📬</h2>
-        <p>हर हफ्ते महत्वपूर्ण खबरें सीधे अपने इनबॉक्स में पाएं।</p>
-        <div class="newsletter-input-group">
-            <input type="email" class="newsletter-input" placeholder="आपका ईमेल...">
-            <button class="subscribe-btn">सब्सक्रिप्शन लें</button>
+    <!-- ── MAIN NEWS ── -->
+    <section class="section">
+        <h2 class="section-title">⭐ मुख्य समाचार</h2>
+        <div class="featured-grid">
+            <a href="quantum-mission-2026.html" class="clickable-card featured-main">
+                <div class="featured-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000')">
+                </div>
+                <div class="featured-content">
+                    <span class="tag">⭐ Featured</span>
+                    <h3>राष्ट्रीय क्वांटम मिशन में बड़ी
+                        कामयाबी: 1000 किमी सुरक्षित नेटवर्क
+                        तैयार</h3>
+                    <p>मई 2026 के ताज़ा अपडेट के अनुसार, भारत ने
+                        QKD तकनीक का उपयोग करके 1,000 किलोमीटर
+                        लंबे सुरक्षित क्वांटम कम्युनिकेशन
+                        नेटवर्क का सफल परीक्षण किया है।</p>
+                </div>
+            </a>
+            <div class="side-news">
+                <div class="clickable-card">
+                    <h4>🛰️ NISAR उपग्रह लॉन्च की तैयारी पूरी</h4>
+                    <p style="color:var(--text-muted);font-size:0.88rem;margin-top:4px;">NASA-ISRO का
+                        संयुक्त उपग्रह</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-percent="100%"></div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleArticle(this, event)">पूरा पढ़ें ↓</button>
+                    <div class="full-article-content">
+                        <p>नासा (NASA) और इसरो (ISRO) के संयुक्त प्रयास से तैयार निसार (NISAR - NASA-ISRO Synthetic Aperture Radar) उपग्रह अब अपने लॉन्च के लिए पूरी तरह से तैयार है। यह एक अत्यंत उन्नत और अभूतपूर्व पृथ्वी-अवलोकन (Earth Observation) उपग्रह है, जिसे विशेष रूप से पृथ्वी की सतह पर होने वाले सूक्ष्म परिवर्तनों को मापने के लिए डिज़ाइन किया गया है। 1.5 बिलियन डॉलर के इस प्रोजेक्ट को अंतरिक्ष विज्ञान के इतिहास में अब तक का सबसे महंगा पृथ्वी-अवलोकन मिशन माना जा रहा है।</p>
+                        <p>निसार में L-बैंड और S-बैंड नामक दो सिंथेटिक एपर्चर रडार (SAR) लगे हैं, जो बादलों के पार और अंधेरे में भी स्पष्ट तस्वीरें लेने में सक्षम हैं। यह उपग्रह हर 12 दिनों में पूरी पृथ्वी का उच्च-रिज़ॉल्यूशन नक्शा तैयार करेगा। इससे वैज्ञानिकों को भूकंप, ज्वालामुखी विस्फोट, भूस्खलन और ग्लेशियरों के पिघलने जैसी प्राकृतिक आपदाओं की सटीक भविष्यवाणी करने में मदद मिलेगी। साथ ही, यह कृषि क्षेत्रों, वनों की कटाई और जलवायु परिवर्तन के प्रभावों का बारीकी से अध्ययन करेगा।</p>
+                        <p>श्रीहरिकोटा के सतीश धवन अंतरिक्ष केंद्र से GSLV Mark-II रॉकेट के माध्यम से इसे अंतरिक्ष में भेजा जाएगा। इसरो ने इसकी सभी प्रणालियों की सफल टेस्टिंग पूरी कर ली है और इसे लॉन्च पैड पर स्थानांतरित करने की प्रक्रिया अंतिम चरण में है। निसार का सफल प्रक्षेपण भारत और अमेरिका के बीच अंतरिक्ष सहयोग को एक नई ऊंचाई पर ले जाएगा, और पूरी दुनिया को पर्यावरण संरक्षण के लिए महत्वपूर्ण डेटा प्रदान करेगा।</p>
+                    </div>
+                </div>
+                <div class="clickable-card">
+                    <h4>🚀 गगनयान मिशन प्रोग्रेस</h4>
+                    <p style="color:var(--text-muted);font-size:0.88rem;margin-top:4px;">मानव रहित
+                        परीक्षण उड़ान सफल</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-percent="78%"></div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleArticle(this, event)">पूरा पढ़ें ↓</button>
+                    <div class="full-article-content">
+                        <p>भारत के पहले मानव युक्त अंतरिक्ष मिशन 'गगनयान' (Gaganyaan) की तैयारियां जोरों पर हैं। इसरो (ISRO) ने हाल ही में इसके मानव रहित परीक्षण उड़ान (Uncrewed Test Flight) को सफलतापूर्वक अंजाम दिया है, जो इस महात्वाकांक्षी मिशन के लिए एक बहुत बड़ा मील का पत्थर है। इस मिशन का मुख्य उद्देश्य 3 भारतीय अंतरिक्ष यात्रियों (गगननॉट्स) को पृथ्वी की निचली कक्षा (Low Earth Orbit - LEO) में 400 किलोमीटर की ऊंचाई पर ले जाना और 3 दिन बाद उन्हें सुरक्षित वापस हिंद महासागर में उतारना है।</p>
+                        <p>गगनयान मिशन के लिए विशेष रूप से डिज़ाइन किए गए क्रू मॉड्यूल (Crew Module) और क्रू एस्केप सिस्टम (Crew Escape System) का गहन परीक्षण किया गया है। यह सुनिश्चित करने के लिए कि आपातकालीन स्थिति में अंतरिक्ष यात्रियों की जान बचाई जा सके, एस्केप सिस्टम की सफलता इस मिशन का सबसे महत्वपूर्ण पहलू था। इसके अलावा, इसरो ने हाल ही में क्रू मॉड्यूल रिकवरी ट्रायल भी भारतीय नौसेना के सहयोग से सफलतापूर्वक संपन्न किए हैं।</p>
+                        <p>अंतरिक्ष में यात्रियों के लिए जीवन रक्षक प्रणालियों (Life Support Systems), स्पेससूट्स और भोजन की व्यवस्था भी अंतिम चरण में है। चार वायु सेना पायलटों को रूस और भारत में कड़ा प्रशिक्षण दिया गया है। 2026 तक भारत अपने गगनयान मिशन के अंतिम मानव युक्त प्रक्षेपण की तैयारी कर रहा है, जिसके साथ ही भारत दुनिया का चौथा ऐसा देश बन जाएगा जिसने स्वदेशी तकनीक से इंसान को अंतरिक्ष में भेजा है।</p>
+                    </div>
+                </div>
+                <div class="clickable-card">
+                    <h4>🔭 Chandrayaan-4 की तैयारी</h4>
+                    <p style="color:var(--text-muted);font-size:0.88rem;margin-top:4px;">चंद्रमा से
+                        नमूना लाने की योजना</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-percent="45%"></div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleArticle(this, event)">पूरा पढ़ें ↓</button>
+                    <div class="full-article-content">
+                        <p>चंद्रयान-3 की ऐतिहासिक सफलता और चंद्रमा के दक्षिणी ध्रुव पर सफलतापूर्वक लैंडिंग के बाद, भारतीय अंतरिक्ष अनुसंधान संगठन (ISRO) ने अब 'चंद्रयान-4' (Chandrayaan-4) मिशन की तैयारियां शुरू कर दी हैं। यह मिशन पिछले सभी चंद्र अभियानों से कहीं अधिक जटिल और चुनौतीपूर्ण होगा क्योंकि इसका लक्ष्य केवल चंद्रमा पर उतरना नहीं है, बल्कि वहां से मिट्टी और चट्टानों के नमूने (Lunar Samples) लेकर वापस पृथ्वी पर सुरक्षित लौटना है।</p>
+                        <p>इस 'सेंपल रिटर्न मिशन' (Sample Return Mission) को दो अलग-अलग रॉकेट लॉन्च के माध्यम से पूरा किया जाएगा। पहले चरण में लैंडर और एसेंडर मॉड्यूल (Ascender Module) को चंद्रमा की सतह पर भेजा जाएगा। लैंडर एक रोबोटिक आर्म और ड्रिल की मदद से चंद्रमा की सतह और उसके नीचे से मिट्टी के नमूने एकत्र करेगा और उन्हें एसेंडर में सुरक्षित रखेगा। इसके बाद एसेंडर चंद्रमा की सतह से उड़ान भरेगा और चंद्रमा की कक्षा में परिक्रमा कर रहे ट्रांसफर मॉड्यूल से जुड़ेगा।</p>
+                        <p>नमूनों को ट्रांसफर मॉड्यूल में स्थानांतरित करने के बाद, यह पृथ्वी की ओर अपनी यात्रा शुरू करेगा और अंततः एक री-एंट्री कैप्सूल के माध्यम से नमूनों को पृथ्वी के वायुमंडल में प्रवेश कराकर सुरक्षित रूप से जमीन पर उतारेगा। चंद्रयान-4 की यह योजना 2028 के आसपास लक्षित है। इस मिशन की सफलता से भारत को चंद्रमा के रहस्यों और उसकी भूगर्भीय संरचना को और अधिक गहराई से समझने का अवसर मिलेगा, जो भविष्य में चंद्रमा पर मानव बस्तियां बसाने की दिशा में एक महत्वपूर्ण कदम है।</p>
+                    </div>
+                </div>
+                <div class="clickable-card">
+                    <h4>☀️ Aditya-L1 सौर अध्ययन जारी</h4>
+                    <p style="color:var(--text-muted);font-size:0.88rem;margin-top:4px;">L1 बिंदु पर
+                        स्थापित — डेटा जारी</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-percent="92%"></div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleArticle(this, event)">पूरा पढ़ें ↓</button>
+                    <div class="full-article-content">
+                        <p>भारत का पहला समर्पित सौर मिशन, आदित्य-एल1 (Aditya-L1), सफलतापूर्वक अपनी मंजिल, लाग्रेंज पॉइंट-1 (L1 Point) पर स्थापित हो चुका है और सूर्य का लगातार अध्ययन कर रहा है। पृथ्वी से लगभग 15 लाख किलोमीटर दूर स्थित इस बिंदु का सबसे बड़ा फायदा यह है कि यहाँ से सूर्य बिना किसी ग्रहण या बाधा के 24 घंटे और 365 दिन साफ दिखाई देता है। आदित्य-एल1 ने अंतरिक्ष से सूर्य की उच्च-रिज़ॉल्यूशन तस्वीरें और महत्वपूर्ण डेटा पृथ्वी पर भेजना शुरू कर दिया है।</p>
+                        <p>इस वेधशाला (Observatory) में कुल सात अत्याधुनिक पेलोड लगे हैं, जिनमें से चार सूर्य को सीधे तौर पर देखते हैं और बाकी तीन L1 बिंदु पर मौजूद कणों और चुंबकीय क्षेत्र का इन-सीटू (In-situ) अध्ययन करते हैं। हाल ही में आदित्य-एल1 ने सूर्य के कोरोना (Corona - सूर्य का सबसे बाहरी वातावरण) और क्रोमोस्फीयर (Chromosphere) में होने वाली भारी हलचल और सोलर फ्लेयर्स (Solar Flares) की कई अभूतपूर्व घटनाएँ रिकॉर्ड की हैं। इन झलकियों ने वैज्ञानिकों को सूर्य की प्रचंड ऊर्जा और चुंबकीय तूफानों के रहस्य को समझने में नई दिशा दी है।</p>
+                        <p>कोरोनल मास इजेक्शन (CME - Coronal Mass Ejection) और सौर तूफानों का पृथ्वी के उपग्रहों, संचार नेटवर्क और पावर ग्रिड पर गहरा प्रभाव पड़ सकता है। आदित्य-एल1 द्वारा भेजे जा रहे इस रीयल-टाइम डेटा से भारत अब अंतरिक्ष मौसम (Space Weather) की सटीक निगरानी करने और संभावित सौर तूफानों की भविष्यवाणी करने में पूरी तरह सक्षम हो गया है। यह मिशन न केवल भारत बल्कि पूरे वैश्विक विज्ञान समुदाय के लिए सूर्य को समझने में एक मील का पत्थर साबित हो रहा है।</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- ── DID YOU KNOW ── -->
+    <section class="section">
+        <h2 class="section-title">🌟 क्या आप जानते हैं?</h2>
+        <div class="card-grid">
+            <div class="clickable-card">
+                <span class="card-icon">☀️</span>
+                <p>सूर्य की रोशनी पृथ्वी तक पहुँचने में
+                    <span class="highlight-blue">8 मिनट 20 सेकंड</span> लगते हैं —
+                    यानी जो सूरज हम देखते हैं वो 8 मिनट
+                    पुराना है।</p>
+                <button class="read-more-btn" onclick="toggleArticle(this, event)">विस्तार से जानें ↓</button>
+                <div class="full-article-content">
+                    <p>सूर्य और पृथ्वी के बीच की औसत दूरी लगभग 14.96 करोड़ किलोमीटर (1 Astronomical Unit) है। प्रकाश 3 लाख किलोमीटर प्रति सेकंड की आश्चर्यजनक गति से यात्रा करता है। जब हम इस दूरी को प्रकाश की गति से विभाजित करते हैं, तो हमें 499 सेकंड मिलते हैं, जो लगभग 8 मिनट और 20 सेकंड के बराबर है। इसका मतलब है कि यदि सूर्य अचानक गायब हो जाए, तो पृथ्वी पर हमें इसके बारे में 8 मिनट 20 सेकंड तक पता ही नहीं चलेगा!</p>
+                </div>
+            </div>
+            <div class="clickable-card">
+                <span class="card-icon">⭐</span>
+                <p>एक चम्मच <span class="highlight-blue">न्यूट्रॉन तारे</span>
+                    का वज़न लगभग एक अरब टन होता है — यह
+                    पृथ्वी के एक पहाड़ के बराबर है।</p>
+                <button class="read-more-btn" onclick="toggleArticle(this, event)">विस्तार से जानें ↓</button>
+                <div class="full-article-content">
+                    <p>न्यूट्रॉन तारे तब बनते हैं जब कोई विशाल तारा अपने जीवन के अंत में सुपरनोवा विस्फोट के बाद ढह जाता है। इनका गुरुत्वाकर्षण इतना अधिक होता है कि परमाणु कुचल जाते हैं और केवल न्यूट्रॉन बचते हैं। इसलिए, ये ब्रह्मांड के सबसे घने पिंडों में से एक हैं। एक चम्मच आकार के न्यूट्रॉन तारे का द्रव्यमान पृथ्वी पर माउंट एवरेस्ट के बराबर हो सकता है। यह घनत्व इतना है कि इसे पृथ्वी पर किसी भी चीज़ से नहीं मापा जा सकता।</p>
+                </div>
+            </div>
+            <div class="clickable-card">
+                <span class="card-icon">🌌</span>
+                <p>ब्रह्मांड में <span class="highlight-blue">तारों की
+                        संख्या</span> पृथ्वी की रेत के कणों से भी
+                    अधिक है।</p>
+                <button class="read-more-btn" onclick="toggleArticle(this, event)">विस्तार से जानें ↓</button>
+                <div class="full-article-content">
+                    <p>खगोलविदों का अनुमान है कि हमारे अवलोकनीय ब्रह्मांड में कम से कम 200 अरब से 2 खरब आकाशगंगाएँ हैं, और प्रत्येक आकाशगंगा में औसतन 100 अरब तारे होते हैं। यदि आप इन सभी तारों को गिनें, तो यह संख्या 10 Sextillion (1 के बाद 22 शून्य) से भी अधिक हो जाती है। दूसरी ओर, यदि हम पृथ्वी के सभी समुद्र तटों और रेगिस्तानों की रेत के कणों को गिनें, तो उनकी अनुमानित संख्या लगभग 7 Sextillion है।</p>
+                </div>
+            </div>
+            <div class="clickable-card">
+                <span class="card-icon">🔴</span>
+                <p>मंगल पर एक दिन पृथ्वी के <span class="highlight-blue">24
+                        घंटे 37 मिनट</span> के बराबर है।</p>
+                <button class="read-more-btn" onclick="toggleArticle(this, event)">विस्तार से जानें ↓</button>
+                <div class="full-article-content">
+                    <p>मंगल ग्रह अपने अक्ष पर घूमने में पृथ्वी के लगभग समान ही समय लेता है। मंगल के एक दिन को 'सोल' (Sol) कहा जाता है और यह 24 घंटे, 39 मिनट और 35 सेकंड लंबा होता है। हालाँकि इसका दिन पृथ्वी के समान है, लेकिन सूर्य की परिक्रमा करने में इसे दोगुना समय लगता है, इसलिए मंगल का एक वर्ष 687 पृथ्वी दिनों के बराबर होता है। यही कारण है कि मंगल पर मौसम पृथ्वी की तुलना में दोगुने लंबे होते हैं।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── NEWSLETTER ── -->
+    <section class="newsletter-section">
+    <h2>अंतरिक्ष की खबरें सीधे Inbox में 📬</h2>
+    <p style="color:var(--text-muted);margin:0.8rem 0 0;">हर हफ्ते नई साइंस न्यूज और मिशन अपडेट पाएं।</p>
+    <div class="newsletter-input-group">
+        <input type="email" class="newsletter-input" placeholder="आपका ईमेल पता लिखें...">
+        <button class="subscribe-btn">सदस्यता लें</button>
+    </div>
+    <p style="color:var(--accent-blue);font-weight:700;margin-top:0.5rem;">✨ 10k+ पाठक पहले से जुड़े हैं।</p>
+</section>
+
+    <!-- ── FOOTER ── -->
     <footer>
-        <div class="footer-logo">PrajnaAGI</div>
-        <p>© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
-    </footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <div class="footer-logo">🌌 PrajnaAGI</div>
+            <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
+        </div>
+        <div class="footer-col">
+            <h4>श्रेणियां</h4>
+            <ul>
+                <li><a href="space.html" style="text-decoration:none;color:inherit;display:block;">🌌 अंतरिक्ष</a></li>
+                <li><a href="science.html" style="text-decoration:none;color:inherit;display:block;">🔬 विज्ञान</a></li>
+                <li><a href="tech.html" style="text-decoration:none;color:inherit;display:block;">💻 तकनीक</a></li>
+                <li><a href="environment.html" style="text-decoration:none;color:inherit;display:block;">🌿 पर्यावरण</a></li>
+                <li><a href="health.html" style="text-decoration:none;color:inherit;display:block;">❤️ स्वास्थ्य</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>महत्वपूर्ण लिंक</h4>
+            <ul>
+                <li><a href="about.html" style="text-decoration:none;color:inherit;display:block;">🙏 हमारे बारे में</a></li>
+                <li><a href="#" style="text-decoration:none;color:inherit;display:block;">📞 संपर्क करें</a></li>
+                <li><a href="#" style="text-decoration:none;color:inherit;display:block;">🔒 गोपनीयता नीति</a></li>
+                <li><a href="#" style="text-decoration:none;color:inherit;display:block;">📋 उपयोग की शर्तें</a></li>
+            </ul>
+        </div>
+    </div>
+    <p class="footer-bottom">© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
+</footer>
 
     <script>
-        // Black Hole Animation
+        // ── Canvas Setup ─────────────────────────────────────────────────────────
         const canvas = document.getElementById('spaceCanvas');
         const ctx = canvas.getContext('2d');
-        let w, h;
-        function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize); resize();
-        
-        const stars = Array(200).fill().map(() => ({ x: Math.random() * w, y: Math.random() * h, s: Math.random() * 2 }));
+        const hCanvas = document.getElementById('headerBlackHole');
+        const hCtx = hCanvas.getContext('2d');
+        let width, height, time = 0, stars = [];
+
+        const bodies = [
+            { r: 22, orbit: 170, speed: 0.003, color: '#E1AD01', angle: 0 },
+            { r: 11, orbit: 300, speed: 0.007, color: '#4fc3f7', angle: 2.2 },
+            { r: 7, orbit: 430, speed: 0.005, color: '#ff5252', angle: 4.5 }
+        ];
+
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            hCanvas.width = hCanvas.height = 110;
+            stars = [];
+            for (let i = 0; i < 160; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 1.8,
+                    speed: Math.random() * 0.35 + 0.08
+                });
+            }
+        }
+        window.addEventListener('resize', init);
+        init();
+
+        // BUG FIX #1 — was checking document.body but data-theme was on <html>
+        // Now data-theme is on <body data-theme="dark"> and this function reads it correctly
+        function isDark() {
+            return document.body.getAttribute('data-theme') !== 'light';
+        }
+
+        function deform(gx, gy, cx, cy) {
+            bodies.forEach(b => {
+                const bx = cx + Math.cos(b.angle + b.speed * time * 50) * b.orbit;
+                const by = cy + Math.sin(b.angle + b.speed * time * 50) * b.orbit;
+                const dx = gx - bx, dy = gy - by;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const pull = (b.r * 20) / (dist / 10 + 1);
+                if (dist < 320) { gx -= (dx / dist) * pull; gy -= (dy / dist) * pull; }
+            });
+            return [gx, gy];
+        }
+
         function draw() {
-            ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
-            ctx.fillStyle = '#fff';
-            stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill(); s.y += s.s * 0.5; if(s.y > h) s.y = 0; });
+            time += 0.015;
+
+            // Background
+            ctx.fillStyle = isDark() ? '#000' : '#f7f7f7';
+            ctx.fillRect(0, 0, width, height);
+
+            // Stars
+            ctx.fillStyle = isDark() ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.08)';
+            stars.forEach(s => {
+                s.y -= s.speed;
+                if (s.y < 0) s.y = height;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Header Black Hole
+            hCtx.clearRect(0, 0, 110, 110);
+            hCtx.save();
+            hCtx.translate(55, 55);
+            hCtx.rotate(time * 2.2);
+            const g = hCtx.createRadialGradient(0, 0, 8, 0, 0, 44);
+            g.addColorStop(0, '#000');
+            g.addColorStop(0.3, 'rgba(225,173,1,0.75)');
+            g.addColorStop(1, 'transparent');
+            hCtx.fillStyle = g;
+            hCtx.beginPath();
+            hCtx.ellipse(0, 0, 50, 14, 0, 0, Math.PI * 2);
+            hCtx.fill();
+            hCtx.fillStyle = '#000';
+            hCtx.beginPath();
+            hCtx.arc(0, 0, 15, 0, Math.PI * 2);
+            hCtx.fill();
+            hCtx.restore();
+
+            // Gravity Grid
+            const cx = width / 2, cy = height / 2, step = 60;
+            ctx.strokeStyle = isDark() ? 'rgba(225,173,1,0.10)' : 'rgba(184,138,0,0.07)';
+            for (let x = 0; x < width + step; x += step) {
+                ctx.beginPath();
+                for (let y = 0; y < height; y += 18) {
+                    const [nx, ny] = deform(x, y, cx, cy);
+                    y === 0 ? ctx.moveTo(nx, ny) : ctx.lineTo(nx, ny);
+                }
+                ctx.stroke();
+            }
+            for (let y = 0; y < height + step; y += step) {
+                ctx.beginPath();
+                for (let x = 0; x < width; x += 18) {
+                    const [nx, ny] = deform(x, y, cx, cy);
+                    x === 0 ? ctx.moveTo(nx, ny) : ctx.lineTo(nx, ny);
+                }
+                ctx.stroke();
+            }
+
+            // Planets
+            bodies.forEach(b => {
+                const bx = cx + Math.cos(b.angle + b.speed * time * 50) * b.orbit;
+                const by = cy + Math.sin(b.angle + b.speed * time * 50) * b.orbit;
+                ctx.save();
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = b.color;
+                ctx.fillStyle = b.color;
+                ctx.beginPath();
+                ctx.arc(bx, by, b.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
             requestAnimationFrame(draw);
         }
         draw();
 
-        // Header Black Hole
-        const hCanvas = document.getElementById('headerBlackHole');
-        const hCtx = hCanvas.getContext('2d');
-        hCanvas.width = hCanvas.height = 110;
-        let time = 0;
-        function drawHeader() {
-            time += 0.02;
-            hCtx.clearRect(0,0,110,110);
-            hCtx.save(); hCtx.translate(55,55); hCtx.rotate(time);
-            const g = hCtx.createRadialGradient(0,0,5,0,0,40);
-            g.addColorStop(0, '#000'); g.addColorStop(0.5, '#E1AD01'); g.addColorStop(1, 'transparent');
-            hCtx.fillStyle = g; hCtx.beginPath(); hCtx.ellipse(0,0,45,15,0,0,Math.PI*2); hCtx.fill();
-            hCtx.restore(); requestAnimationFrame(drawHeader);
-        }
-        drawHeader();
-
-        // Theme Toggle
-        document.getElementById('theme-toggle').addEventListener('click', function() {
-            const current = document.body.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
+        // â”€â”€ Theme Toggle (BUG FIX #1 & #9) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        const themeBtn = document.getElementById('theme-toggle');
+        themeBtn.addEventListener('click', function () {
+            const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.body.setAttribute('data-theme', next);
-            this.textContent = next === 'dark' ? '☀️ दिन' : '🌙 रात';
+            this.textContent = next === 'light' ? '🌙 रात' : '☀️ दिन';
         });
+
+        // â”€â”€ Hamburger Mobile Menu (NEW) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', function () {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            this.setAttribute('aria-label', isOpen ? 'मेनू बंद करें' : 'मेनू खोलें');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburger.classList.remove('open');
+            });
+        });
+
+        // â”€â”€ Progress Bar Observer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const fill = e.target.querySelector('.progress-fill');
+                    if (fill) fill.style.width = fill.getAttribute('data-percent');
+                }
+            });
+        }, { threshold: 0.4 });
+
+        document.querySelectorAll('.clickable-card').forEach(c => {
+            if (c.querySelector('.progress-fill')) observer.observe(c);
+        });
+
+        // â”€â”€ Header Subscribe Scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        const scrollSubBtns = document.querySelectorAll('.subscribe-nav-btn, .mobile-menu a[href="#"]');
+        scrollSubBtns.forEach(btn => {
+            if (btn.textContent.includes('सब्सक्रिप्शन')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector('.newsletter-section');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    if (mobileMenu && mobileMenu.classList.contains('open')) {
+                        mobileMenu.classList.remove('open');
+                        hamburger.classList.remove('open');
+                    }
+                });
+            }
+        });
+
+        // â”€â”€ Newsletter Validation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        document.querySelector('.subscribe-btn').addEventListener('click', function () {
+            const inp = document.querySelector('.newsletter-input');
+            if (inp.value && inp.value.includes('@')) {
+                inp.value = '';
+                this.textContent = '✅ धन्यवाद!';
+                setTimeout(() => this.textContent = 'सदस्यता लें', 3000);
+            } else {
+                inp.style.borderColor = '#ff5252';
+                setTimeout(() => inp.style.borderColor = '', 2000);
+            }
+        });
+
+        // â”€â”€ Expandable Articles Logic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        window.toggleArticle = function(btn, event) {
+            if (event) event.preventDefault();
+            const content = btn.nextElementSibling;
+            
+            if (!btn.dataset.originalText) {
+                btn.dataset.originalText = btn.textContent;
+            }
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                btn.textContent = btn.dataset.originalText;
+            } else {
+                content.style.display = 'block';
+                btn.textContent = 'कम करें ↑';
+            }
+        };
     </script>
 </body>
+
 </html>
