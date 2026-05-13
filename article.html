@@ -12,14 +12,14 @@
         .article-hero::after { 
             content: ''; 
             position: absolute; 
-            bottom: 0; 
+            top: 0; 
             left: 0; 
             width: 100%; 
-            height: 40%; 
-            background: linear-gradient(to top, var(--bg-main) 0%, rgba(10, 10, 10, 0.8) 40%, transparent 100%); 
+            height: 100%; 
+            background: linear-gradient(to top, var(--bg-main) 0%, rgba(10, 10, 10, 0.7) 30%, rgba(10, 10, 10, 0.3) 60%, transparent 100%); 
             z-index: 1;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
         .hero-content { position: relative; z-index: 2; max-width: 900px; }
@@ -104,13 +104,13 @@
                     return `<blockquote class="twitter-tweet" data-theme="dark"><a href="${url.trim()}"></a></blockquote>`;
                 });
 
-                // 3. MAGIC AUTO-DETECTOR: Convert raw X links to Embeds
-                bodyHtml = bodyHtml.replace(/<p><a href="(https?:\/\/(x|twitter)\.com\/.*?)">.*?<\/a><\/p>/g, (match, url) => {
-                    return `<blockquote class="twitter-tweet" data-theme="dark"><a href="${url}"></a></blockquote>`;
+                // 3. MAGIC AUTO-DETECTOR: Convert ANY X link (even inside text) to Embed
+                bodyHtml = bodyHtml.replace(/<a href="(https?:\/\/(x|twitter)\.com\/.*?\/status\/(\d+).*?)">.*?<\/a>/g, (match, url, domain, id) => {
+                    return `<div style="margin: 2rem 0;"><blockquote class="twitter-tweet" data-theme="dark"><a href="${url}"></a></blockquote></div>`;
                 });
                 
-                // 4. MAGIC AUTO-DETECTOR: Convert raw YouTube links to Embeds
-                bodyHtml = bodyHtml.replace(/<p><a href="https?:\/\/www\.youtube\.com\/watch\?v=(.*?)">.*?<\/a><\/p>/g, (match, id) => {
+                // 4. MAGIC AUTO-DETECTOR: Convert ANY YouTube link to Embed
+                bodyHtml = bodyHtml.replace(/<a href="https?:\/\/www\.youtube\.com\/watch\?v=(.*?)">.*?<\/a>/g, (match, id) => {
                     return `<div class="video-container"><iframe src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe></div>`;
                 });
 
