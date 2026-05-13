@@ -9,13 +9,32 @@ media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
 collections:
+  - name: "branding"
+    label: "🌐 Global Branding"
+    delete: false
+    files:
+      - name: "site_config"
+        label: "Site Settings & Logo"
+        file: "content/settings.json"
+        fields:
+          - { label: "Site Name", name: "site_name", widget: "string", default: "PrajnaAGI" }
+          - { label: "Site Tagline", name: "tagline", widget: "string", default: "ब्रह्मांड की हर खबर" }
+          - { label: "Logo Text", name: "logo_text", widget: "string", default: "🌌 PrajnaAGI" }
+          - { label: "Footer Copyright", name: "footer_copy", widget: "string", default: "© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।" }
+          - label: "Social Links"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "X (Twitter) URL", name: "x_link", widget: "string", required: false }
+              - { label: "LinkedIn URL", name: "linkedin_link", widget: "string", required: false }
+              - { label: "GitHub URL", name: "github_link", widget: "string", required: false }
+
   - name: "pages"
     label: "📄 Content Management"
     files:
       - name: "articles"
         label: "📰 Articles (Main News)"
         file: "content/articles.json"
-        description: "Main news articles shown on the homepage and categories"
         fields:
           - label: "Articles List"
             name: "articles"
@@ -24,6 +43,7 @@ collections:
               - { label: "Title (Hindi)", name: "title", widget: "string" }
               - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य"] }
               - { label: "Tag / Emoji", name: "tag", widget: "string", default: "⭐ Featured" }
+              - { label: "Typography (Font)", name: "font_family", widget: "select", options: ["Noto Sans Devnagari", "Tiro Devanagari Hindi", "Inter", "Roboto"], default: "Noto Sans Devnagari" }
               - { label: "Publish Date", name: "date", widget: "datetime" }
               - { label: "Summary (short)", name: "summary", widget: "text" }
               - { label: "Full Article Body", name: "body", widget: "markdown" }
@@ -32,7 +52,6 @@ collections:
       - name: "facts"
         label: "🌟 Did You Know? (Facts)"
         file: "content/facts.json"
-        description: "Facts shown in the 'Did You Know' section"
         fields:
           - label: "Facts List"
             name: "facts"
@@ -41,15 +60,29 @@ collections:
               - { label: "Emoji Icon", name: "icon", widget: "string", default: "🌌" }
               - { label: "Fact Text (Hindi)", name: "fact_text", widget: "text" }
               - { label: "Detailed Explanation", name: "detail", widget: "markdown" }
-              - { label: "Highlight Word/Phrase", name: "highlight", widget: "string", required: false }
 
       - name: "ticker"
         label: "📡 Breaking News Ticker"
         file: "content/ticker.json"
-        description: "Headlines shown in the scrolling ticker bar"
         fields:
           - label: "Ticker Items"
             name: "items"
             widget: "list"
             fields:
               - { label: "Headline", name: "text", widget: "string" }
+
+  - name: "categories"
+    label: "📁 Category Management"
+    files:
+      - name: "cat_settings"
+        label: "Category Headers"
+        file: "content/categories.json"
+        fields:
+          - label: "Categories Setup"
+            name: "categories"
+            widget: "list"
+            fields:
+              - { label: "Category Name", name: "id", widget: "string" }
+              - { label: "Header Title (Hindi)", name: "title", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text" }
+              - { label: "Header Background Image", name: "bg_image", widget: "image" }

@@ -21,6 +21,8 @@
     </style>
     <!-- Marked.js for Markdown Rendering -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Twitter Widgets for X Post Rendering -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </head>
 <body data-theme="dark">
     <canvas id="spaceCanvas"></canvas>
@@ -50,6 +52,11 @@
                 if (!article) {
                     container.innerHTML = '<div class="loading-state">क्षमा करें, यह लेख अब उपलब्ध नहीं है।</div>';
                     return;
+                }
+
+                // Apply Custom Font
+                if (article.font_family) {
+                    document.body.style.fontFamily = `'${article.font_family}', sans-serif`;
                 }
 
                 document.title = `${article.title} — PrajnaAGI`;
