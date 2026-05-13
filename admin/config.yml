@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+# ── Option B: Single JSON File Collections ──────────────────────────────────
+# All content saved to one JSON file each. No build script needed.
+# Frontend JS just fetches /content/articles.json, /content/facts.json, etc.
+
+collections:
+  - name: "articles"
+    label: "📰 Articles"
+    file: "content/articles.json"
+    description: "Main news articles shown on the homepage"
+    fields:
+      - label: "Articles List"
+        name: "articles"
+        widget: "list"
+        fields:
+          - { label: "Title (Hindi)", name: "title", widget: "string" }
+          - { label: "Category", name: "category", widget: "select", options: ["अंतरिक्ष", "विज्ञान", "तकनीक", "पर्यावरण", "स्वास्थ्य"] }
+          - { label: "Tag / Emoji", name: "tag", widget: "string", default: "⭐ Featured" }
+          - { label: "Publish Date", name: "date", widget: "datetime" }
+          - { label: "Summary (short)", name: "summary", widget: "text" }
+          - { label: "Full Article Body", name: "body", widget: "markdown" }
+          - { label: "Cover Image URL", name: "image", widget: "image", required: false }
+
+  - name: "facts"
+    label: "🌟 Did You Know? (Facts)"
+    file: "content/facts.json"
+    description: "Facts shown in the 'Did You Know' section"
+    fields:
+      - label: "Facts List"
+        name: "facts"
+        widget: "list"
+        fields:
+          - { label: "Emoji Icon", name: "icon", widget: "string", default: "🌌" }
+          - { label: "Fact Text (Hindi)", name: "fact_text", widget: "text" }
+          - { label: "Detailed Explanation", name: "detail", widget: "markdown" }
+          - { label: "Highlight Word/Phrase", name: "highlight", widget: "string", required: false }
+
+  - name: "ticker"
+    label: "📡 Breaking News Ticker"
+    file: "content/ticker.json"
+    description: "Headlines shown in the scrolling ticker bar"
+    fields:
+      - label: "Ticker Items"
+        name: "items"
+        widget: "list"
+        fields:
+          - { label: "Headline", name: "text", widget: "string" }
