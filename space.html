@@ -10,19 +10,14 @@
     <!-- Open Graph / WhatsApp -->
     <meta property="og:title" content="अंतरिक्ष — PrajnaAGI">
     <meta property="og:description" content="ब्रह्मांड की गहराइयों की यात्रा — PrajnaAGI">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200&h=630">
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/advanced.css">
     <style>
-        body { overflow: hidden; background: #000; }
-        .snap-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
-        .space-section { height: 100vh; scroll-snap-align: start; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .space-section h2 { font-size: clamp(2rem, 5vw, 4rem); color: var(--accent); margin-bottom: 1.5rem; text-shadow: 0 0 30px var(--accent-glow); }
-        .space-section p { max-width: 800px; font-size: 1.2rem; color: #ccc; line-height: 1.6; }
-        
-        #spaceCanvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; width: 100%; height: 100%; }
-
-        nav { background: rgba(0,0,0,0.8); }
+        /* ── PAGE SPECIFIC ── */
+        #spaceCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
+        .category-hero { height: 60vh; background: url('assets/img/space-bg.jpg') center/cover; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; margin-bottom: 4rem; border-bottom: 1px solid var(--accent); }
     </style>
     
 </head>
@@ -37,18 +32,16 @@
                 <canvas id="headerBlackHole"></canvas>
                 <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
                 <ul class="menu-tabs">
-                    <li><a href="space.html" class="active">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-                    <li><a href="about.html">🙏 हमारे बारे में</a></li>
+                    <!-- Loaded via CMS -->
                 </ul>
             </div>
             <div class="nav-controls">
-                <button id="theme-toggle">☀️ दिन</button>
-                <button class="subscribe-nav-btn">सब्सक्रिप्शन</button>
-                <button class="hamburger" id="hamburger" aria-label="मेनू खोलें">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="खोजें...">
+                    <button type="button" class="search-btn" aria-label="खोजें">🔍</button>
+                </div>
+                <button type="button" id="theme-toggle">☀️ दिन</button>
+                <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -58,12 +51,7 @@
     <!-- ── MOBILE DROPDOWN ── -->
     <div class="mobile-menu" id="mobileMenu">
         <ul>
-            <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-            <li><a href="science.html">🔬 विज्ञान</a></li>
-            <li><a href="tech.html">💻 तकनीक</a></li>
-            <li><a href="environment.html">🌿 पर्यावरण</a></li>
-            <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-            <li><a href="about.html">🙏 हमारे बारे में</a></li>
+            <!-- Loaded via CMS -->
         </ul>
     </div>
 
@@ -100,6 +88,10 @@
 </body>
 
 </html>
+
+
+
+
 
 
 

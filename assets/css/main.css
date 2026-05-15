@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap');
+
 /* Shared CSS & Theme Variables */
 :root {
     --bg: #000000;
@@ -31,14 +33,23 @@
 }
 
 /* Global Legibility Enhancement */
+html {
+    background: var(--bg);
+    color: var(--text-main);
+}
+
 body {
+    background: transparent;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    margin: 0;
 }
 
 .article-body p {
     text-shadow: none; /* Keep article body text sharp and clean */
+    line-height: 1.9; /* Slightly increased for better readability */
+    margin-bottom: 1.8rem;
 }
 
 /* ── NAVIGATION ── */
@@ -232,8 +243,9 @@ nav {
 }
 
 .mobile-menu.open {
-    max-height: 500px;
+    max-height: 80vh;
     padding: 1rem 0;
+    overflow-y: auto;
 }
 
 .mobile-menu ul {
@@ -442,9 +454,9 @@ footer {
 
 .hero h1 {
     font-family: 'Tiro Devanagari Hindi', serif;
-    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    font-size: clamp(2.4rem, 7vw, 4.8rem); /* Slightly more responsive */
     font-weight: 900;
-    line-height: 1.1;
+    line-height: 1.15;
     text-shadow: 0 4px 30px var(--shadow);
     color: var(--text-main);
 }
@@ -571,7 +583,7 @@ footer {
 
 .featured-img {
     height: 320px; /* Refined main image height */
-    background: #1a1a2e center/cover;
+    background: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
 }
 
 .featured-content {
@@ -740,3 +752,249 @@ footer {
     letter-spacing: 1px;
     margin-bottom: 8px;
 }
+/* ── UTILITIES ── */
+.loading-box {
+    text-align: center;
+    padding: 3rem;
+    opacity: 0.5;
+}
+
+.text-muted-mt {
+    color: var(--text-muted);
+    margin-top: 0.8rem;
+}
+
+.text-accent-blue-mt {
+    color: var(--accent-blue);
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.support-link {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.qr-img-large {
+    width: 100%;
+    border-radius: 15px;
+    margin: 1.5rem 0;
+    border: 5px solid #fff;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.modal-btn {
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: none;
+    padding: 0.8rem 1.5rem;
+    color: var(--text-main);
+}
+
+.upi-display {
+    margin-top: 0.5rem;
+    font-family: monospace;
+    opacity: 0.8;
+    color: var(--text-main);
+}
+
+.support-confirm-btn {
+    background: var(--accent);
+    color: #000 !important;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+}
+
+.external-pay-link-btn {
+    display: none;
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    box-shadow: none;
+}
+
+/* ── UTILITIES ── */
+.loading-box {
+    text-align: center;
+    padding: 3rem;
+    opacity: 0.5;
+}
+
+.text-muted-mt {
+    color: var(--text-muted);
+    margin-top: 0.8rem;
+}
+
+.text-accent-blue-mt {
+    color: var(--accent-blue);
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.support-link {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.qr-img-large {
+    width: 100%;
+    border-radius: 15px;
+    margin: 1.5rem 0;
+    border: 5px solid #fff;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.modal-btn {
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: none;
+    padding: 0.8rem 1.5rem;
+    color: var(--text-main);
+}
+
+.upi-display {
+    margin-top: 0.5rem;
+    font-family: monospace;
+    opacity: 0.8;
+    color: var(--text-main);
+}
+
+.support-confirm-btn {
+    background: var(--accent);
+    color: #000 !important;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+}
+
+.side-news-meta {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-top: 4px;
+}
+
+.footer-support-p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content-main {
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    padding: 2.5rem;
+    border-radius: 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-title {
+    color: var(--accent);
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+.center-loading { text-align: center; padding: 3rem; opacity: 0.5; }
+.text-muted { color: var(--text-muted) !important; }
+.text-accent-bold { color: var(--accent) !important; font-weight: 700; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.opacity-50 { opacity: 0.5; }
+
+/* ── ABOUT PAGE ── */
+.about-section {
+    max-width: 900px;
+    margin: 0 auto 6rem;
+    text-align: center;
+}
+
+.mission-vision-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.mission-vision-card {
+    padding: 2.5rem;
+    text-align: left;
+}
+
+.mission-vision-card h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.support-section {
+    max-width: 900px;
+    margin: 0 auto 6rem;
+    text-align: center;
+}
+
+.support-card {
+    margin: 0;
+    padding: 4rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    border-radius: 40px;
+    box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.support-card h2 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.support-card p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+}
+
+.support-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.about-text-extra {
+    margin-top: 2rem;
+}
+
+

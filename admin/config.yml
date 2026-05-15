@@ -9,100 +9,83 @@ media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
 collections:
-  - name: "branding"
-    label: "🌐 Global Branding"
+  - name: "author_profiles"
+    label: "👤 Author Profiles"
+    description: "Update your team details, profile pictures, and bios here."
     delete: false
     files:
+      - name: "team"
+        label: "Manage Team & Profiles"
+        file: "content/authors.json"
+        fields:
+          - label: "Authors List"
+            name: "authors"
+            widget: "list"
+            summary: "{{fields.name}} - {{fields.role}}"
+            fields:
+              - { label: "Unique ID (Slug)", name: "id", widget: "string", hint: "Example: priy-ranjan" }
+              - { label: "Full Name (Hindi)", name: "name", widget: "string" }
+              - { label: "Role / Designation", name: "role", widget: "string", default: "Content Writer" }
+              - { label: "Bio / About", name: "bio", widget: "text" }
+              - { label: "Profile Photo", name: "image", widget: "image" }
+              - { label: "X (Twitter) Link", name: "x_link", widget: "string", required: false }
+
+  - name: "global_settings"
+    label: "⚙️ Global Settings"
+    files:
+      - name: "navigation"
+        label: "🗺️ Navigation Menu"
+        file: "content/nav.json"
+        fields:
+          - label: "Menu Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Label (with Emoji)", name: "label", widget: "string" }
+              - { label: "Link (e.g. tech.html)", name: "link", widget: "string" }
+
       - name: "site_config"
-        label: "Site Settings & Logo"
+        label: "🌐 Site Configuration"
         file: "content/settings.json"
         fields:
-          - { label: "Site Name", name: "site_name", widget: "string", default: "PrajnaAGI" }
-          - { label: "Site Tagline", name: "tagline", widget: "string", default: "ब्रह्मांड की हर खबर" }
-          - { label: "Logo Text", name: "logo_text", widget: "string", default: "🌌 PrajnaAGI" }
-          - { label: "Footer Copyright", name: "footer_copy", widget: "string", default: "© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।" }
-          - label: "Social Links"
-            name: "social"
+          - label: "Payments (UPI/Razorpay)"
+            name: "payments"
             widget: "object"
             fields:
-              - { label: "X (Twitter) URL", name: "x_link", widget: "string", required: false }
-              - { label: "LinkedIn URL", name: "linkedin_link", widget: "string", required: false }
-              - { label: "GitHub URL", name: "github_link", widget: "string", required: false }
-              - label: "💰 Payment Settings (India)"
-                name: "payments"
-                widget: "object"
-                fields:
-                  - { label: "Your UPI ID", name: "upi_id", widget: "string", hint: "Example: yourname@okaxis" }
-                  - { label: "UPI QR Code Image", name: "upi_qr", widget: "image", required: false }
-                  - { label: "Razorpay / External Link", name: "pay_link", widget: "string", required: false, hint: "Link to your Razorpay Payment Page or Button" }
+              - { label: "UPI ID", name: "upi_id", widget: "string" }
+              - { label: "UPI QR Code Image", name: "upi_qr", widget: "image" }
+              - { label: "Razorpay / External Link", name: "pay_link", widget: "string" }
 
-  - name: "pages"
-    label: "📄 Content Management"
+  - name: "content"
+    label: "📰 News & Content"
     files:
       - name: "articles"
-        label: "📰 Articles (Main News)"
+        label: "📝 Articles (Main News)"
         file: "content/articles.json"
         fields:
           - label: "Articles List"
             name: "articles"
             widget: "list"
+            summary: "{{fields.title}} [{{fields.category}}]"
             fields:
               - { label: "Title (Hindi)", name: "title", widget: "string" }
-              - { label: "Short ID (For Clean Link)", name: "slug", widget: "string", hint: "Example: quantum-success (Use English, no spaces)" }
+              - { label: "URL Slug", name: "slug", widget: "string", hint: "Example: mars-mission-2026" }
+              - { label: "Author ID", name: "author_id", widget: "string", default: "priy-ranjan", hint: "Match with Author Profile ID" }
               - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य"] }
-              - { label: "Tag / Emoji", name: "tag", widget: "string", default: "⭐ Featured" }
-              - { label: "Typography (Font)", name: "font_family", widget: "select", options: ["Noto Sans Devnagari", "Tiro Devanagari Hindi", "Inter", "Roboto"], default: "Noto Sans Devnagari" }
+              - { label: "Status", name: "status", widget: "select", options: ["Published", "Draft"], default: "Published" }
+              - { label: "Cover Image", name: "image", widget: "image" }
+              - { label: "Article Summary", name: "summary", widget: "text" }
+              - { label: "Main Body Content", name: "body", widget: "markdown" }
+              - { label: "YouTube Video ID", name: "video_id", widget: "string", required: false }
               - { label: "Publish Date", name: "date", widget: "datetime" }
-              - { label: "Summary (short)", name: "summary", widget: "text" }
-              - { label: "Full Article Body", name: "body", widget: "markdown" }
-              - { label: "SEO Description", name: "meta_desc", widget: "string", hint: "Short description for Google and WhatsApp" }
-              - { label: "Social Image (OG Image)", name: "social_image", widget: "image", required: false, hint: "Image that appears when shared on X/WhatsApp" }
-              - { label: "Cover Image URL", name: "image", widget: "image", required: false }
-              - label: "🛒 Recommended Products (Affiliate)"
-                name: "products"
-                widget: "list"
-                required: false
-                fields:
-                  - { label: "Product Name", name: "name", widget: "string" }
-                  - { label: "Affiliate Link", name: "link", widget: "string" }
-                  - { label: "Product Image", name: "image", widget: "image", required: false }
-                  - { label: "Quick Desc / Why buy?", name: "desc", widget: "string" }
-                  - { label: "Button Text", name: "btn_text", widget: "string", default: "अभी खरीदें" }
-
-      - name: "facts"
-        label: "🌟 Did You Know? (Facts)"
-        file: "content/facts.json"
-        fields:
-          - label: "Facts List"
-            name: "facts"
-            widget: "list"
-            fields:
-              - { label: "Emoji Icon", name: "icon", widget: "string", default: "🌌" }
-              - { label: "Fact Text (Hindi)", name: "fact_text", widget: "text" }
-              - { label: "Detailed Explanation", name: "detail", widget: "markdown" }
 
       - name: "ticker"
         label: "📡 Breaking News Ticker"
         file: "content/ticker.json"
         fields:
-          - label: "Ticker Items"
+          - label: "Ticker Headlines"
             name: "items"
             widget: "list"
             fields:
-              - { label: "Headline", name: "text", widget: "string" }
-
-  - name: "categories"
-    label: "📁 Category Management"
-    files:
-      - name: "cat_settings"
-        label: "Category Headers"
-        file: "content/categories.json"
-        fields:
-          - label: "Categories Setup"
-            name: "categories"
-            widget: "list"
-            fields:
-              - { label: "Category Name", name: "id", widget: "string" }
-              - { label: "Header Title (Hindi)", name: "title", widget: "string" }
-              - { label: "Description", name: "desc", widget: "text" }
-              - { label: "Header Background Image", name: "bg_image", widget: "image" }
+              - { label: "Headline Text", name: "text", widget: "string" }

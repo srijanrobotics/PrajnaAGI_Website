@@ -3,271 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrajnaAGI — समाचार</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Noto+Sans+Devanagari:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>PrajnaAGI — Loading...</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/advanced.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+Devanagari:wght@400;700;900&display=swap" rel="stylesheet">
     
-    <!-- NewsArticle Schema Holder -->
-    <script id="schema-script" type="application/ld+json"></script>
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
     <style>
-        #spaceCanvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; width: 100%; height: 100%; }
-        .article-hero { height: 70vh; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 6rem 5%; }
-        .article-hero::after { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: linear-gradient(to top, var(--bg-main) 0%, rgba(10, 10, 10, 0.7) 30%, rgba(10, 10, 10, 0.3) 60%, transparent 100%); 
-            z-index: 1;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
-        .hero-content { position: relative; z-index: 2; max-width: 900px; }
-        .article-body { max-width: 800px; margin: -5rem auto 4rem; padding: 4rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 40px; position: relative; z-index: 5; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
-        .article-body p { margin-bottom: 1.5rem; line-height: 1.8; font-size: 1.15rem; color: var(--text-main); }
-        .article-body h2, .article-body h3 { margin: 2rem 0 1rem; color: var(--accent); }
-        .article-body img { width: 100%; border-radius: 20px; margin: 2rem 0; }
-        .article-body iframe { width: 100%; border-radius: 20px; border: 1px solid var(--border); }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 2rem 0; border-radius: 20px; border: 1px solid var(--border); }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .twitter-tweet { margin: 2.5rem auto !important; max-width: 550px !important; }
-        
-        /* Affiliate & Support Styling */
-        .affiliate-section { margin-top: 4rem; padding-top: 2rem; border-top: 1px dashed var(--border); }
-        .product-card { display: flex; gap: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 1.5rem; border-radius: 25px; margin-bottom: 1.5rem; align-items: center; transition: 0.3s; }
-        .product-card:hover { border-color: var(--accent); background: rgba(255,255,255,0.06); transform: translateY(-5px); }
-        .product-img { width: 120px; height: 120px; object-fit: cover; border-radius: 15px; }
-        .support-box { background: linear-gradient(135deg, var(--accent-glow), rgba(0,0,0,0.2)); border: 1px solid var(--accent); padding: 3rem; border-radius: 30px; text-align: center; margin-top: 5rem; }
-        .support-btn { background: var(--accent); color: #000; padding: 1rem 2.5rem; border-radius: 50px; font-weight: 900; text-decoration: none; display: inline-block; margin-top: 1.5rem; box-shadow: 0 0 30px var(--accent-glow); transition: 0.3s; }
-        .support-btn:hover { transform: scale(1.05); box-shadow: 0 0 50px var(--accent-glow); }
-
-        /* Payment Modal */
-        #paymentModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
-        .modal-content { background: var(--bg-card); border: 1px solid var(--accent); padding: 2rem; border-radius: 30px; text-align: center; max-width: 400px; width: 90%; }
-        .qr-img { width: 100%; border-radius: 15px; margin: 1.5rem 0; border: 5px solid #fff; }
-
-        .loading-state { text-align: center; padding: 10rem 2rem; font-size: 1.5rem; }
-
-        /* Social Sharing Bar */
-        .share-bar { display: flex; gap: 1rem; margin: 2rem 0; align-items: center; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
+        .loading-state { text-align: center; padding: 10rem 2rem; font-size: 1.5rem; color: var(--accent); }
+        .share-bar { display: flex; gap: 1rem; margin: 3rem 0; align-items: center; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
         .share-btn { padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: bold; color: #fff; transition: 0.3s; display: flex; align-items: center; gap: 0.5rem; }
         .share-wa { background: #25D366; box-shadow: 0 0 20px rgba(37, 211, 102, 0.3); }
         .share-x { background: #000; border: 1px solid var(--border); box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
         .share-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
-
-        /* Ad Zones */
-        .ad-zone { width: 100%; min-height: 100px; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 20px; margin: 3rem 0; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; opacity: 0.5; color: var(--accent); }
     </style>
-    <!-- Marked.js for Markdown Rendering -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Twitter Widgets for X Post Rendering -->
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </head>
 <body data-theme="dark">
     <canvas id="spaceCanvas"></canvas>
 
-    <div id="article-container">
-        <div class="loading-state">लेख लोड हो रहा है... ✨</div>
+    <!-- ── NAVIGATION ── -->
+    <nav>
+        <div class="nav-inner">
+            <div class="brand-container">
+                <canvas id="headerBlackHole"></canvas>
+                <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
+                <ul class="menu-tabs">
+                    <!-- Loaded via CMS -->
+                </ul>
+            </div>
+            <div class="nav-controls">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="खोजें...">
+                    <button type="button" class="search-btn" aria-label="खोजें">🔍</button>
+                </div>
+                <button type="button" id="theme-toggle">☀️ दिन</button>
+                <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── MOBILE DROPDOWN ── -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <!-- Loaded via CMS -->
+        </ul>
+    </div>
+
+    <!-- ── ARTICLE HERO ── -->
+    <header class="article-hero" id="article-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-text-content">
+            <span class="tag" id="article-meta">लोड हो रहा है...</span>
+            <h1 id="article-title">लेख का शीर्षक लोड हो रहा है...</h1>
+        </div>
+    </header>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="article-container" id="article-detail-container">
+        <div class="article-body" id="markdown-content">
+            <div class="loading-state">ब्रह्मांड से जानकारी जुटाई जा रही है...</div>
+        </div>
+
+        <div class="share-bar">
+            <a href="#" id="shareWA" class="share-btn share-wa">WhatsApp</a>
+            <a href="#" id="shareX" class="share-btn share-x">Share on X</a>
+        </div>
+
+        <div class="support-box">
+            <h3>PrajnaAGI का समर्थन करें</h3>
+            <p>ज्ञान के इस अभियान को जारी रखने में हमारी मदद करें। आपका छोटा सा योगदान बड़े बदलाव ला सकता है।</p>
+            <button type="button" onclick="openPayment()" class="support-btn">💳 अभी सहयोग करें (UPI/Card)</button>
+        </div>
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 class="accent-text">PrajnaAGI</h4>
+                <p>ब्रह्मांड, विज्ञान और तकनीक की गहराइयों तक पहुँचने का एक प्रयास।</p>
+            </div>
+            <div class="footer-col">
+                <h4>संपर्क</h4>
+                <p>Email: contact@prajnaagi.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
+        </div>
+    </footer>
+
+    <!-- ── PAYMENT MODAL ── -->
+    <div id="paymentModal">
+        <div class="modal-content">
+            <h3 class="accent-text">सहयोग करें</h3>
+            <p id="upiIdText">UPI ID: Loading...</p>
+            <img id="qrCodeImg" class="qr-img" src="" alt="UPI QR Code">
+            <a id="payLink" href="#" target="_blank" class="support-btn full-width">Razorpay से भुगतान करें</a>
+            <button type="button" onclick="closePayment()" class="modal-close-btn">वापस जाएं</button>
+        </div>
     </div>
 
     <script src="assets/js/canvas.js"></script>
     <script src="assets/js/ui.js"></script>
+    <script src="assets/js/cms-loader.js"></script>
     <script>
-        async function loadFullArticle() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const articleId = urlParams.get('id') || urlParams.get('title');
-            const container = document.getElementById('article-container');
-
-            if (!articleId) {
-                container.innerHTML = '<div class="loading-state">लेख नहीं मिला। <br><a href="Index.html" style="color:var(--accent); font-size:1rem;">वापस जाएं</a></div>';
-                return;
+        function openPayment() { document.getElementById('paymentModal').style.display = 'flex'; }
+        function closePayment() { document.getElementById('paymentModal').style.display = 'none'; }
+        
+        fetch('content/settings.json').then(r => r.json()).then(data => {
+            if(data.social && data.social.payments) {
+                const p = data.social.payments;
+                document.getElementById('upiIdText').textContent = `UPI ID: ${p.upi_id}`;
+                document.getElementById('qrCodeImg').src = p.upi_qr;
+                document.getElementById('payLink').href = p.pay_link;
             }
+        });
 
-            try {
-                // Fetch Article Data
-                const response = await fetch('content/articles.json');
-                const data = await response.json();
-                const article = data.articles.find(a => (a.slug === articleId || a.title === articleId));
-
-                // Fetch Global Settings (for Payments)
-                const settingsResp = await fetch('content/settings.json');
-                const settings = await settingsResp.json();
-
-                if (!article) {
-                    container.innerHTML = '<div class="loading-state">क्षमा करें, यह लेख अब उपलब्ध नहीं है।</div>';
-                    return;
-                }
-
-                // Apply Custom Font
-                if (article.font_family) {
-                    document.body.style.fontFamily = `'${article.font_family}', sans-serif`;
-                }
-
-                document.title = `${article.title} — PrajnaAGI`;
-
-                container.innerHTML = `
-                    <div class="article-hero">
-                        <img src="${article.image || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200'}" class="hero-bg" alt="">
-                        <div class="hero-content">
-                            <span class="tag" style="background:var(--accent); color:#000; padding:0.4rem 1rem; border-radius:50px; font-weight:900; font-size:0.8rem;">${article.category}</span>
-                            <h1 style="font-size:3.5rem; margin-top:1.5rem; line-height:1.2;">${article.title}</h1>
-                            <p style="opacity:0.8; margin-top:1rem; font-size:1.2rem;">${new Date(article.date).toLocaleDateString('hi-IN', { dateStyle: 'long' })}</p>
-                        </div>
-                    </div>
-                    <div class="article-body">
-                        <!-- AD ZONE 1: TOP -->
-                        <div class="ad-zone">AD SLOT: TOP (ADSENSE)</div>
-
-                        <div id="markdown-content"></div>
-
-                        <!-- Viral Sharing Bar -->
-                        <div class="share-bar">
-                            <span style="font-weight:bold; opacity:0.7;">शेयर करें:</span>
-                            <a id="share-wa" href="#" target="_blank" class="share-btn share-wa">WhatsApp</a>
-                            <a id="share-x" href="#" target="_blank" class="share-btn share-x">X (Twitter)</a>
-                        </div>
-
-                        <!-- AD ZONE 2: MIDDLE -->
-                        <div class="ad-zone">AD SLOT: MIDDLE (ADSENSE)</div>
-                        
-                        <!-- Affiliate Products Section -->
-                        <div id="affiliate-container" class="affiliate-section" style="display:none;">
-                            <h3 style="margin-bottom:2rem;">💡 हमारे सुझाव (Our Recommendations)</h3>
-                            <div id="product-list"></div>
-                        </div>
-
-                        <!-- Support Section -->
-                        <div class="support-box">
-                            <h2 style="color:var(--text-main); margin-bottom:1rem;">PrajnaAGI का समर्थन करें</h2>
-                            <p style="font-size:1.1rem; opacity:0.8; color:var(--text-main);">अगर आपको यह जानकारी पसंद आई, तो हमें सपोर्ट करें ताकि हम स्वतंत्र पत्रकारिता जारी रख सकें।</p>
-                            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-                                <a href="javascript:void(0)" onclick="openPayment()" class="support-btn">UPI / QR से भेजें</a>
-                                <a id="external-pay-link" href="#" target="_blank" class="support-btn" style="display:none; background:var(--bg-card); color:var(--text-main); border:1px solid var(--border); box-shadow:none;">Card / Netbanking</a>
-                            </div>
-                        </div>
-
-                        <!-- Payment Modal -->
-                        <div id="paymentModal" onclick="closePayment()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-                            <div class="modal-content" onclick="event.stopPropagation()" style="background: var(--bg-card); border: 1px solid var(--accent); padding: 2.5rem; border-radius: 30px; text-align: center; max-width: 400px; width: 90%;">
-                                <h3 style="color:var(--accent);">Scan to Pay (UPI)</h3>
-                                <p id="upi-id-display" style="margin-top:0.5rem; font-family:monospace; opacity:0.8; color:var(--text-main);"></p>
-                                <img id="qr-display" src="" class="qr-img" style="width: 100%; border-radius: 15px; margin: 1.5rem 0; border: 5px solid #fff;" alt="UPI QR Code">
-                                <div style="display:flex; gap:1rem; justify-content:center;">
-                                    <a href="thanks.html" class="tag" style="background:var(--accent); color:#000; text-decoration:none; padding:0.8rem 1.5rem; font-weight:bold;">मैंने भुगतान कर दिया है</a>
-                                    <button onclick="closePayment()" class="tag" style="cursor:pointer; border:1px solid var(--border); background:none; padding:0.8rem 1.5rem; color:var(--text-main);">बंद करें</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top:4rem; padding-top:2rem; border-top:1px solid var(--border); text-align:center;">
-                            <a href="Index.html" class="subscribe-btn" style="text-decoration:none;">मुख्य पृष्ठ पर वापस जाएं</a>
-                        </div>
-                    </div>
-                `;
-
-                // Handle Payment Config (from Global Settings)
-                if (settings && settings.payments) {
-                    const upi = settings.payments.upi_id;
-                    if (upi) {
-                        document.getElementById('upi-id-display').innerText = upi;
-                        document.getElementById('qr-display').src = settings.payments.upi_qr || 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=' + upi;
-                    }
-                    if (settings.payments.pay_link) {
-                        const payBtn = document.getElementById('external-pay-link');
-                        payBtn.href = settings.payments.pay_link;
-                        payBtn.style.display = 'inline-block';
-                    }
-                }
-
-                // Render Products if they exist
-                if (article.products && article.products.length > 0) {
-                    const affContainer = document.getElementById('affiliate-container');
-                    const prodList = document.getElementById('product-list');
-                    affContainer.style.display = 'block';
-                    prodList.innerHTML = article.products.map(p => `
-                        <div class="product-card">
-                            <img src="${p.image || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=200'}" class="product-img">
-                            <div style="flex:1;">
-                                <h4 style="margin:0 0 5px 0; color:var(--accent); font-size:1.2rem;">${p.name}</h4>
-                                <p style="font-size:0.9rem; opacity:0.7; margin-bottom:1rem;">${p.desc}</p>
-                                <a href="${p.link}" target="_blank" class="tag" style="background:var(--accent); color:#000; text-decoration:none; font-weight:800; padding:0.5rem 1.2rem;">${p.btn_text || 'अभी खरीदें'}</a>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-
-                // Render Markdown Body with custom tag support
-                let bodyHtml = marked.parse(article.body || '');
-                
-                // 1. Convert youtube:ID to iframe
-                bodyHtml = bodyHtml.replace(/<code>youtube:(.*?)<\/code>/g, (match, id) => {
-                    return `<div class="video-container"><iframe src="https://www.youtube.com/embed/${id.trim()}" frameborder="0" allowfullscreen></iframe></div>`;
-                });
-
-                // 2. Convert twitter:URL to REAL Embed
-                bodyHtml = bodyHtml.replace(/<code>twitter:(.*?)<\/code>/g, (match, url) => {
-                    return `<blockquote class="twitter-tweet" data-theme="dark"><a href="${url.trim()}"></a></blockquote>`;
-                });
-
-                // 3. MAGIC AUTO-DETECTOR: Convert ANY X link (even inside text) to Embed
-                bodyHtml = bodyHtml.replace(/<a href="(https?:\/\/(x|twitter)\.com\/.*?\/status\/(\d+).*?)">.*?<\/a>/g, (match, url, domain, id) => {
-                    return `<div style="margin: 2rem 0;"><blockquote class="twitter-tweet" data-theme="dark"><a href="${url}"></a></blockquote></div>`;
-                });
-                
-                // 4. MAGIC AUTO-DETECTOR: Convert ANY YouTube link to Embed
-                bodyHtml = bodyHtml.replace(/<a href="https?:\/\/www\.youtube\.com\/watch\?v=(.*?)">.*?<\/a>/g, (match, id) => {
-                    return `<div class="video-container"><iframe src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe></div>`;
-                });
-
-                document.getElementById('markdown-content').innerHTML = bodyHtml;
-                
-                // Set Viral Share Links
-                const shareTitle = encodeURIComponent(article.title);
-                const shareUrl = encodeURIComponent(window.location.href);
-                document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${shareTitle}%20${shareUrl}`;
-                document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${shareTitle}&url=${shareUrl}`;
-
-                // Update Meta Tags for Social Media
-                if (article.meta_desc) {
-                    document.querySelector('meta[name="description"]')?.setAttribute("content", article.meta_desc);
-                }
-                
-                // Trigger Twitter Script
-                if (window.twttr) window.twttr.widgets.load();
-
-                // Inject NewsArticle Schema for Google
-                const schema = {
-                    "@context": "https://schema.org",
-                    "@type": "NewsArticle",
-                    "headline": article.title,
-                    "image": [article.image || "https://prajnaagi.com/favicon.svg"],
-                    "datePublished": article.date,
-                    "author": [{
-                        "@type": "Person",
-                        "name": "Priy Ranjan Pandey",
-                        "url": "https://prajnaagi.com/about.html"
-                    }]
-                };
-                document.getElementById('schema-script').textContent = JSON.stringify(schema);
-
-            } catch (e) {
-                console.error(e);
-                container.innerHTML = '<div class="loading-state">लेख लोड करने में त्रुटि हुई।</div>';
-            }
-        }
-
-        window.onload = loadFullArticle;
-
-        function openPayment() {
-            document.getElementById('paymentModal').style.display = 'flex';
-        }
-
-        function closePayment() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            document.getElementById('shareWA').href = `https://api.whatsapp.com/send?text=${title}%20${url}`;
+            document.getElementById('shareX').href = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+        });
     </script>
 </body>
 </html>

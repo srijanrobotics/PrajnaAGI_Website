@@ -36,10 +36,14 @@ const celestialBodies = [
 ];
 
 function init() {
-    if (!canvas || !hCanvas) return;
+    if (!canvas) return;
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-    hCanvas.width = hCanvas.height = 110;
+    
+    if (hCanvas) {
+        hCanvas.width = hCanvas.height = 110;
+    }
+
     stars = [];
     for (let i = 0; i < 200; i++) {
         stars.push({
@@ -115,10 +119,11 @@ function drawBody(body, cx, cy, ctx) {
 }
 
 function draw() {
-    if (!ctx || !hCtx) return;
+    if (!ctx) return;
     time += 0.015;
     hoveredBody = null;
 
+    // 1. Draw Space Background
     ctx.fillStyle = isDark() ? '#000' : '#f7f7f7';
     ctx.fillRect(0, 0, width, height);
 
@@ -131,24 +136,28 @@ function draw() {
         ctx.fill();
     });
 
-    hCtx.clearRect(0, 0, 110, 110);
-    hCtx.save();
-    hCtx.translate(55, 55);
-    hCtx.rotate(time * 2.2);
-    const g = hCtx.createRadialGradient(0, 0, 8, 0, 0, 44);
-    g.addColorStop(0, '#000');
-    g.addColorStop(0.3, 'rgba(225,173,1,0.75)');
-    g.addColorStop(1, 'transparent');
-    hCtx.fillStyle = g;
-    hCtx.beginPath();
-    hCtx.ellipse(0, 0, 50, 14, 0, 0, Math.PI * 2);
-    hCtx.fill();
-    hCtx.fillStyle = '#000';
-    hCtx.beginPath();
-    hCtx.arc(0, 0, 15, 0, Math.PI * 2);
-    hCtx.fill();
-    hCtx.restore();
+    // 2. Draw Header Black Hole (if exists)
+    if (hCtx) {
+        hCtx.clearRect(0, 0, 110, 110);
+        hCtx.save();
+        hCtx.translate(55, 55);
+        hCtx.rotate(time * 2.2);
+        const g = hCtx.createRadialGradient(0, 0, 8, 0, 0, 44);
+        g.addColorStop(0, '#000');
+        g.addColorStop(0.3, 'rgba(225,173,1,0.75)');
+        g.addColorStop(1, 'transparent');
+        hCtx.fillStyle = g;
+        hCtx.beginPath();
+        hCtx.ellipse(0, 0, 50, 14, 0, 0, Math.PI * 2);
+        hCtx.fill();
+        hCtx.fillStyle = '#000';
+        hCtx.beginPath();
+        hCtx.arc(0, 0, 15, 0, Math.PI * 2);
+        hCtx.fill();
+        hCtx.restore();
+    }
 
+    // 3. Draw Grid & Planets
     const cx = width / 2, cy = height / 2, step = 60;
     ctx.strokeStyle = isDark() ? 'rgba(225,173,1,0.08)' : 'rgba(184,138,0,0.05)';
     for (let x = 0; x < width + step; x += step) {

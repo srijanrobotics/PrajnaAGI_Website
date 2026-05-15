@@ -33,15 +33,14 @@
                 <canvas id="headerBlackHole"></canvas>
                 <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
                 <ul class="menu-tabs">
-                    <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-                    <li><a href="about.html" class="active">🙏 हमारे बारे में</a></li>
+                    <!-- Loaded via CMS -->
                 </ul>
             </div>
             <div class="nav-controls">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="खोजें...">
+                    <button class="search-btn" aria-label="खोजें">🔍</button>
+                </div>
                 <button id="theme-toggle">☀️ दिन</button>
                 <button class="hamburger" id="hamburger" aria-label="मेनू खोलें">
                     <span></span><span></span><span></span>
@@ -53,18 +52,13 @@
     <!-- ── MOBILE DROPDOWN ── -->
     <div class="mobile-menu" id="mobileMenu">
         <ul>
-            <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-            <li><a href="science.html">🔬 विज्ञान</a></li>
-            <li><a href="tech.html">💻 तकनीक</a></li>
-            <li><a href="environment.html">🌿 पर्यावरण</a></li>
-            <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-            <li><a href="about.html">🙏 हमारे बारे में</a></li>
+            <!-- Loaded via CMS -->
         </ul>
     </div>
 
     <section class="hero">
         <h1>हमारे बारे में</h1>
-        <p style="color: var(--text-muted);">PrajnaAGI: ज्ञान और विज्ञान का संगम</p>
+        <p class="text-muted">PrajnaAGI: ज्ञान और विज्ञान का संगम</p>
     </section>
 
     <div class="about-grid">
@@ -75,35 +69,35 @@
             <h2>प्रिय रंजन पाण्डेय</h2>
             <p>PrajnaAGI के संस्थापक, प्रिय रंजन पाण्डेय का उद्देश्य जटिल वैज्ञानिक अवधारणाओं को सरल हिंदी भाषा में आम जनमानस तक पहुँचाना है।</p>
             <p>हमारा मानना है कि ज्ञान की कोई सीमा नहीं होनी चाहिए, और मातृभाषा में सीखने से विषय की समझ और भी गहरी होती है।</p>
-            <div style="margin-top: 2rem;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">हमारा लक्ष्य</h3>
+            <div class="about-text-extra">
+                <h3>हमारा लक्ष्य</h3>
                 <p>भारत में एक ऐसी वैज्ञानिक चेतना विकसित करना जहाँ हर बच्चा ब्रह्मांड के रहस्यों को अपनी भाषा में समझ सके।</p>
             </div>
         </div>
     </div>
 
-    <section class="section" style="max-width: 900px; margin: 0 auto 6rem; text-align: center;">
+    <section class="section about-section">
         <h2 class="section-title">हमारा मिशन और विजन</h2>
-        <div class="card-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
-            <div class="clickable-card" style="padding: 2.5rem; text-align: left;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">मिशन</h3>
-                <p style="font-size: 0.95rem;">सटीक और विश्वसनीय वैज्ञानिक जानकारी को सरल हिंदी में प्रस्तुत करना ताकि शिक्षा और जागरूकता का प्रसार हो सके।</p>
+        <div class="card-grid mission-vision-grid">
+            <div class="clickable-card mission-vision-card">
+                <h3>मिशन</h3>
+                <p>सटीक और विश्वसनीय वैज्ञानिक जानकारी को सरल हिंदी में प्रस्तुत करना ताकि शिक्षा और जागरूकता का प्रसार हो सके।</p>
             </div>
-            <div class="clickable-card" style="padding: 2.5rem; text-align: left;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">विजन</h3>
-                <p style="font-size: 0.95rem;">भविष्य की पीढ़ियों को प्रेरित करना कि वे विज्ञान और तकनीक के क्षेत्र में नए प्रतिमान स्थापित करें।</p>
+            <div class="clickable-card mission-vision-card">
+                <h3>विजन</h3>
+                <p>भविष्य की पीढ़ियों को प्रेरित करना कि वे विज्ञान और तकनीक के क्षेत्र में नए प्रतिमान स्थापित करें।</p>
             </div>
         </div>
     </section>
 
     <!-- Support Section -->
-    <section class="section" id="support" style="max-width: 900px; margin: 0 auto 6rem; text-align: center;">
-        <div class="support-box" style="margin:0; padding: 4rem 2rem; background: var(--bg-card); border: 1px solid var(--accent); border-radius: 40px; box-shadow: 0 0 30px var(--accent-glow);">
-            <h2 style="color:var(--accent); margin-bottom:1rem;">PrajnaAGI का समर्थन करें</h2>
-            <p style="font-size:1.1rem; opacity:0.8; margin-bottom: 2rem; color:var(--text-main);">हमारा उद्देश्य हिंदी भाषी समाज को आधुनिक तकनीक और अंतरिक्ष विज्ञान की गहरी समझ प्रदान करना है। यदि आप हमारे इस मिशन को उपयोगी पाते हैं, तो आप हमारे स्वतंत्र पत्रकारिता के प्रयास का समर्थन कर सकते हैं।</p>
-            <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
-                <a href="contact.html" class="subscribe-btn" style="text-decoration:none;">संपर्क करें (Contact)</a>
-                <a href="Index.html" class="tag" style="padding:1rem 2rem; background:none; border:1px solid var(--accent); text-decoration:none;">होमपेज पर जाएं</a>
+    <section class="section support-section" id="support">
+        <div class="support-box support-card">
+            <h2>PrajnaAGI का समर्थन करें</h2>
+            <p>हमारा उद्देश्य हिंदी भाषी समाज को आधुनिक तकनीक और अंतरिक्ष विज्ञान की गहरी समझ प्रदान करना है। यदि आप हमारे इस मिशन को उपयोगी पाते हैं, तो आप हमारे स्वतंत्र पत्रकारिता के प्रयास का समर्थन कर सकते हैं।</p>
+            <div class="support-actions">
+                <a href="contact.html" class="subscribe-btn no-decoration">संपर्क करें (Contact)</a>
+                <a href="Index.html" class="tag support-link bg-none-border-accent">होमपेज पर जाएं</a>
             </div>
         </div>
     </section>
@@ -140,15 +134,14 @@
 
     <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">↑</button>
 
-    <!-- Payment Modal -->
-    <div id="paymentModal" onclick="closePayment()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-        <div class="modal-content" onclick="event.stopPropagation()" style="background: var(--bg-card); border: 1px solid var(--accent); padding: 2.5rem; border-radius: 30px; text-align: center; max-width: 400px; width: 90%;">
-            <h3 style="color:var(--accent);">Scan to Pay (UPI)</h3>
-            <p id="upi-id-display" style="margin-top:0.5rem; font-family:monospace; opacity:0.8; color:var(--text-main);"></p>
-            <img id="qr-display" src="" style="width: 100%; border-radius: 15px; margin: 1.5rem 0; border: 5px solid #fff;" alt="UPI QR Code">
-            <div style="display:flex; gap:1rem; justify-content:center;">
-                <a href="thanks.html" class="tag" style="background:var(--accent); color:#000; text-decoration:none; padding:0.8rem 1.5rem; font-weight:bold;">मैंने भुगतान कर दिया है</a>
-                <button onclick="closePayment()" class="tag" style="cursor:pointer; border:1px solid var(--border); background:none; padding:0.8rem 1.5rem; color:var(--text-main);">बंद करें</button>
+    <div id="paymentModal" onclick="closePayment()" class="modal-overlay">
+        <div class="modal-content modal-content-main" onclick="event.stopPropagation()">
+            <h3 class="modal-title">भुगतान करें / Pay (UPI)</h3>
+            <p id="upi-id-display" class="upi-display"></p>
+            <img id="qr-display" src="" class="qr-img-large" alt="UPI QR Code">
+            <div class="modal-footer">
+                <a href="thanks.html" class="tag support-confirm-btn">मैंने भुगतान कर दिया है</a>
+                <button type="button" onclick="closePayment()" class="tag modal-btn">बंद करें</button>
             </div>
         </div>
     </div>
@@ -175,6 +168,9 @@
 </body>
 
 </html>
+
+
+
 
 
 

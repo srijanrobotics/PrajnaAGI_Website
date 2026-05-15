@@ -10,27 +10,20 @@
     <!-- Open Graph / WhatsApp -->
     <meta property="og:title" content="पर्यावरण — PrajnaAGI">
     <meta property="og:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत (PrajnaAGI)">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200&h=630">
     <meta property="og:type" content="website">
 
     <!-- X / Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="पर्यावरण — PrajnaAGI">
     <meta name="twitter:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत (PrajnaAGI)">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200&h=630">
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/advanced.css">
     <style>
         /* ── PAGE SPECIFIC ── */
-        #spaceCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            pointer-events: none;
-            width: 100%;
-            height: 100%;
-        }
+        #spaceCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
     </style>
     
 </head>
@@ -45,22 +38,16 @@
                 <canvas id="headerBlackHole"></canvas>
                 <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
                 <ul class="menu-tabs">
-                    <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html" class="active">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-                    <li><a href="about.html">🙏 हमारे बारे में</a></li>
+                    <!-- Loaded via CMS -->
                 </ul>
             </div>
             <div class="nav-controls">
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="खोजें...">
-                    <button class="search-btn" aria-label="खोजें">🔍</button>
+                    <button type="button" class="search-btn" aria-label="खोजें">🔍</button>
                 </div>
-                <button id="theme-toggle">☀️ दिन</button>
-                <button class="subscribe-nav-btn">सब्सक्रिप्शन</button>
-                <button class="hamburger" id="hamburger" aria-label="मेनू खोलें">
+                <button type="button" id="theme-toggle">☀️ दिन</button>
+                <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -70,13 +57,7 @@
     <!-- ── MOBILE DROPDOWN ── -->
     <div class="mobile-menu" id="mobileMenu">
         <ul>
-            <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-            <li><a href="science.html">🔬 विज्ञान</a></li>
-            <li><a href="tech.html">💻 तकनीक</a></li>
-            <li><a href="environment.html">🌿 पर्यावरण</a></li>
-            <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-            <li><a href="about.html">🙏 हमारे बारे में</a></li>
-            <li><a href="#">📩 सब्सक्रिप्शन</a></li>
+            <!-- Loaded via CMS -->
         </ul>
     </div>
 
@@ -88,7 +69,7 @@
     <section class="section">
         <h2 class="section-title">🌿 मुख्य लेख</h2>
         <div id="cms-environment-grid">
-            <div style="text-align: center; padding: 3rem; opacity:0.5;">
+            <div class="center-loading">
                 लोड हो रहा है...
             </div>
         </div>
@@ -96,11 +77,12 @@
 
     <section class="newsletter-section" id="newsletter">
         <h2>पर्यावरण की खबरें सीधे Inbox में 📬</h2>
-        <p style="color:var(--text-muted);margin:0.8rem 0 0;">हर हफ्ते नई साइंस न्यूज और मिशन अपडेट पाएं।</p>
+        <p class="text-muted mt-2">हर हफ्ते नई साइंस न्यूज और मिशन अपडेट पाएं।</p>
         <form class="newsletter-input-group" name="newsletter" method="POST" data-netlify="true" action="/success.html">
             <input type="email" class="newsletter-input" name="email" placeholder="आपका ईमेल पता लिखें...">
-            <button class="subscribe-btn">सदस्यता लें</button>
-        </form>`n        <p style="color:var(--accent-blue);font-weight:700;margin-top:0.5rem;">✨ 10k+ पाठक पहले से जुड़े हैं।</p>
+            <button type="button" class="subscribe-btn">सदस्यता लें</button>
+        </form>
+        <p class="text-accent-bold mt-1">✨ 10k+ पाठक पहले से जुड़े हैं।</p>
     </section>
 
     <!-- ── FOOTER ── -->
@@ -133,7 +115,7 @@
         <p class="footer-bottom">© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
     </footer>
 
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">↑</button>
+    <button type="button" id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">↑</button>
 
     <!-- ── SCRIPTS ── -->
     <script src="assets/js/canvas.js"></script>
@@ -142,6 +124,10 @@
 </body>
 
 </html>
+
+
+
+
 
 
 
