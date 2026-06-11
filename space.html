@@ -79,7 +79,7 @@
                     <span class="tag">${a.tag || 'अंतरिक्ष'}</span>
                     <h2>${a.title}</h2>
                     <p>${a.summary}</p>
-                    <a href="${a.url || '#'}" class="subscribe-btn" style="margin-top:2rem; text-decoration:none;">विस्तार से पढ़ें</a>
+                    <a href="article.html?id=${encodeURIComponent(a.slug || a.title)}" class="subscribe-btn" style="margin-top:2rem; text-decoration:none;">विस्तार से पढ़ें</a>
                 </section>
             `).join('');
         }

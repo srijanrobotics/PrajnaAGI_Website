@@ -50,5 +50,5 @@ files.forEach(file => {
 // Sort by date descending
 articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-fs.writeFileSync(outputFile, JSON.stringify(articles, null, 2));
+fs.writeFileSync(outputFile, JSON.stringify({ articles: articles }, null, 2));
 console.log(`Generated ${outputFile} with ${articles.length} articles.`);

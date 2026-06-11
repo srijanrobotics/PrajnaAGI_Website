@@ -89,7 +89,7 @@ function drawBody(body, cx, cy, ctx) {
     }
 
     ctx.save();
-    ctx.shadowBlur = body.name === 'सूर्य' ? 50 : 15;
+    ctx.shadowBlur = body.name === 'सूर्य' ? (isDark() ? 50 : 25) : 15;
     ctx.shadowColor = body.color;
     ctx.fillStyle = body.color;
     ctx.beginPath();
@@ -127,10 +127,10 @@ function draw() {
     ctx.fillStyle = isDark() ? '#000' : '#f7f7f7';
     ctx.fillRect(0, 0, width, height);
 
-    ctx.fillStyle = isDark() ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.08)';
+    ctx.fillStyle = isDark() ? 'rgba(255,255,255,0.55)' : 'rgba(0, 102, 153, 0.15)'; // Soft blue dust in light mode
     stars.forEach(s => {
-        s.y -= s.speed;
-        if (s.y < 0) s.y = height;
+        s.y += s.speed;
+        if (s.y > height) s.y = 0;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
         ctx.fill();

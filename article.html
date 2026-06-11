@@ -117,13 +117,13 @@
         function closePayment() { document.getElementById('paymentModal').style.display = 'none'; }
         
         fetch('content/settings.json').then(r => r.json()).then(data => {
-            if(data.social && data.social.payments) {
-                const p = data.social.payments;
-                document.getElementById('upiIdText').textContent = `UPI ID: ${p.upi_id}`;
-                document.getElementById('qrCodeImg').src = p.upi_qr;
-                document.getElementById('payLink').href = p.pay_link;
+            if (data && data.payments) {
+                const p = data.payments;
+                document.getElementById('upiIdText').textContent = `UPI ID: ${p.upi_id || ''}`;
+                document.getElementById('qrCodeImg').src = p.upi_qr || (p.upi_id ? 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=' + p.upi_id : '');
+                document.getElementById('payLink').href = p.pay_link || '#';
             }
-        });
+        }).catch(e => console.error(e));
 
         document.addEventListener('DOMContentLoaded', () => {
             const url = encodeURIComponent(window.location.href);

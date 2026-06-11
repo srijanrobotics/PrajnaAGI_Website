@@ -106,24 +106,23 @@ document.querySelectorAll('.clickable-card, .section-title').forEach(el => {
 });
 
 // Newsletter Validation
-const subBtn = document.querySelector('.subscribe-btn');
 const newsletterForm = document.querySelector('form[name="newsletter"]');
-if (subBtn && newsletterForm) {
-    subBtn.addEventListener('click', function (e) {
-        const inp = document.querySelector('.newsletter-input');
+if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+        const inp = this.querySelector('.newsletter-input');
+        const btn = this.querySelector('.subscribe-btn');
         if (inp && inp.value && inp.value.includes('@')) {
-            // Let the form submit to Netlify, but show success state
-            const originalText = this.textContent;
-            this.textContent = '✅ धन्यवाद!';
-            this.style.background = '#25D366';
-            
-            // The form will naturally submit after this unless we e.preventDefault()
-            // We want it to submit to Netlify, so we don't prevent default.
-        } else if (inp) {
-            e.preventDefault(); // Stop submission if invalid
-            inp.style.borderColor = '#ff5252';
-            inp.placeholder = "कृपया मान्य ईमेल लिखें";
-            setTimeout(() => inp.style.borderColor = '', 2000);
+            if (btn) {
+                btn.textContent = '✅ धन्यवाद!';
+                btn.style.background = '#25D366';
+            }
+        } else {
+            e.preventDefault();
+            if (inp) {
+                inp.style.borderColor = '#ff5252';
+                inp.placeholder = "कृपया मान्य ईमेल लिखें";
+                setTimeout(() => inp.style.borderColor = '', 2000);
+            }
         }
     });
 }
