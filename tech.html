@@ -2,52 +2,38 @@
 <html lang="hi">
 
 <head>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>तकनीक — PrajnaAGI</title>
-    <!-- Open Graph / WhatsApp -->
-    <meta name="description" content="भविष्य की तकनीक, आर्टिफिशियल इंटेलिजेंस और डिजिटल क्रांति की ताज़ा खबरें।">
-    <meta property="og:title" content="तकनीक — PrajnaAGI">
-    <meta property="og:description" content="भविष्य की तकनीक, आर्टिफिशियल इंटेलिजेंस और डिजिटल क्रांति की ताज़ा खबरें।">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200&h=630">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="AI, रोबोटिक्स और कंप्यूटिंग की दुनिया — हिंदी में">
+    <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
-
-    <!-- X / Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="तकनीक — PrajnaAGI">
-    <meta name="twitter:description" content="भविष्य की तकनीक, आर्टिफिशियल इंटेलिजेंस और डिजिटल क्रांति की ताज़ा खबरें।">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200&h=630">
-    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <meta property="og:site_name" content="PrajnaAGI">
+    <meta property="og:title" content="तकनीक — PrajnaAGI">
+    <meta property="og:description" content="AI, रोबोटिक्स और कंप्यूटिंग की दुनिया — हिंदी में">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/advanced.css">
-    <style>
-        /* ── PAGE SPECIFIC ── */
-        #spaceCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
-    </style>
-    
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 </head>
 
-<body data-theme="dark">
-    <canvas id="spaceCanvas"></canvas>
+<body data-theme="dark" class="category-page">
+    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
 
     <!-- ── NAVIGATION ── -->
     <nav>
         <div class="nav-inner">
             <div class="brand-container">
-                <canvas id="headerBlackHole"></canvas>
-                <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
-                <ul class="menu-tabs">
-                    <!-- Loaded via CMS -->
-                </ul>
+                <canvas id="headerBlackHole" aria-hidden="true"></canvas>
+                <a href="index.html" class="logo">Prajna<span class="brand">AGI</span></a>
+                <ul class="menu-tabs"><!-- Loaded via CMS --></ul>
             </div>
             <div class="nav-controls">
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="खोजें...">
-                    <button type="button" class="search-btn" aria-label="खोजें">🔍</button>
+                    <input type="text" class="search-input" placeholder="खोजें..." maxlength="80" aria-label="खोजें">
+                    <button type="button" class="search-btn" aria-label="खोजें">⌕</button>
                 </div>
-                <button type="button" id="theme-toggle">☀️ दिन</button>
+                <button type="button" id="theme-toggle" aria-label="थीम बदलें">☀️ दिन</button>
                 <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
                     <span></span><span></span><span></span>
                 </button>
@@ -55,79 +41,70 @@
         </div>
     </nav>
 
-    <!-- ── MOBILE DROPDOWN ── -->
     <div class="mobile-menu" id="mobileMenu">
-        <ul>
-            <!-- Loaded via CMS -->
-        </ul>
+        <ul><!-- Loaded via CMS --></ul>
     </div>
 
+    <!-- ── HERO ── -->
     <section class="hero">
-        <h1>तकनीक<span class="hindi-line">Technology</span></h1>
-        <p>भविष्य की तकनीक, आर्टिफिशियल इंटेलिजेंस और डिजिटल क्रांति</p>
+        <h1><span class="hindi-line">▣ तकनीक</span></h1>
+        <hr class="dot-rule">
+        <p>AI, रोबोटिक्स और कंप्यूटिंग की दुनिया — हिंदी में</p>
     </section>
 
+    <!-- ── ARTICLES ── -->
     <section class="section">
-        <h2 class="section-title">💻 मुख्य लेख</h2>
+        <h2 class="section-title"><span class="px" aria-hidden="true">»</span> तकनीक की खबरें</h2>
         <div id="cms-tech-grid">
-            <div class="loading-box">
-                लोड हो रहा है...
-            </div>
+            <div class="loading-box">लोड हो रहा है...</div>
         </div>
-    </section>
-
-    <section class="newsletter-section" id="newsletter">
-        <h2>तकनीक की खबरें सीधे Inbox में 📬</h2>
-        <p class="text-muted-mt">हर हफ्ते नई साइंस न्यूज और मिशन अपडेट पाएं।</p>
-        <form class="newsletter-input-group" name="newsletter" method="POST" data-netlify="true" action="/success.html">
-            <input type="email" class="newsletter-input" name="email" placeholder="आपका ईमेल पता लिखें...">
-            <button type="submit" class="subscribe-btn">सदस्यता लें</button>
-        </form><p class="text-accent-blue-mt">✨ 10k+ पाठक पहले से जुड़े हैं।</p>
     </section>
 
     <!-- ── FOOTER ── -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <div class="footer-logo">🌌 PrajnaAGI</div>
+                <div class="footer-logo">PrajnaAGI</div>
                 <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
             </div>
             <div class="footer-col">
                 <h4>श्रेणियां</h4>
                 <ul>
-                    <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
+                    <li><a href="space.html">अंतरिक्ष</a></li>
+                    <li><a href="science.html">विज्ञान</a></li>
+                    <li><a href="tech.html">तकनीक</a></li>
+                    <li><a href="environment.html">पर्यावरण</a></li>
+                    <li><a href="health.html">स्वास्थ्य</a></li>
+                    <li><a href="srijan.html">Srijan Robotics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>महत्वपूर्ण लिंक</h4>
-                <ul>
-                    <li><a href="about.html">🙏 हमारे बारे में</a></li>
-                    <li><a href="contact.html">📞 संपर्क करें</a></li>
-                    <li><a href="privacy.html">🔒 गोपनीयता नीति</a></li>
-                    <li><a href="terms.html">📋 उपयोग की शर्तें</a></li>
-                </ul>
+                <h4>समर्थन करें</h4>
+                <p>स्वतंत्र पत्रकारिता और AI शिक्षा को बढ़ावा देने में हमारी मदद करें।</p>
+                <button type="button" class="px-btn" data-open-payment>सपोर्ट करें</button>
             </div>
         </div>
-        <p class="footer-bottom">© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
+        <p class="footer-bottom">© 2026 PRAJNAAGI · <a href="privacy.html">PRIVACY</a> · <a href="terms.html">TERMS</a> · <a href="contact.html">CONTACT</a></p>
     </footer>
 
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">↑</button>
+    <!-- ── PAYMENT MODAL ── -->
+    <div id="paymentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+        <div class="modal-content-main">
+            <h3 class="modal-title" id="paymentModalTitle">भुगतान करें / PAY (UPI)</h3>
+            <p id="upi-id-display" class="upi-display"></p>
+            <img id="qr-display" src="" class="qr-img-large" alt="UPI QR Code" hidden>
+            <div class="modal-footer">
+                <a href="thanks.html" class="px-btn">मैंने भुगतान कर दिया है</a>
+                <button type="button" class="px-btn px-btn--ghost" data-close-payment>बंद करें</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- ── SCRIPTS ── -->
-    <script src="assets/js/canvas.js"></script>
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/cms-loader.js"></script>
+    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
+
+    <script src="assets/js/canvas.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/cms-loader.js" defer></script>
 </body>
 
 </html>
-
-
-
-
-
-
-

@@ -2,111 +2,88 @@
 <html lang="hi">
 
 <head>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>गोपनीयता नीति — PrajnaAGI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="गोपनीयता नीति — PrajnaAGI">
+    <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="assets/css/main.css">
-    <style>
-        #spaceCanvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; width: 100%; height: 100%; }
-    </style>
-    
+    <link rel="stylesheet" href="assets/css/advanced.css">
 </head>
 
 <body data-theme="dark">
-    <canvas id="spaceCanvas"></canvas>
+    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
 
     <!-- ── NAVIGATION ── -->
     <nav>
         <div class="nav-inner">
             <div class="brand-container">
-                <canvas id="headerBlackHole"></canvas>
-                <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
-                <ul class="menu-tabs">
-                    <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-                    <li><a href="about.html">🙏 हमारे बारे में</a></li>
-                </ul>
+                <canvas id="headerBlackHole" aria-hidden="true"></canvas>
+                <a href="index.html" class="logo">Prajna<span class="brand">AGI</span></a>
+                <ul class="menu-tabs"><!-- Loaded via CMS --></ul>
             </div>
             <div class="nav-controls">
-                <button id="theme-toggle">☀️ दिन</button>
-                <button class="hamburger" id="hamburger" aria-label="मेनू खोलें">
+                <button type="button" id="theme-toggle" aria-label="थीम बदलें">☀️ दिन</button>
+                <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
                     <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- ── MOBILE DROPDOWN ── -->
     <div class="mobile-menu" id="mobileMenu">
-        <ul>
-            <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-            <li><a href="science.html">🔬 विज्ञान</a></li>
-            <li><a href="tech.html">💻 तकनीक</a></li>
-            <li><a href="environment.html">🌿 पर्यावरण</a></li>
-            <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-            <li><a href="about.html">🙏 हमारे बारे में</a></li>
-        </ul>
+        <ul><!-- Loaded via CMS --></ul>
     </div>
 
     <main class="legal-content">
         <h1>गोपनीयता नीति</h1>
-        <p>अंतिम अपडेट: मई 2026</p>
-        
+        <p class="card-meta">LAST UPDATE · JULY 2026</p>
+        <hr class="dot-rule">
         <h2>1. जानकारी जो हम एकत्र करते हैं</h2>
         <p>PrajnaAGI में, हम आपकी गोपनीयता का सम्मान करते हैं। जब आप हमारी वेबसाइट का उपयोग करते हैं, तो हम केवल वही जानकारी एकत्र करते हैं जो आपके अनुभव को बेहतर बनाने के लिए आवश्यक है, जैसे कि ब्राउज़र प्रकार, आईपी पता और न्यूज़लेटर सदस्यता के लिए ईमेल।</p>
-        
         <h2>2. डेटा का उपयोग</h2>
         <p>एकत्रित जानकारी का उपयोग साइट के प्रदर्शन के विश्लेषण और आपको महत्वपूर्ण अपडेट भेजने के लिए किया जाता है। हम आपका व्यक्तिगत डेटा कभी भी तीसरे पक्ष को नहीं बेचते हैं।</p>
-        
         <h2>3. कुकीज़</h2>
         <p>हम उपयोगकर्ता अनुभव को अनुकूलित करने के लिए कुकीज़ का उपयोग कर सकते हैं। आप अपने ब्राउज़र सेटिंग्स में कुकीज़ को अक्षम करना चुन सकते हैं।</p>
     </main>
+
 
     <!-- ── FOOTER ── -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <div class="footer-logo">🌌 PrajnaAGI</div>
+                <div class="footer-logo">PrajnaAGI</div>
                 <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
             </div>
             <div class="footer-col">
                 <h4>श्रेणियां</h4>
                 <ul>
-                    <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
+                    <li><a href="space.html">अंतरिक्ष</a></li>
+                    <li><a href="science.html">विज्ञान</a></li>
+                    <li><a href="tech.html">तकनीक</a></li>
+                    <li><a href="environment.html">पर्यावरण</a></li>
+                    <li><a href="health.html">स्वास्थ्य</a></li>
+                    <li><a href="srijan.html">Srijan Robotics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>महत्वपूर्ण लिंक</h4>
                 <ul>
-                    <li><a href="about.html">🙏 हमारे बारे में</a></li>
-                    <li><a href="contact.html">📞 संपर्क करें</a></li>
-                    <li><a href="privacy.html">🔒 गोपनीयता नीति</a></li>
-                    <li><a href="terms.html">📋 उपयोग की शर्तें</a></li>
+                    <li><a href="contact.html">संपर्क करें</a></li>
+                    <li><a href="privacy.html">गोपनीयता नीति</a></li>
+                    <li><a href="terms.html">उपयोग की शर्तें</a></li>
                 </ul>
             </div>
         </div>
-        <p class="footer-bottom">© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
+        <p class="footer-bottom">© 2026 PRAJNAAGI. सर्वाधिकार सुरक्षित।</p>
     </footer>
 
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">↑</button>
+    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
 
-    <script src="assets/js/canvas.js"></script>
-    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/canvas.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/cms-loader.js" defer></script>
 </body>
 
 </html>
-
-
-
-
-

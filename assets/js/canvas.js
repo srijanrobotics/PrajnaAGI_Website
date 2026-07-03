@@ -4,6 +4,7 @@ const ctx = canvas?.getContext('2d');
 const hCanvas = document.getElementById('headerBlackHole');
 const hCtx = hCanvas?.getContext('2d');
 let width, height, time = 0, stars = [];
+let debris = [];
 let mouseX = -1000, mouseY = -1000;
 let hoveredBody = null;
 
@@ -53,6 +54,23 @@ function init() {
             speed: Math.random() * 0.2 + 0.05
         });
     }
+
+    // interstellar debris: small rocks streaming past the moving solar system
+    debris = [];
+    for (let i = 0; i < 70; i++) debris.push(newDebris(true));
+}
+
+// debris particles fly outward from a vanishing point ahead of the sun's
+// direction of travel — conveys that the whole system is moving through space
+function newDebris(scatter) {
+    const ang = Math.random() * Math.PI * 2;
+    return {
+        ang: ang,
+        dist: scatter ? Math.random() * Math.max(width, height) * 0.5 : 10 + Math.random() * 60,
+        speed: 0.4 + Math.random() * 1.2,
+        size: 0.6 + Math.random() * 1.8,
+        grey: 120 + Math.floor(Math.random() * 100)
+    };
 }
 
 if (canvas) {
@@ -136,30 +154,157 @@ function draw() {
         ctx.fill();
     });
 
-    // 2. Draw Header Black Hole (if exists)
+    // 2. Header: GARGANTUA — Interstellar-style lensed black hole.
+    // Layers (back to front): lensed halo arching OVER the sphere, back half
+    // of the accretion disk, photon ring, event horizon, front half of the
+    // disk crossing in front — with doppler beaming (left side brighter)
+    // and slowly rotating hot streaks in the disk for a live 3D feel.
     if (hCtx) {
         hCtx.clearRect(0, 0, 110, 110);
         hCtx.save();
         hCtx.translate(55, 55);
-        hCtx.rotate(time * 2.2);
-        const g = hCtx.createRadialGradient(0, 0, 8, 0, 0, 44);
-        g.addColorStop(0, '#000');
-        g.addColorStop(0.3, 'rgba(225,173,1,0.75)');
-        g.addColorStop(1, 'transparent');
-        hCtx.fillStyle = g;
+        const R = 14;               // event horizon radius
+        const spin = time * 1.4;    // disk material rotation
+
+        // helper: warm disk gradient along x (doppler: left = hot/bright)
+        function diskGrad(alpha) {
+            const g = hCtx.createLinearGradient(-46, 0, 46, 0);
+            g.addColorStop(0.00, 'rgba(255,255,245,' + alpha + ')');
+            g.addColorStop(0.25, 'rgba(255,215,150,' + (alpha * 0.95) + ')');
+            g.addColorStop(0.55, 'rgba(230,150,70,' + (alpha * 0.8) + ')');
+            g.addColorStop(1.00, 'rgba(140,70,30,' + (alpha * 0.55) + ')');
+            return g;
+        }
+
+        // (a) LENSED HALO — disk light bent over the top & under the bottom
+        for (let k = 0; k < 2; k++) {
+            hCtx.save();
+            hCtx.rotate(k === 0 ? 0 : Math.PI);
+            hCtx.beginPath();
+            hCtx.arc(0, 0, R + 7, Math.PI * 1.05, Math.PI * 1.95);
+            hCtx.strokeStyle = diskGrad(k === 0 ? 0.85 : 0.5);
+            hCtx.lineWidth = 6.5;
+            hCtx.shadowColor = 'rgba(255,190,120,0.8)';
+            hCtx.shadowBlur = 8;
+            hCtx.stroke();
+            hCtx.restore();
+        }
+
+        // (b) BACK HALF of accretion disk (upper arc, behind sphere)
+        hCtx.save();
         hCtx.beginPath();
-        hCtx.ellipse(0, 0, 50, 14, 0, 0, Math.PI * 2);
-        hCtx.fill();
+        hCtx.ellipse(0, 0, 46, 11, 0, Math.PI, Math.PI * 2);
+        hCtx.strokeStyle = diskGrad(0.55);
+        hCtx.lineWidth = 7;
+        hCtx.shadowColor = 'rgba(255,170,90,0.6)';
+        hCtx.shadowBlur = 6;
+        hCtx.stroke();
+        hCtx.restore();
+
+        // (c) PHOTON RING — razor-thin white ring hugging the horizon
+        hCtx.save();
+        hCtx.beginPath();
+        hCtx.arc(0, 0, R + 1.6, 0, Math.PI * 2);
+        hCtx.strokeStyle = 'rgba(255,252,240,0.95)';
+        hCtx.lineWidth = 1.3;
+        hCtx.shadowColor = 'rgba(255,255,255,0.9)';
+        hCtx.shadowBlur = 5;
+        hCtx.stroke();
+        hCtx.restore();
+
+        // (d) EVENT HORIZON — pure black sphere
         hCtx.fillStyle = '#000';
         hCtx.beginPath();
-        hCtx.arc(0, 0, 15, 0, Math.PI * 2);
+        hCtx.arc(0, 0, R, 0, Math.PI * 2);
         hCtx.fill();
+
+        // (e) FRONT HALF of disk crossing in front of the sphere
+        hCtx.save();
+        hCtx.beginPath();
+        hCtx.ellipse(0, 0, 46, 11, 0, 0, Math.PI);
+        hCtx.strokeStyle = diskGrad(1);
+        hCtx.lineWidth = 8;
+        hCtx.shadowColor = 'rgba(255,200,130,0.9)';
+        hCtx.shadowBlur = 9;
+        hCtx.stroke();
+        // hot inner edge of the front disk
+        hCtx.beginPath();
+        hCtx.ellipse(0, 0, 30, 7, 0, 0.1, Math.PI - 0.1);
+        hCtx.strokeStyle = 'rgba(255,255,235,0.85)';
+        hCtx.lineWidth = 2.2;
+        hCtx.shadowBlur = 6;
+        hCtx.stroke();
+        hCtx.restore();
+
+        // (f) ROTATING HOT STREAKS in the disk — visible orbital motion
+        for (let i = 0; i < 5; i++) {
+            const a0 = spin + i * (Math.PI * 2 / 5);
+            const seg = 0.55;
+            const front = Math.sin(a0 % (Math.PI * 2)) > 0; // lower half = front
+            hCtx.save();
+            hCtx.beginPath();
+            hCtx.ellipse(0, 0, 40, 9.6, 0, a0, a0 + seg);
+            const bright = 0.55 + 0.45 * Math.cos(a0);      // doppler boost on left
+            hCtx.strokeStyle = 'rgba(255,235,200,' + (front ? bright * 0.9 : bright * 0.35) + ')';
+            hCtx.lineWidth = front ? 2.4 : 1.6;
+            hCtx.shadowColor = 'rgba(255,220,170,0.7)';
+            hCtx.shadowBlur = 4;
+            hCtx.stroke();
+            hCtx.restore();
+        }
+
+        // (g) soft ambient glow around the whole system
+        const halo = hCtx.createRadialGradient(0, 0, R, 0, 0, 54);
+        halo.addColorStop(0, 'rgba(255,180,100,0.16)');
+        halo.addColorStop(1, 'rgba(255,180,100,0)');
+        hCtx.fillStyle = halo;
+        hCtx.beginPath();
+        hCtx.arc(0, 0, 54, 0, Math.PI * 2);
+        hCtx.fill();
+
         hCtx.restore();
     }
 
-    // 3. Draw Grid & Planets
-    const cx = width / 2, cy = height / 2, step = 60;
-    ctx.strokeStyle = isDark() ? 'rgba(225,173,1,0.08)' : 'rgba(184,138,0,0.05)';
+    // 3. SUN IS MOVING: slow galactic drift + barycenter wobble.
+    // The sun is pulled by its heaviest planets (बृहस्पति, शनि) — it orbits
+    // the system's barycenter, wobbling opposite to them. Planets follow
+    // automatically because every orbit is computed around (cx, cy).
+    let wobX = 0, wobY = 0;
+    [{ i: 5, m: 0.055 }, { i: 6, m: 0.028 }].forEach(g => {
+        const b = celestialBodies[g.i];
+        const a = b.angle + (b.speed * time * 50);
+        wobX -= Math.cos(a) * b.orbit * g.m;   // pulled opposite the giant
+        wobY -= Math.sin(a) * b.orbit * g.m;
+    });
+    const driftX = Math.sin(time * 0.04) * width * 0.06 + Math.cos(time * 0.017) * width * 0.03;
+    const driftY = Math.cos(time * 0.031) * height * 0.05;
+    const cx = width / 2 + driftX + wobX, cy = height / 2 + driftY + wobY, step = 60;
+
+    // 3b. DEBRIS STREAM: rocks rushing past from the direction of travel
+    // (vanishing point leads the sun's drift), showing the system's speed.
+    const vpx = cx + Math.cos(time * 0.04) * 120;
+    const vpy = cy - 80;
+    for (let i = 0; i < debris.length; i++) {
+        const p = debris[i];
+        p.dist += p.speed * (1 + p.dist * 0.004);       // accelerates as it nears us
+        const px = vpx + Math.cos(p.ang) * p.dist;
+        const py = vpy + Math.sin(p.ang) * p.dist;
+        if (px < -60 || px > width + 60 || py < -60 || py > height + 60) {
+            debris[i] = newDebris(false);
+            continue;
+        }
+        const stretch = Math.min(14, p.dist * 0.02 * p.speed);  // motion streak
+        const alpha = Math.min(0.7, 0.15 + p.dist / (width * 0.7));
+        ctx.strokeStyle = isDark()
+            ? 'rgba(' + p.grey + ',' + p.grey + ',' + p.grey + ',' + alpha + ')'
+            : 'rgba(90,80,70,' + (alpha * 0.7) + ')';
+        ctx.lineWidth = p.size;
+        ctx.beginPath();
+        ctx.moveTo(px, py);
+        ctx.lineTo(px - Math.cos(p.ang) * stretch, py - Math.sin(p.ang) * stretch);
+        ctx.stroke();
+    }
+    ctx.strokeStyle = isDark() ? 'rgba(225,173,1,0.18)' : 'rgba(184,138,0,0.14)';
     for (let x = 0; x < width + step; x += step) {
         ctx.beginPath();
         for (let y = 0; y < height; y += 18) {

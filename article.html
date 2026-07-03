@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrajnaAGI — Loading...</title>
+    <title>PrajnaAGI — लेख</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <!-- SEO & Social Preview (rewritten per-article by Netlify edge function) -->
+    <meta name="description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="PrajnaAGI">
+    <meta property="og:title" content="PrajnaAGI">
+    <meta property="og:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
+    <meta property="og:url" content="https://prajnaagi.com/article.html">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="PrajnaAGI">
+    <meta name="twitter:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
+
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/advanced.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+Devanagari:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <style>
-        .loading-state { text-align: center; padding: 10rem 2rem; font-size: 1.5rem; color: var(--accent); }
-        .share-bar { display: flex; gap: 1rem; margin: 3rem 0; align-items: center; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
-        .share-btn { padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: bold; color: #fff; transition: 0.3s; display: flex; align-items: center; gap: 0.5rem; }
-        .share-wa { background: #25D366; box-shadow: 0 0 20px rgba(37, 211, 102, 0.3); }
-        .share-x { background: #000; border: 1px solid var(--border); box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
-        .share-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
-    </style>
+    <!-- Self-hosted markdown renderer + sanitizer -->
+    <script src="assets/js/vendor/marked.min.js" defer></script>
+    <script src="assets/js/vendor/purify.min.js" defer></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 </head>
+
 <body data-theme="dark">
-    <canvas id="spaceCanvas"></canvas>
+    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
 
     <!-- ── NAVIGATION ── -->
     <nav>
         <div class="nav-inner">
             <div class="brand-container">
-                <canvas id="headerBlackHole"></canvas>
-                <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
-                <ul class="menu-tabs">
-                    <!-- Loaded via CMS -->
-                </ul>
+                <canvas id="headerBlackHole" aria-hidden="true"></canvas>
+                <a href="index.html" class="logo">Prajna<span class="brand">AGI</span></a>
+                <ul class="menu-tabs"><!-- Loaded via CMS --></ul>
             </div>
             <div class="nav-controls">
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="खोजें...">
-                    <button type="button" class="search-btn" aria-label="खोजें">🔍</button>
+                    <input type="text" class="search-input" placeholder="खोजें..." maxlength="80" aria-label="खोजें">
+                    <button type="button" class="search-btn" aria-label="खोजें">⌕</button>
                 </div>
-                <button type="button" id="theme-toggle">☀️ दिन</button>
+                <button type="button" id="theme-toggle" aria-label="थीम बदलें">☀️ दिन</button>
                 <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
                     <span></span><span></span><span></span>
                 </button>
@@ -47,11 +51,8 @@
         </div>
     </nav>
 
-    <!-- ── MOBILE DROPDOWN ── -->
     <div class="mobile-menu" id="mobileMenu">
-        <ul>
-            <!-- Loaded via CMS -->
-        </ul>
+        <ul><!-- Loaded via CMS --></ul>
     </div>
 
     <!-- ── ARTICLE HERO ── -->
@@ -59,7 +60,12 @@
         <div class="hero-overlay"></div>
         <div class="hero-text-content">
             <span class="tag" id="article-meta">लोड हो रहा है...</span>
-            <h1 id="article-title">लेख का शीर्षक लोड हो रहा है...</h1>
+            <div class="lang-toggle" id="lang-toggle" role="group" aria-label="भाषा चुनें">
+                <button type="button" class="lang-btn active" data-lang="hindi">हिंदी</button>
+                <button type="button" class="lang-btn" data-lang="awadhi">अवधी</button>
+                <button type="button" class="lang-btn" data-lang="english">English</button>
+            </div>
+            <h1 id="article-title">लेख लोड हो रहा है...</h1>
         </div>
     </header>
 
@@ -70,14 +76,9 @@
         </div>
 
         <div class="share-bar">
-            <a href="#" id="shareWA" class="share-btn share-wa">WhatsApp</a>
-            <a href="#" id="shareX" class="share-btn share-x">Share on X</a>
-        </div>
-
-        <div class="support-box">
-            <h3>PrajnaAGI का समर्थन करें</h3>
-            <p>ज्ञान के इस अभियान को जारी रखने में हमारी मदद करें। आपका छोटा सा योगदान बड़े बदलाव ला सकता है।</p>
-            <button type="button" onclick="openPayment()" class="support-btn">💳 अभी सहयोग करें (UPI/Card)</button>
+            <a href="#" id="shareWA" class="share-btn" rel="noopener">[WA] WhatsApp</a>
+            <a href="#" id="shareX" class="share-btn" rel="noopener">[X] Share</a>
+            <button type="button" class="px-btn px-btn--ghost" data-open-payment>सपोर्ट करें</button>
         </div>
     </main>
 
@@ -85,52 +86,47 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <h4 class="accent-text">PrajnaAGI</h4>
-                <p>ब्रह्मांड, विज्ञान और तकनीक की गहराइयों तक पहुँचने का एक प्रयास।</p>
+                <div class="footer-logo">PrajnaAGI</div>
+                <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
             </div>
             <div class="footer-col">
-                <h4>संपर्क</h4>
-                <p>Email: contact@prajnaagi.com</p>
+                <h4>श्रेणियां</h4>
+                <ul>
+                    <li><a href="space.html">अंतरिक्ष</a></li>
+                    <li><a href="science.html">विज्ञान</a></li>
+                    <li><a href="tech.html">तकनीक</a></li>
+                    <li><a href="environment.html">पर्यावरण</a></li>
+                    <li><a href="health.html">स्वास्थ्य</a></li>
+                    <li><a href="srijan.html">Srijan Robotics</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>समर्थन करें</h4>
+                <p>स्वतंत्र पत्रकारिता और AI शिक्षा को बढ़ावा देने में हमारी मदद करें।</p>
+                <button type="button" class="px-btn" data-open-payment>सपोर्ट करें</button>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
-        </div>
+        <p class="footer-bottom">© 2026 PRAJNAAGI · <a href="privacy.html">PRIVACY</a> · <a href="terms.html">TERMS</a> · <a href="contact.html">CONTACT</a></p>
     </footer>
 
     <!-- ── PAYMENT MODAL ── -->
-    <div id="paymentModal">
-        <div class="modal-content">
-            <h3 class="accent-text">सहयोग करें</h3>
-            <p id="upiIdText">UPI ID: Loading...</p>
-            <img id="qrCodeImg" class="qr-img" src="" alt="UPI QR Code">
-            <a id="payLink" href="#" target="_blank" class="support-btn full-width">Razorpay से भुगतान करें</a>
-            <button type="button" onclick="closePayment()" class="modal-close-btn">वापस जाएं</button>
+    <div id="paymentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+        <div class="modal-content-main">
+            <h3 class="modal-title" id="paymentModalTitle">भुगतान करें / PAY (UPI)</h3>
+            <p id="upi-id-display" class="upi-display"></p>
+            <img id="qr-display" src="" class="qr-img-large" alt="UPI QR Code" hidden>
+            <div class="modal-footer">
+                <a href="thanks.html" class="px-btn">मैंने भुगतान कर दिया है</a>
+                <button type="button" class="px-btn px-btn--ghost" data-close-payment>बंद करें</button>
+            </div>
         </div>
     </div>
 
-    <script src="assets/js/canvas.js"></script>
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/cms-loader.js"></script>
-    <script>
-        function openPayment() { document.getElementById('paymentModal').style.display = 'flex'; }
-        function closePayment() { document.getElementById('paymentModal').style.display = 'none'; }
-        
-        fetch('content/settings.json').then(r => r.json()).then(data => {
-            if (data && data.payments) {
-                const p = data.payments;
-                document.getElementById('upiIdText').textContent = `UPI ID: ${p.upi_id || ''}`;
-                document.getElementById('qrCodeImg').src = p.upi_qr || (p.upi_id ? 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=' + p.upi_id : '');
-                document.getElementById('payLink').href = p.pay_link || '#';
-            }
-        }).catch(e => console.error(e));
+    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent(document.title);
-            document.getElementById('shareWA').href = `https://api.whatsapp.com/send?text=${title}%20${url}`;
-            document.getElementById('shareX').href = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
-        });
-    </script>
+    <script src="assets/js/canvas.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
+    <script src="assets/js/cms-loader.js" defer></script>
 </body>
+
 </html>

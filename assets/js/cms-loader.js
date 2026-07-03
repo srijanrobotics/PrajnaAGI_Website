@@ -1,320 +1,476 @@
-// ── HELPERS ──────────────────────────────────────────────────────────
-async function fetchJSON(path) {
-    try {
-        console.log(`[CMS] Fetching: ${path}`);
-        const response = await fetch(path);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        return data;
-    } catch (e) {
-        console.error(`[CMS] Error fetching ${path}:`, e);
-        return null;
-    }
-}
+// ── PRAJNA CMS LOADER (secure) ───────────────────────────────────────────
+// All dynamic content is built with DOM APIs + textContent (never string
+// concatenated into innerHTML). Markdown is rendered via marked and then
+// sanitized with DOMPurify before insertion. JSON is shape-validated.
+// Styling is CSS classes only — zero inline styles.
+(function () {
+    'use strict';
 
-// ── NAVIGATION LOADER ─────────────────────────────────────────────
-async function loadCMSNav() {
-    const desktopMenu = document.querySelector('.menu-tabs');
-    const mobileMenu = document.querySelector('.mobile-menu ul');
-    if (!desktopMenu && !mobileMenu) return;
-
-    const data = await fetchJSON('content/nav.json');
-    if (!data || !data.items) return;
-
-    const navHTML = data.items.map(item => `
-        <li><a href="${item.link}">${item.label}</a></li>
-    `).join('');
-
-    if (desktopMenu) desktopMenu.innerHTML = navHTML;
-    if (mobileMenu) mobileMenu.innerHTML = navHTML;
-}
-
-// ── CATEGORY PAGE LOADER ──────────────────────────────────────────
-async function loadCMSCategoryArticles(containerId, categoryName) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    const data = await fetchJSON('content/articles.json');
-    if (!data || !data.articles) return;
-
-    const filtered = data.articles.filter(a => a.category === categoryName && a.status !== 'Draft');
-    
-    if (filtered.length === 0) {
-        container.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:5rem; opacity:0.6;">इस श्रेणी में अभी कोई लेख नहीं हैं।</p>';
-        return;
+    // ── helpers ──────────────────────────────────────────────────
+    async function fetchJSON(path) {
+        try {
+            const response = await fetch(path);
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return await response.json();
+        } catch (e) {
+            console.error('[CMS] Error fetching ' + path + ':', e);
+            return null;
+        }
     }
 
-    const featured = filtered[0];
-    const others = filtered.slice(1);
-
-    let html = `
-        <div class="featured-grid" style="margin-bottom:2.5rem;">
-            <a href="article.html?id=${encodeURIComponent(featured.slug || featured.title)}" class="clickable-card featured-main">
-                <div class="featured-img" style="background-image: url('${featured.image}')"></div>
-                <div class="featured-content">
-                    <span class="tag" style="color:var(--accent); font-weight:800; font-size:0.75rem;">${featured.tag || '⭐ Featured'}</span>
-                    <h3 style="margin:10px 0 8px; font-size:1.5rem;">${featured.title}</h3>
-                    <p style="color:var(--text-muted); font-size:0.95rem;">${featured.summary}</p>
-                </div>
-            </a>
-        </div>
-        <div class="card-grid">
-            ${others.map(article => `
-                <a href="article.html?id=${encodeURIComponent(article.slug || article.title)}" class="clickable-card">
-                    <div style="height:180px; background:url('${article.image}') center/cover;"></div>
-                    <div style="padding:1.4rem;">
-                        <span class="tag" style="color:var(--accent); font-weight:800; font-size:0.7rem;">${article.category}</span>
-                        <h3 style="margin:8px 0; font-size:1.1rem;">${article.title}</h3>
-                        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.4;">${article.summary}</p>
-                    </div>
-                </a>
-            `).join('')}
-        </div>
-    `;
-
-    container.innerHTML = html;
-}
-
-// ── HOMEPAGE LOADER ───────────────────────────────────────────────
-async function loadCMSHome(latestContainerId) {
-    const data = await fetchJSON('content/articles.json');
-    if (!data || !data.articles) return;
-
-    const articles = data.articles.filter(a => a.status !== 'Draft');
-    if (articles.length === 0) return;
-
-    // Featured Section
-    const featuredGrid = document.querySelector('.featured-grid');
-    if (featuredGrid) {
-        const feat = articles[0];
-        const side = articles.slice(1, 4);
-        
-        featuredGrid.innerHTML = `
-            <a href="article.html?id=${encodeURIComponent(feat.slug || feat.title)}" class="clickable-card featured-main">
-                <div class="featured-img" style="background-image: url('${feat.image}')"></div>
-                <div class="featured-content">
-                    <span class="tag featured-tag">${feat.tag || '⭐ Featured'}</span>
-                    <h3 class="featured-title">${feat.title}</h3>
-                    <p class="featured-summary">${feat.summary}</p>
-                </div>
-            </a>
-            <div class="side-news">
-                ${side.map(s => `
-                    <a href="article.html?id=${encodeURIComponent(s.slug || s.title)}" class="clickable-card side-news-card">
-                        <h4 style="margin:0 0 5px; font-size:1rem;">${s.title}</h4>
-                        <p class="side-news-meta" style="font-size:0.75rem; opacity:0.7;">${s.category} • ${new Date(s.date).toLocaleDateString('hi-IN')}</p>
-                    </a>
-                `).join('')}
-            </div>
-        `;
+    // Only allow same-origin relative URLs or https URLs (no javascript: etc.)
+    function safeURL(url) {
+        if (typeof url !== 'string' || !url) return '';
+        if (/^https:\/\//i.test(url)) return url;
+        if (/^(?!\/\/)[\w][\w\-./?=&%#]*$/.test(url) && url.indexOf(':') === -1) return url; // relative
+        return '';
     }
 
-    // Latest Grid
-    const latestGrid = document.getElementById(latestContainerId);
-    if (latestGrid) {
-        const others = articles.slice(4);
-        latestGrid.innerHTML = others.map(article => `
-            <a href="article.html?id=${encodeURIComponent(article.slug || article.title)}" class="clickable-card">
-                <div style="height:180px; background:url('${article.image}') center/cover;"></div>
-                <div style="padding:1.4rem;">
-                    <span class="tag" style="color:var(--accent); font-weight:800; font-size:0.7rem;">${article.category}</span>
-                    <h3 style="margin:8px 0; font-size:1.1rem;">${article.title}</h3>
-                    <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.4;">${article.summary}</p>
-                </div>
-            </a>
-        `).join('');
-    }
-}
-
-// ── TICKER LOADER ────────────────────────────────────────────────
-async function loadCMSTicker(containerClass) {
-    const tracks = document.querySelectorAll(`.${containerClass}`);
-    if (tracks.length === 0) return;
-
-    const tickerData = await fetchJSON('content/ticker.json');
-    if (!tickerData || !tickerData.items) return;
-
-    const tickerHTML = tickerData.items.map(item => `
-        <span>${item.text}</span><span>•</span>
-    `).join('');
-
-    tracks.forEach(track => {
-        track.innerHTML = tickerHTML + tickerHTML;
-    });
-}
-
-// ── FULL ARTICLE LOADER ───────────────────────────────
-async function loadFullArticle() {
-    console.log("[CMS] Article Page Loader Triggered.");
-    const contentArea = document.getElementById('markdown-content');
-    if (!contentArea) return;
-
-    // More robust ID extraction
-    const url = new URL(window.location.href);
-    let articleId = url.searchParams.get('id');
-    
-    if (!articleId) {
-        // Fallback for manual parsing
-        const match = window.location.href.match(/[?&]id=([^&#]*)/);
-        articleId = match ? match[1] : null;
+    function safeText(v, max) {
+        if (typeof v !== 'string') return '';
+        return v.slice(0, max || 500);
     }
 
-    if (articleId) articleId = decodeURIComponent(articleId);
-    console.log(`[CMS] Resolved Article ID: ${articleId}`);
-    
-    if (!articleId) {
-        console.warn("[CMS] No ID found. Showing error state.");
-        contentArea.innerHTML = '<div class="loading-state">लेख का पता नहीं चला (Missing ID)।</div>';
-        return;
+    function el(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
     }
 
-    try {
-        const [articleData, authorData] = await Promise.all([
+    function articleLink(article, className) {
+        const a = el('a', className);
+        const id = safeText(article.slug || article.title, 200);
+        a.href = 'article.html?id=' + encodeURIComponent(id);
+        return a;
+    }
+
+    function setBgImage(node, url) {
+        const u = safeURL(url);
+        if (u) node.style.backgroundImage = 'url("' + u.replace(/["\\]/g, '') + '")';
+    }
+
+    function validArticles(data) {
+        if (!data || !Array.isArray(data.articles)) return null;
+        return data.articles.filter(function (a) {
+            return a && typeof a === 'object' &&
+                typeof a.title === 'string' && a.title &&
+                typeof a.category === 'string' &&
+                a.status !== 'Draft';
+        });
+    }
+
+    function renderMarkdownSafe(text) {
+        if (!text) return '';
+        let html;
+        if (window.marked && typeof window.marked.parse === 'function') {
+            html = window.marked.parse(text);
+        } else {
+            // fallback: paragraphs only, fully escaped
+            const div = document.createElement('div');
+            text.split('\n').filter(function (p) { return p.trim(); }).forEach(function (p) {
+                div.appendChild(el('p', null, p.trim()));
+            });
+            return div.innerHTML;
+        }
+        if (window.DOMPurify) {
+            return window.DOMPurify.sanitize(html, {
+                ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'b', 'i', 'u', 'h2', 'h3', 'h4',
+                    'ul', 'ol', 'li', 'blockquote', 'code', 'pre', 'a', 'hr', 'img', 'table',
+                    'thead', 'tbody', 'tr', 'th', 'td'],
+                ALLOWED_ATTR: ['href', 'src', 'alt', 'title'],
+                ALLOWED_URI_REGEXP: /^(?:https:|mailto:|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i
+            });
+        }
+        // No sanitizer available: refuse to inject raw HTML.
+        const safe = document.createElement('div');
+        safe.textContent = text;
+        return '<p>' + safe.innerHTML + '</p>';
+    }
+
+    // ── article state (language toggle) ─────────────────────────
+    let currentArticle = null;
+    let currentLang = 'hindi';
+
+    function renderLangBody(lang) {
+        const target = document.getElementById('article-lang-body');
+        if (!target || !currentArticle) return;
+        const fieldMap = { hindi: 'body_hindi', awadhi: 'body_awadhi', english: 'body_english' };
+        let text = currentArticle[fieldMap[lang] || 'body_hindi'];
+        if (lang === 'hindi' && (!text || !text.trim()) && typeof currentArticle.body === 'string') {
+            text = currentArticle.body; // legacy field
+        }
+        if (!text || !text.trim()) {
+            target.textContent = '';
+            target.appendChild(el('p', 'lang-unavailable', 'यह लेख अभी इस भाषा में उपलब्ध नहीं है।'));
+            return;
+        }
+        target.innerHTML = renderMarkdownSafe(text); // sanitized above
+    }
+
+    function wireLangToggle() {
+        const toggle = document.getElementById('lang-toggle');
+        if (!toggle) return;
+        toggle.querySelectorAll('.lang-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                currentLang = btn.getAttribute('data-lang') || 'hindi';
+                toggle.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                renderLangBody(currentLang);
+            });
+        });
+    }
+
+    // ── nav loader ───────────────────────────────────────────────
+    async function loadCMSNav() {
+        const desktopMenu = document.querySelector('.menu-tabs');
+        const mobileMenu = document.querySelector('.mobile-menu ul');
+        if (!desktopMenu && !mobileMenu) return;
+
+        const data = await fetchJSON('content/nav.json');
+        if (!data || !Array.isArray(data.items)) return;
+
+        function buildItems(container) {
+            container.textContent = '';
+            data.items.forEach(function (item) {
+                if (!item || typeof item.label !== 'string') return;
+                const href = safeURL(item.link);
+                if (!href) return;
+                const li = document.createElement('li');
+                const a = el('a', null, safeText(item.label, 60));
+                a.href = href;
+                if (window.location.pathname.split('/').pop() === href) a.className = 'active';
+                li.appendChild(a);
+                container.appendChild(li);
+            });
+        }
+        if (desktopMenu) buildItems(desktopMenu);
+        if (mobileMenu) buildItems(mobileMenu);
+    }
+
+    // ── card builders (classes only) ─────────────────────────────
+    function buildCard(article) {
+        const a = articleLink(article, 'clickable-card');
+        const img = el('div', 'card-img');
+        setBgImage(img, article.image);
+        const pad = el('div', 'card-pad');
+        pad.appendChild(el('span', 'tag', safeText(article.category, 40)));
+        pad.appendChild(el('h3', 'card-title', safeText(article.title, 200)));
+        pad.appendChild(el('p', 'card-summary', safeText(article.summary, 300)));
+        a.appendChild(img);
+        a.appendChild(pad);
+        return a;
+    }
+
+    function buildFeaturedMain(article) {
+        const a = articleLink(article, 'clickable-card featured-main');
+        const img = el('div', 'featured-img');
+        setBgImage(img, article.image);
+        const content = el('div', 'featured-content');
+        content.appendChild(el('span', 'tag', safeText(article.tag || 'FEATURED', 40)));
+        content.appendChild(el('h3', 'featured-title card-title', safeText(article.title, 200)));
+        content.appendChild(el('p', 'featured-summary', safeText(article.summary, 400)));
+        a.appendChild(img);
+        a.appendChild(content);
+        return a;
+    }
+
+    function formatDate(dateStr) {
+        try {
+            const d = new Date(dateStr);
+            return isNaN(d) ? '' : d.toLocaleDateString('hi-IN');
+        } catch (e) { return ''; }
+    }
+
+    // ── homepage ─────────────────────────────────────────────────
+    async function loadCMSHome(latestContainerId) {
+        const data = await fetchJSON('content/articles.json');
+        const articles = validArticles(data);
+        if (!articles || articles.length === 0) return;
+
+        const featuredGrid = document.querySelector('.featured-grid');
+        if (featuredGrid) {
+            featuredGrid.textContent = '';
+            featuredGrid.appendChild(buildFeaturedMain(articles[0]));
+            const side = el('div', 'side-news');
+            articles.slice(1, 4).forEach(function (s) {
+                const a = articleLink(s, 'clickable-card side-news-card');
+                a.appendChild(el('h4', null, safeText(s.title, 200)));
+                a.appendChild(el('p', 'side-news-meta',
+                    safeText(s.category, 40) + ' · ' + formatDate(s.date)));
+                side.appendChild(a);
+            });
+            featuredGrid.appendChild(side);
+        }
+
+        const latestGrid = document.getElementById(latestContainerId);
+        if (latestGrid) {
+            latestGrid.textContent = '';
+            articles.slice(4).forEach(function (article) {
+                latestGrid.appendChild(buildCard(article));
+            });
+        }
+    }
+
+    // ── category pages ───────────────────────────────────────────
+    async function loadCMSCategoryArticles(containerId, categoryName) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        const data = await fetchJSON('content/articles.json');
+        const articles = validArticles(data);
+        if (!articles) return;
+
+        const filtered = articles.filter(function (a) { return a.category === categoryName; });
+        container.textContent = '';
+
+        if (filtered.length === 0) {
+            container.appendChild(el('p', 'center-msg', 'इस श्रेणी में अभी कोई लेख नहीं हैं।'));
+            return;
+        }
+
+        const featuredWrap = el('div', 'featured-grid');
+        featuredWrap.appendChild(buildFeaturedMain(filtered[0]));
+        if (filtered.length > 1) {
+            const side = el('div', 'side-news');
+            filtered.slice(1, 4).forEach(function (s) {
+                const a = articleLink(s, 'clickable-card side-news-card');
+                a.appendChild(el('h4', null, safeText(s.title, 200)));
+                a.appendChild(el('p', 'side-news-meta',
+                    safeText(s.tag || s.category, 40) + ' · ' + formatDate(s.date)));
+                side.appendChild(a);
+            });
+            featuredWrap.appendChild(side);
+        }
+        container.appendChild(featuredWrap);
+
+        if (filtered.length > 4) {
+            const grid = el('div', 'card-grid');
+            filtered.slice(4).forEach(function (article) {
+                grid.appendChild(buildCard(article));
+            });
+            container.appendChild(grid);
+        }
+    }
+
+    // ── ticker (Hindi, self-refreshing every hour) ───────────────
+    async function loadCMSTicker(containerClass) {
+        const tracks = document.querySelectorAll('.' + containerClass);
+        if (tracks.length === 0) return;
+
+        const results = await Promise.all([
+            fetchJSON('content/ticker.json'),
+            fetchJSON('content/articles.json')
+        ]);
+        const tickerData = results[0];
+        const articles = validArticles(results[1]) || [];
+
+        // merge: curated ticker items + newest article headlines (Hindi)
+        const items = [];
+        if (tickerData && Array.isArray(tickerData.items)) {
+            tickerData.items.forEach(function (item) {
+                if (item && typeof item.text === 'string') items.push(safeText(item.text, 200));
+            });
+        }
+        articles
+            .slice()
+            .sort(function (a, b) { return new Date(b.date || 0) - new Date(a.date || 0); })
+            .slice(0, 6)
+            .forEach(function (a) { items.push(safeText(a.title, 160)); });
+
+        if (items.length === 0) return;
+
+        tracks.forEach(function (track) {
+            track.textContent = '';
+            // duplicate content so the loop animation is seamless
+            for (let round = 0; round < 2; round++) {
+                items.forEach(function (text) {
+                    track.appendChild(el('span', null, text));
+                    track.appendChild(el('span', null, '●'));
+                });
+            }
+        });
+    }
+
+    // refresh the ticker every hour so new articles surface automatically
+    setInterval(function () {
+        if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
+    }, 60 * 60 * 1000);
+
+    // ── full article page ────────────────────────────────────────
+    async function loadFullArticle() {
+        const contentArea = document.getElementById('markdown-content');
+        if (!contentArea) return;
+
+        let articleId = null;
+        try {
+            articleId = new URL(window.location.href).searchParams.get('id');
+        } catch (e) { /* ignore */ }
+
+        if (!articleId) {
+            contentArea.textContent = '';
+            contentArea.appendChild(el('div', 'loading-state', 'लेख का पता नहीं चला (Missing ID)।'));
+            return;
+        }
+        articleId = safeText(articleId, 200);
+
+        const results = await Promise.all([
             fetchJSON('content/articles.json'),
             fetchJSON('content/authors.json')
         ]);
+        const articles = validArticles(results[0]);
+        const authorData = results[1];
 
-        if (!articleData || !articleData.articles) {
-            contentArea.innerHTML = '<div class="loading-state">डेटा लोड करने में असमर्थ।</div>';
+        if (!articles) {
+            contentArea.textContent = '';
+            contentArea.appendChild(el('div', 'loading-state', 'डेटा लोड करने में असमर्थ।'));
             return;
         }
 
-        const article = articleData.articles.find(a => (a.slug === articleId || a.title === articleId));
+        const article = articles.find(function (a) {
+            return a.slug === articleId || a.title === articleId;
+        });
         if (!article) {
-            console.error(`[CMS] Article NOT FOUND in JSON: ${articleId}`);
-            contentArea.innerHTML = '<div class="loading-state">क्षमा करें, यह लेख हमारी लाइब्रेरी में नहीं मिला।</div>';
+            contentArea.textContent = '';
+            contentArea.appendChild(el('div', 'loading-state', 'क्षमा करें, यह लेख हमारी लाइब्रेरी में नहीं मिला।'));
             return;
         }
 
-        console.log(`[CMS] Article Found: ${article.title}. Rendering...`);
+        currentArticle = article;
 
-        // Set Hero & Title
         const hero = document.getElementById('article-hero');
-        if (hero) hero.style.backgroundImage = `url('${article.image}')`;
-        
+        if (hero) setBgImage(hero, article.image);
+
         const titleEl = document.getElementById('article-title');
-        if (titleEl) titleEl.textContent = article.title;
-        
+        if (titleEl) titleEl.textContent = safeText(article.title, 300);
+
         const metaEl = document.getElementById('article-meta');
         if (metaEl) {
-            const dateStr = article.date ? new Date(article.date).toLocaleDateString('hi-IN') : '';
-            metaEl.innerHTML = `${article.tag || '🚀 News'} • ${article.category} ${dateStr ? '• ' + dateStr : ''}`;
+            const dateStr = article.date ? formatDate(article.date) : '';
+            metaEl.textContent = safeText(article.tag || 'NEWS', 40) + ' · ' +
+                safeText(article.category, 40) + (dateStr ? ' · ' + dateStr : '');
         }
 
-        // Body Content
-        const bodyHtml = article.body.split('\n').filter(p => p.trim()).map(p => `<p>${p.trim()}</p>`).join('');
-        let finalHtml = `<div class="article-text-content">${bodyHtml}</div>`;
+        // body container
+        contentArea.textContent = '';
+        const langBody = el('div', 'article-text-content');
+        langBody.id = 'article-lang-body';
+        contentArea.appendChild(langBody);
 
-        if (article.video_id) {
-            finalHtml += `
-                <div class="video-container" style="margin:3rem 0; position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:20px; box-shadow:0 15px-40px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.1);">
-                    <iframe src="https://www.youtube.com/embed/${article.video_id}" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
-                </div>
-            `;
+        // optional video (validated ID)
+        if (typeof article.video_id === 'string' && /^[A-Za-z0-9_-]{6,20}$/.test(article.video_id)) {
+            const vc = el('div', 'video-container');
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://www.youtube-nocookie.com/embed/' + article.video_id;
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.setAttribute('title', 'YouTube video');
+            vc.appendChild(iframe);
+            contentArea.appendChild(vc);
         }
 
-        // Author Card
-        if (article.author_id && authorData && authorData.authors) {
-            const author = authorData.authors.find(a => a.id === article.author_id);
-            if (author) {
-                finalHtml += `
-                    <div class="author-card" style="margin-top:5rem; padding:2.5rem; background:rgba(255,255,255,0.02); border-radius:20px; display:flex; gap:2rem; align-items:center; border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(10px);">
-                        <img src="${author.image}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--accent);" alt="${author.name}">
-                        <div>
-                            <span style="color:var(--accent); font-size:0.85rem; font-weight:bold; letter-spacing:1px; text-transform:uppercase;">लेखक परिचय</span>
-                            <h4 style="margin:8px 0; font-size:1.4rem; font-weight:900;">${author.name}</h4>
-                            <p style="font-size:1rem; opacity:0.8; line-height:1.6; margin:0;">${author.bio}</p>
-                        </div>
-                    </div>
-                `;
+        // author card
+        if (article.author_id && authorData && Array.isArray(authorData.authors)) {
+            const author = authorData.authors.find(function (a) {
+                return a && a.id === article.author_id;
+            });
+            if (author && typeof author.name === 'string') {
+                const card = el('div', 'author-card');
+                const imgSrc = safeURL(author.image);
+                if (imgSrc) {
+                    const img = document.createElement('img');
+                    img.className = 'author-img';
+                    img.src = imgSrc;
+                    img.alt = safeText(author.name, 100);
+                    card.appendChild(img);
+                }
+                const info = el('div', 'author-info');
+                info.appendChild(el('span', 'author-role', 'लेखक परिचय'));
+                info.appendChild(el('h4', null, safeText(author.name, 100)));
+                info.appendChild(el('p', 'author-bio', safeText(author.bio, 500)));
+                card.appendChild(info);
+                contentArea.appendChild(card);
             }
         }
 
-        contentArea.innerHTML = finalHtml;
-        document.title = `${article.title} — PrajnaAGI`;
-        console.log("[CMS] Article Page Loaded Successfully.");
-
-    } catch (e) {
-        console.error("[CMS] Render Exception:", e);
-        contentArea.innerHTML = '<div class="loading-state">एक तकनीकी त्रुटि हुई। कृपया पुन: प्रयास करें।</div>';
+        renderLangBody(currentLang);
+        document.title = safeText(article.title, 150) + ' — PrajnaAGI';
     }
-}
 
-// ── INITIALIZE ───────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("[CMS] App Init...");
-    loadCMSNav();
+    // ── search ───────────────────────────────────────────────────
+    async function handleSearch(query) {
+        if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('search')?.toLowerCase();
+        const latestGrid = document.getElementById('cms-latest-grid');
+        const mainSection = latestGrid ? latestGrid.closest('section') : document.querySelector('section.section');
+        if (!mainSection) return;
 
-    if (searchQuery) {
-        handleSearch(searchQuery);
+        mainSection.textContent = '';
+        // query rendered via textContent — no injection possible
+        const title = el('h2', 'section-title');
+        title.appendChild(el('span', 'px', '⌕'));
+        title.appendChild(document.createTextNode(' खोज परिणाम: "' + query + '"'));
+        mainSection.appendChild(title);
+
+        const grid = el('div', 'card-grid');
+        grid.appendChild(el('div', 'loading-box', 'खोज रहे हैं...'));
+        mainSection.appendChild(grid);
+
+        const data = await fetchJSON('content/articles.json');
+        const articles = validArticles(data);
+        if (!articles) return;
+
+        const q = query.toLowerCase();
+        const filtered = articles.filter(function (a) {
+            return a.title.toLowerCase().indexOf(q) !== -1 ||
+                a.category.toLowerCase().indexOf(q) !== -1 ||
+                (typeof a.summary === 'string' && a.summary.toLowerCase().indexOf(q) !== -1);
+        });
+
+        grid.textContent = '';
+        if (filtered.length === 0) {
+            grid.appendChild(el('p', 'center-msg', 'कोई परिणाम नहीं मिला।'));
+            return;
+        }
+        filtered.forEach(function (article) { grid.appendChild(buildCard(article)); });
+    }
+
+    // ── init ─────────────────────────────────────────────────────
+    function initCMS() {
+        if (document.getElementById('cms-latest-grid')) loadCMSHome('cms-latest-grid');
+        if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
+        if (document.getElementById('article-detail-container')) {
+            wireLangToggle();
+            loadFullArticle();
+        }
+
+        [
+            { id: 'cms-tech-grid', cat: 'तकनीक' },
+            { id: 'cms-science-grid', cat: 'विज्ञान' },
+            { id: 'cms-space-grid', cat: 'अंतरिक्ष' },
+            { id: 'cms-environment-grid', cat: 'पर्यावरण' },
+            { id: 'cms-health-grid', cat: 'स्वास्थ्य' },
+            { id: 'cms-srijan-grid', cat: 'Srijan Robotics' }
+        ].forEach(function (g) {
+            if (document.getElementById(g.id)) loadCMSCategoryArticles(g.id, g.cat);
+        });
+    }
+
+    function boot() {
+        loadCMSNav();
+        let searchQuery = null;
+        try {
+            searchQuery = new URLSearchParams(window.location.search).get('search');
+        } catch (e) { /* ignore */ }
+        if (searchQuery) {
+            handleSearch(safeText(searchQuery.toLowerCase(), 80));
+        } else {
+            initCMS();
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
     } else {
-        initCMS();
+        boot();
     }
-});
-
-async function initCMS() {
-    if (document.getElementById('cms-latest-grid')) {
-        loadCMSHome('cms-latest-grid');
-    }
-    
-    if (document.querySelector('.ticker-track')) {
-        loadCMSTicker('ticker-track');
-    }
-    
-    if (document.getElementById('article-detail-container')) {
-        loadFullArticle();
-    }
-
-    const grids = [
-        { id: 'cms-tech-grid', cat: 'तकनीक' },
-        { id: 'cms-science-grid', cat: 'विज्ञान' },
-        { id: 'cms-space-grid', cat: 'अंतरिक्ष' },
-        { id: 'cms-environment-grid', cat: 'पर्यावरण' },
-        { id: 'cms-health-grid', cat: 'स्वास्थ्य' }
-    ];
-
-    grids.forEach(g => {
-        if (document.getElementById(g.id)) loadCMSCategoryArticles(g.id, g.cat);
-    });
-}
-
-async function handleSearch(query) {
-    const mainSection = document.querySelector('section.section');
-    if (!mainSection) return;
-
-    mainSection.innerHTML = `
-        <h2 class="section-title">🔍 खोज परिणाम: "${query}"</h2>
-        <div class="card-grid" id="search-results-grid">
-            <div class="loading-box">खोज रहे हैं...</div>
-        </div>
-    `;
-
-    const data = await fetchJSON('content/articles.json');
-    if (!data || !data.articles) return;
-
-    const filtered = data.articles.filter(a => 
-        (a.title.toLowerCase().includes(query) || 
-        a.category.toLowerCase().includes(query) ||
-        (a.summary && a.summary.toLowerCase().includes(query))) && a.status !== 'Draft'
-    );
-
-    const grid = document.getElementById('search-results-grid');
-    if (filtered.length === 0) {
-        grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:5rem; opacity:0.6;">कोई परिणाम नहीं मिला।</p>';
-        return;
-    }
-
-    grid.innerHTML = filtered.map(article => `
-        <a href="article.html?id=${encodeURIComponent(article.slug || article.title)}" class="clickable-card">
-            <div style="height:180px; background:url('${article.image}') center/cover;"></div>
-            <div style="padding:1.4rem;">
-                <span class="tag" style="color:var(--accent); font-weight:800; font-size:0.7rem;">${article.category}</span>
-                <h3 style="margin:8px 0; font-size:1.1rem;">${article.title}</h3>
-                <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.4;">${article.summary}</p>
-            </div>
-        </a>
-    `).join('');
-}
+})();

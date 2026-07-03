@@ -5,19 +5,67 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://prajnaagi.com/about.html</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://prajnaagi.com/tech.html</loc>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://prajnaagi.com/space.html</loc>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://prajnaagi.com/science.html</loc>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/tech.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/environment.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/health.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/srijan.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/about.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/contact.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/privacy.html</loc>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/terms.html</loc>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/article.html?id=openai-o1-agi-milestone</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/article.html?id=worlds-smallest-robot</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/article.html?id=james-webb-oldest-black-hole</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/article.html?id=crispr-health-breakthrough</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/article.html?id=amazon-rainforest-tipping-point</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://prajnaagi.com/article.html?id=quantum-computing-speed-record</loc>
+    <priority>0.8</priority>
   </url>
 </urlset>

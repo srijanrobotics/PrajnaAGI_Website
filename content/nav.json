@@ -1,10 +1,12 @@
 {
   "items": [
-    { "label": "🌌 अंतरिक्ष", "link": "space.html" },
-    { "label": "🔬 विज्ञान", "link": "science.html" },
-    { "label": "💻 तकनीक", "link": "tech.html" },
-    { "label": "🌿 पर्यावरण", "link": "environment.html" },
-    { "label": "❤️ स्वास्थ्य", "link": "health.html" },
-    { "label": "🙏 हमारे बारे में", "link": "about.html" }
+    { "label": "होम", "link": "index.html" },
+    { "label": "अंतरिक्ष", "link": "space.html" },
+    { "label": "विज्ञान", "link": "science.html" },
+    { "label": "तकनीक", "link": "tech.html" },
+    { "label": "पर्यावरण", "link": "environment.html" },
+    { "label": "स्वास्थ्य", "link": "health.html" },
+    { "label": "Srijan Robotics", "link": "srijan.html" },
+    { "label": "संपर्क", "link": "contact.html" }
   ]
 }

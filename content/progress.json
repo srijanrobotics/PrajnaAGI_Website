@@ -1,0 +1,22 @@
+{
+  "version": "PRAJNA v1.3",
+  "overall": 35,
+  "since": "2024-06-01",
+  "log": 23,
+  "systems": [
+    { "label": "VISION", "status": "ONLINE" },
+    { "label": "MEMORY", "status": "ONLINE" },
+    { "label": "SPEECH", "status": "TRAINING" },
+    { "label": "MOTION", "status": "OFFLINE" }
+  ],
+  "milestones": [
+    { "status": "COMPLETE",    "stack": "IDEA / NAMING",          "bars": [ { "label": "संकल्प", "pct": 100 } ] },
+    { "status": "COMPLETE",    "stack": "dlib · face_recognition · Py3.11", "bars": [ { "label": "DETECT", "pct": 100 }, { "label": "ENCODE", "pct": 100 }, { "label": "CLUSTER", "pct": 100 } ] },
+    { "status": "COMPLETE",    "stack": "Netlify · Decap CMS · Gemini",     "bars": [ { "label": "SITE", "pct": 100 }, { "label": "PUBLISH", "pct": 100 } ] },
+    { "status": "IN PROGRESS", "stack": "STT / TTS · हिंदी / अवधी",          "bars": [ { "label": "STT", "pct": 40 }, { "label": "TTS", "pct": 15 }, { "label": "अवधी", "pct": 10 } ] },
+    { "status": "PLANNED",     "stack": "CAM ×2 · 3-DOF NECK",              "bars": [ { "label": "DESIGN", "pct": 5 } ] },
+    { "status": "PLANNED",     "stack": "CHASSIS · GRIPPERS",               "bars": [ { "label": "DESIGN", "pct": 0 } ] },
+    { "status": "PLANNED",     "stack": "BIPEDAL LOCOMOTION",               "bars": [ { "label": "—", "pct": 0 } ] },
+    { "status": "END GOAL",    "stack": "विवेक / JUDGEMENT",                 "bars": [ { "label": "?", "pct": 0 } ] }
+  ]
+}

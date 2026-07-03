@@ -72,11 +72,13 @@ collections:
               - { label: "Title (Hindi)", name: "title", widget: "string" }
               - { label: "URL Slug", name: "slug", widget: "string", hint: "Example: mars-mission-2026" }
               - { label: "Author ID", name: "author_id", widget: "string", default: "priy-ranjan", hint: "Match with Author Profile ID" }
-              - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य"] }
+              - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य", "Srijan Robotics"] }
               - { label: "Status", name: "status", widget: "select", options: ["Published", "Draft"], default: "Published" }
               - { label: "Cover Image", name: "image", widget: "image" }
               - { label: "Article Summary", name: "summary", widget: "text" }
-              - { label: "Main Body Content", name: "body", widget: "markdown" }
+              - { label: "Body — हिंदी (Hindi)", name: "body_hindi", widget: "markdown", required: true }
+              - { label: "Body — अवधी (Awadhi)", name: "body_awadhi", widget: "markdown", required: false }
+              - { label: "Body — English", name: "body_english", widget: "markdown", required: false }
               - { label: "YouTube Video ID", name: "video_id", widget: "string", required: false }
               - { label: "Publish Date", name: "date", widget: "datetime" }
 
