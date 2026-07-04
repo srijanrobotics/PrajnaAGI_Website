@@ -3,3 +3,4 @@ desktop.ini
 patch_subscribe.py
 *.tmp
 .DS_Store
+__pycache__/
