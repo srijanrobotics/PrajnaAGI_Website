@@ -406,7 +406,7 @@ nav {
 .ticker-track {
     display: inline-flex;
     white-space: nowrap;
-    animation: ticker 40s steps(400) infinite; /* stepped = LED sweep */
+    animation: ticker 80s linear infinite; /* slow, smooth, continuous */
     font-family: var(--font-mono);
     color: var(--accent);
     text-shadow: var(--glow);
@@ -748,7 +748,6 @@ footer {
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
-    .ticker-track { animation: none; }
     .led-blink { animation: none; opacity: 1; }
     * { transition: none !important; }
     .px, .logo .logo-px, .ticker-track, .search-btn,
@@ -976,7 +975,7 @@ body { line-height: 1.7; }
 }
 /* smooth TV crawl + faded edges like a broadcast strip */
 .ticker-track {
-    animation: ticker 45s linear infinite;
+    animation: ticker 80s linear infinite;
     font-family: var(--font-body);
     font-weight: 500;
     font-size: 0.9rem;
@@ -989,7 +988,9 @@ body { line-height: 1.7; }
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
     mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
 }
-.ticker-wrap:hover .ticker-track { animation-play-state: paused; } /* TV-style: hover to read */
+@media (hover: hover) and (pointer: fine) {
+    .ticker-wrap:hover .ticker-track { animation-play-state: paused; } /* TV-style: hover to read */
+}
 
 /* ── HOVER STATES EVERYWHERE ── */
 /* nav tabs: gold sweep underline + lift */
@@ -1073,4 +1074,30 @@ body, nav, footer, .clickable-card, .newsletter-section, .ticker-wrap {
     .led-blink { animation: none; }
     .ticker-track { animation: none; }
     .clickable-card:hover .card-img, .clickable-card:hover .featured-img { transform: none; }
+}
+
+/* ── FACTS: क्या आप जानते हैं? ── */
+.facts-section[hidden] { display: none; }
+.fact-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 22px 26px;
+    border: 1px solid var(--accent-dim);
+    background: rgba(255, 215, 0, 0.05);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px -20px rgba(0, 0, 0, 0.6);
+}
+.fact-icon { font-size: 1.9rem; line-height: 1.2; }
+.fact-text { margin: 0; line-height: 1.9; }
+.fact-highlight {
+    margin: 8px 0 0;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+@media (max-width: 600px) {
+    .fact-card { flex-direction: column; gap: 8px; padding: 18px; }
 }

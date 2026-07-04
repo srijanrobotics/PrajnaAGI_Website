@@ -321,7 +321,38 @@
     // refresh the ticker every hour so new articles surface automatically
     setInterval(function () {
         if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
+        loadCMSFact();
     }, 60 * 60 * 1000);
+
+    // ── facts: क्या आप जानते हैं? (rotates every 6 hours) ────────
+    async function loadCMSFact() {
+        const section = document.getElementById('facts-section');
+        const textEl = document.getElementById('fact-text');
+        const hlEl = document.getElementById('fact-highlight');
+        const iconEl = document.getElementById('fact-icon');
+        if (!section || !textEl) return;
+
+        const data = await fetchJSON('content/facts.json');
+        if (!data || !Array.isArray(data.facts) || data.facts.length === 0) return;
+        const facts = data.facts.filter(function (f) {
+            return f && typeof f.fact_text === 'string' && f.fact_text;
+        });
+        if (facts.length === 0) return;
+
+        // same fact for everyone within each 6-hour slot, then rotates
+        const slot = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
+        const fact = facts[slot % facts.length];
+
+        if (iconEl) iconEl.textContent = safeText(fact.icon, 4) || '✦';
+        textEl.textContent = safeText(fact.fact_text, 500);
+        if (hlEl) hlEl.textContent = safeText(fact.highlight, 120);
+        section.hidden = false;
+    }
+
+    // re-check every 30 min so the fact flips when a new 6-hour slot starts
+    setInterval(function () {
+        if (document.getElementById('facts-section')) loadCMSFact();
+    }, 30 * 60 * 1000);
 
     // ── full article page ────────────────────────────────────────
     async function loadFullArticle() {
@@ -425,6 +456,7 @@
     // ── search ───────────────────────────────────────────────────
     async function handleSearch(query) {
         if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
+        loadCMSFact();
 
         const latestGrid = document.getElementById('cms-latest-grid');
         const mainSection = latestGrid ? latestGrid.closest('section') : document.querySelector('section.section');
@@ -464,6 +496,7 @@
     function initCMS() {
         if (document.getElementById('cms-latest-grid')) loadCMSHome('cms-latest-grid');
         if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
+        loadCMSFact();
         if (document.getElementById('article-detail-container')) {
             wireLangToggle();
             loadFullArticle();
