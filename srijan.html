@@ -4,28 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Srijan Robotics — यात्रा</title>
+    <title>सृजन रोबॉटिक्स — यात्रा</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="description" content="Srijan Robotics — एक रोबोट के बनने की यात्रा: प्रज्ञा (दिमाग) से PrajnaAGI तक।">
+    <meta name="description" content="सृजन रोबॉटिक्स — सृजन रोबॉट और प्रज्ञा मस्तिष्क के बनने की यात्रा: प्रज्ञा (दिमाग) से PrajnaAGI तक।">
     <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="PrajnaAGI">
-    <meta property="og:title" content="Srijan Robotics — यात्रा">
-    <meta property="og:description" content="एक रोबोट के बनने की यात्रा — शुरुआत से PrajnaAGI तक।">
+    <meta property="og:title" content="सृजन रोबॉटिक्स — यात्रा">
+    <meta property="og:description" content="सृजन रोबॉट और प्रज्ञा मस्तिष्क के बनने की यात्रा — शुरुआत से PrajnaAGI तक।">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/advanced.css">
 </head>
 
 <body data-theme="light" class="srijan-page">
 
-    <!-- ── NAVIGATION: only होम + Srijan Robotics ── -->
+    <!-- ── NAVIGATION: black-hole home + सृजन रोबॉटिक्स ── -->
     <nav>
         <div class="nav-inner">
             <div class="brand-container">
-                <a href="index.html" class="logo">Prajna<span class="brand">AGI</span></a>
+                <a href="index.html" class="logo srijan-bh-logo" aria-label="होम">
+                    <span class="bh" aria-hidden="true">
+                        <span class="bh-disk"></span>
+                        <span class="bh-core"></span>
+                    </span>
+                    <span class="bh-label">होम</span>
+                </a>
                 <ul class="menu-tabs">
-                    <li><a href="index.html">होम</a></li>
-                    <li><a href="srijan.html" class="active">Srijan Robotics</a></li>
+                    <li><a href="srijan.html" class="active">सृजन रोबॉटिक्स</a></li>
                 </ul>
             </div>
             <div class="nav-controls">
@@ -38,8 +43,8 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <ul>
-            <li><a href="index.html">होम</a></li>
-            <li><a href="srijan.html">Srijan Robotics</a></li>
+            <li><a href="index.html" aria-label="होम"><svg class="nav-home-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></a></li>
+            <li><a href="srijan.html">सृजन रोबॉटिक्स</a></li>
         </ul>
     </div>
 
@@ -47,9 +52,9 @@
     <header class="srijan-stage srijan-stage--hero">
         <canvas id="smokeCanvas" aria-hidden="true"></canvas>
         <div class="srijan-title">
-            <h1>Srijan Robotics</h1>
+            <h1>सृजन रोबॉटिक्स</h1>
             <hr class="dot-rule">
-            <p>एक रोबोट के बनने की यात्रा</p>
+            <p>सृजन रोबॉट और प्रज्ञा मस्तिष्क के बनने की यात्रा</p>
             <span class="srijan-scroll-hint" aria-hidden="true">यात्रा देखें ↓</span>
         </div>
     </header>
@@ -58,9 +63,9 @@
     <section class="srijan-section">
         <h2 class="srijan-h2">दृष्टि</h2>
         <p class="srijan-lead">
-            श्रीजन कोई कारखाने का रोबोट नहीं है। वह धीरे-धीरे, परत-दर-परत बन रहा एक यंत्र है —
+            सृजन कोई कारखाने का रोबॉट नहीं है। वह धीरे-धीरे, परत-दर-परत बन रहा एक यंत्र है —
             जिसका दिमाग <strong>प्रज्ञा</strong> पहले बन रहा है, शरीर बाद में।
-            लक्ष्य सिर्फ चलता-फिरता रोबोट नहीं; लक्ष्य है <strong>PrajnaAGI</strong> —
+            लक्ष्य सिर्फ चलता-फिरता रोबॉट नहीं; लक्ष्य है <strong>PrajnaAGI</strong> —
             एक ऐसी बुद्धि जो हिंदी में सोचे, अवधी में अपनापन रखे, और विवेक से काम ले।
         </p>
     </section>
@@ -80,7 +85,7 @@
                 <div class="milestone-card">
                     <span class="milestone-tag">पूर्ण · शुरुआत</span>
                     <h3>विचार का जन्म</h3>
-                    <p>Srijan Robotics की नींव — एक लेखक और वाइब-कोडर का संकल्प कि भारत का रोबोट भारत की भाषाओं में सोचेगा। नाम तय हुए: शरीर <strong>श्रीजन</strong>, दिमाग <strong>प्रज्ञा</strong>।</p>
+                    <p>सृजन रोबॉटिक्स की नींव — एक लेखक और वाइब-कोडर का संकल्प कि भारत का रोबॉट भारत की भाषाओं में सोचेगा। नाम तय हुए: शरीर <strong>सृजन</strong>, दिमाग <strong>प्रज्ञा</strong>।</p>
                 </div>
             </article>
 
@@ -98,7 +103,7 @@
                 <div class="milestone-card">
                     <span class="milestone-tag">पूर्ण · 2026</span>
                     <h3>आवाज़ नहीं, कलम — PrajnaAGI वेबसाइट</h3>
-                    <p>श्रीजन बोलने से पहले लिखना सीखा। यह वेबसाइट — विज्ञान की खबरें सरल हिंदी में — उसकी पहली सार्वजनिक अभिव्यक्ति है। लेख वह खुद प्रकाशित करता है।</p>
+                    <p>सृजन बोलने से पहले लिखना सीखा। यह वेबसाइट — विज्ञान की खबरें सरल हिंदी में — उसकी पहली सार्वजनिक अभिव्यक्ति है। लेख वह खुद प्रकाशित करता है।</p>
                 </div>
             </article>
 
@@ -125,7 +130,7 @@
                 <div class="milestone-card">
                     <span class="milestone-tag">आगामी</span>
                     <h3>धड़ और हाथ</h3>
-                    <p>पकड़ना, उठाना, इशारा करना — हाथों से दुनिया को छूना। यहीं से श्रीजन काम में हाथ बँटाना शुरू करेगा।</p>
+                    <p>पकड़ना, उठाना, इशारा करना — हाथों से दुनिया को छूना। यहीं से सृजन काम में हाथ बँटाना शुरू करेगा।</p>
                 </div>
             </article>
 
@@ -152,13 +157,13 @@
     <!-- ── FOLLOW ── -->
     <section class="srijan-section srijan-cta">
         <hr class="dot-rule">
-        <p>यात्रा की हर प्रविष्टि श्रीजन खुद लिखता है।</p>
-        <a href="index.html?search=srijan" class="px-btn srijan-btn">श्रीजन के लेख पढ़ें</a>
+        <p>यात्रा की हर प्रविष्टि सृजन खुद लिखता है।</p>
+        <a href="index.html?search=सृजन" class="px-btn srijan-btn">सृजन के लेख पढ़ें</a>
     </section>
 
     <!-- ── FOOTER ── -->
     <footer class="srijan-footer">
-        <p class="footer-bottom">© 2026 SRIJAN ROBOTICS · <a href="index.html">PRAJNAAGI</a> · <a href="contact.html">CONTACT</a></p>
+        <p class="footer-bottom">© 2026 सृजन रोबॉटिक्स · <a href="index.html">PRAJNAAGI</a> · <a href="contact.html">CONTACT</a></p>
     </footer>
 
     <script src="assets/js/ui.js" defer></script>

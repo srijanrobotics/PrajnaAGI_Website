@@ -57,6 +57,13 @@
 
         hud.appendChild(inner);
         nav.insertAdjacentElement('afterend', hud);
+
+        // border dissolves while scrolling (liquid glass)
+        function onScroll() {
+            hud.classList.toggle('hud-scrolled', window.scrollY > 8);
+        }
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
     }
 
     // ── 3. SPEC-SHEET FOOTERS ────────────────────────────────────

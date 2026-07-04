@@ -304,7 +304,7 @@ function draw() {
         ctx.lineTo(px - Math.cos(p.ang) * stretch, py - Math.sin(p.ang) * stretch);
         ctx.stroke();
     }
-    ctx.strokeStyle = isDark() ? 'rgba(225,173,1,0.18)' : 'rgba(184,138,0,0.14)';
+    ctx.strokeStyle = isDark() ? 'rgba(225,173,1,0.08)' : 'rgba(184,138,0,0.06)';
     for (let x = 0; x < width + step; x += step) {
         ctx.beginPath();
         for (let y = 0; y < height; y += 18) {

@@ -1,0 +1,125 @@
+#!/usr/bin/env python3
+"""
+auto_publish.py — PrajnaAGI autonomous article publisher (GitHub Actions).
+Runs twice daily (7:00 & 17:00 IST). Each run writes ONE article per category
+(= 2 per page per day) using Gemini and appends them to content/articles.json.
+
+Env:
+  GEMINI_API_KEY  (required — GitHub Actions secret)
+  RUN_SLOT        "morning" | "evening" (optional, for topic variety)
+"""
+import os
+import sys
+import json
+import re
+import datetime
+import urllib.parse
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+ARTICLES = ROOT / "content" / "articles.json"
+
+CATEGORIES = {
+    "अंतरिक्ष": "space missions, astronomy, ISRO, NASA, telescopes, exoplanets",
+    "विज्ञान": "physics, biology, chemistry, research breakthroughs, Indian science",
+    "तकनीक": "AI, robotics, gadgets, software, chips, Indian tech",
+    "पर्यावरण": "climate, wildlife, rivers, renewable energy, conservation in India",
+    "स्वास्थ्य": "medicine, nutrition, mental health, yoga science, public health",
+    "सृजन रोबॉटिक्स": "Srijan robot diary — first-person entry by Srijan the humanoid robot being built in India (brain: Prajna)",
+}
+
+TAGS = {
+    "अंतरिक्ष": "SPACE", "विज्ञान": "SCI", "तकनीक": "TECH",
+    "पर्यावरण": "ECO", "स्वास्थ्य": "HEALTH", "सृजन रोबॉटिक्स": "SRIJAN",
+}
+
+
+def slugify(title, cat):
+    s = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+    if not s:
+        s = TAGS[cat].lower() + "-" + datetime.datetime.now().strftime("%Y%m%d-%H%M")
+    return s[:60]
+
+
+def image_url(prompt):
+    p = f"retro 8-bit pixel art, {prompt}, chunky pixels, 1980s video game style"
+    return ("https://image.pollinations.ai/prompt/"
+            + urllib.parse.quote(p) + "?width=1024&height=576&nologo=true")
+
+
+def generate(model, category, hint, existing_titles, slot):
+    time_hint = "subah (morning edition)" if slot == "morning" else "shaam (evening edition)"
+    if category == "सृजन रोबॉटिक्स":
+        persona = ("Tu Srijan hai — ek humanoid robot jo India mein ban raha hai, "
+                   "jiska dimaag 'प्रज्ञा' hai. First-person (मैं) diary entry likho. "
+                   "'सृजन' aur 'रोबॉट' spelling hamesha aise hi likhna.")
+    else:
+        persona = ("Tu PrajnaAGI ka science journalist hai. Saral, सटीक Hindi mein "
+                   "news-style article likho. 'रोबॉट' spelling aise hi likhna.")
+    prompt = f"""{persona}
+Category: {category} ({hint})
+Edition: {time_hint}, date {datetime.date.today().isoformat()}
+In titles se ALAG naya topic chuno: {existing_titles[-12:]}
+
+STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
+{{"title": "...", "title_en": "short english slug words", "summary": "1-2 vakya Hindi",
+"body_hindi": "300-450 shabd Hindi, ### subheadings ke saath",
+"image_prompt": "short English scene description"}}"""
+    resp = model.generate_content(prompt)
+    text = resp.text.strip()
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.S)
+    return json.loads(text)
+
+
+def main():
+    key = os.getenv("GEMINI_API_KEY")
+    if not key:
+        sys.exit("[ERROR] GEMINI_API_KEY missing")
+    import google.generativeai as genai
+    genai.configure(api_key=key)
+    model = genai.GenerativeModel("gemini-2.5-flash")
+
+    slot = os.getenv("RUN_SLOT") or ("morning" if datetime.datetime.utcnow().hour < 6 else "evening")
+
+    data = json.loads(ARTICLES.read_text(encoding="utf-8"))
+    articles = data["articles"]
+    titles = [a.get("title", "") for a in articles]
+    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+    added = 0
+    for cat, hint in CATEGORIES.items():
+        try:
+            art = generate(model, cat, hint, titles, slot)
+        except Exception as e:
+            print(f"[WARN] {cat}: generation failed → {e}")
+            continue
+        title = str(art.get("title", "")).strip()
+        if not title:
+            continue
+        entry = {
+            "title": title,
+            "slug": slugify(str(art.get("title_en", "")), cat),
+            "category": cat,
+            "tag": TAGS[cat],
+            "author_id": "srijan" if cat == "सृजन रोबॉटिक्स" else "priy-ranjan",
+            "date": now,
+            "summary": str(art.get("summary", "")).strip(),
+            "body_hindi": str(art.get("body_hindi", "")).strip(),
+            "body_awadhi": "",
+            "body_english": "",
+            "image": image_url(str(art.get("image_prompt", title))),
+        }
+        articles.append(entry)
+        titles.append(title)
+        added += 1
+        print(f"[OK] {cat}: {title}")
+
+    if not added:
+        sys.exit("[ERROR] koi article nahi bana")
+
+    ARTICLES.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[DONE] {added} naye article jode gaye ({slot}).")
+
+
+if __name__ == "__main__":
+    main()

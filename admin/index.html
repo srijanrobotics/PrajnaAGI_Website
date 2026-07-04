@@ -1,47 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PRAJNA ARTIFICIAL GENERAL INTELLIGENCE — Content Management System</title>
+    <title>PrajnaAGI — Content Management System</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
-      /* Custom Styling for the CMS Dashboard */
-      .nc-app-header-fixed { background: #000 !important; border-bottom: 1px solid #333 !important; }
-      .nc-app-header-title { color: #00f2fe !important; font-weight: 900 !important; letter-spacing: 1px; }
-      .nc-collectionPage-sidebar { background: #0a0a0a !important; border-right: 1px solid #222 !important; }
-      .nc-collectionPage-sidebar-link { color: #aaa !important; border-radius: 8px !important; margin: 4px 8px !important; }
-      .nc-collectionPage-sidebar-link-active { background: rgba(0, 242, 254, 0.1) !important; color: #00f2fe !important; }
+      /* ── PrajnaAGI CMS skin: dark cosmos + amaltas gold, like the site ── */
+      :root { --pj-gold: #FFD700; --pj-bg: #0a0a0f; }
+      body { background: var(--pj-bg); }
+
+      /* top bar */
+      [class*="AppHeader"] {
+        background: rgba(10, 10, 15, 0.9) !important;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.25) !important;
+        backdrop-filter: blur(12px);
+      }
+      [class*="AppHeader"] a, [class*="AppHeader"] button, [class*="AppHeader"] span {
+        color: #e8e8e8 !important;
+      }
+      [class*="AppHeader"] a[class*="active"], [class*="AppHeader"] a:hover {
+        color: var(--pj-gold) !important;
+      }
+
+      /* sidebar */
+      [class*="SidebarContainer"], [class*="Sidebar"] {
+        background: #101018 !important;
+        border-color: rgba(255, 215, 0, 0.15) !important;
+      }
+      [class*="SidebarNavLink"] {
+        color: #bbb !important;
+        border-radius: 10px !important;
+        margin: 3px 8px !important;
+      }
+      [class*="SidebarNavLink"]:hover,
+      [class*="SidebarNavLink"][class*="active"] {
+        background: rgba(255, 215, 0, 0.12) !important;
+        color: var(--pj-gold) !important;
+      }
+
+      /* main canvas + cards */
+      [class*="AppMainContainer"], [class*="CollectionMain"] { background: transparent !important; }
+      [class*="ListCard"], [class*="GridCard"], [class*="Card"] {
+        background: #14141d !important;
+        border: 1px solid rgba(255, 215, 0, 0.12) !important;
+        border-radius: 12px !important;
+        color: #e8e8e8 !important;
+        transition: border-color 0.2s ease, transform 0.2s ease;
+      }
+      [class*="ListCard"]:hover, [class*="Card"]:hover {
+        border-color: rgba(255, 215, 0, 0.45) !important;
+        transform: translateY(-1px);
+      }
+      h1, h2, [class*="CardHeading"] { color: #f2f2f2 !important; }
+
+      /* buttons */
+      button[class*="Publish"], [class*="ToolbarButton"][class*="publish"] {
+        background: var(--pj-gold) !important;
+        color: #111 !important;
+        font-weight: 700 !important;
+      }
+
+      /* scrollbar */
+      ::-webkit-scrollbar { width: 10px; background: #101018; }
+      ::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 5px; }
     </style>
   </head>
   <body>
-    <!-- Include the script that builds the page and powers Decap CMS -->
+    <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      // Register custom editor components
+      // Custom editor components
       CMS.registerEditorComponent({
         id: "youtube",
         label: "YouTube",
-        fields: [{name: 'id', label: 'YouTube Video ID', widget: 'string'}],
+        fields: [{ name: "id", label: "YouTube Video ID", widget: "string" }],
         pattern: /^youtube (\S+)$/,
-        fromBlock: function(match) { return { id: match[1] }; },
-        toBlock: function(obj) { return '`youtube:' + obj.id + '`'; },
-        toPreview: function(obj) {
-          return '<img src="http://img.youtube.com/vi/' + obj.id + '/0.jpg" alt="Youtube Video"/>';
+        fromBlock: function (match) { return { id: match[1] }; },
+        toBlock: function (obj) { return "`youtube:" + obj.id + "`"; },
+        toPreview: function (obj) {
+          return '<img src="https://img.youtube.com/vi/' + obj.id + '/0.jpg" alt="YouTube Video"/>';
         }
       });
-      
+
       CMS.registerEditorComponent({
         id: "twitter",
         label: "X (Twitter)",
-        fields: [{name: 'url', label: 'Post URL', widget: 'string'}],
+        fields: [{ name: "url", label: "Post URL", widget: "string" }],
         pattern: /^twitter (\S+)$/,
-        fromBlock: function(match) { return { url: match[1] }; },
-        toBlock: function(obj) { return '`twitter:' + obj.url + '`'; },
-        toPreview: function(obj) {
-          return '<blockquote>X Post: ' + obj.url + '</blockquote>';
+        fromBlock: function (match) { return { url: match[1] }; },
+        toBlock: function (obj) { return "`twitter:" + obj.url + "`"; },
+        toPreview: function (obj) {
+          return "<blockquote>X Post: " + obj.url + "</blockquote>";
         }
       });
+
+      // Live preview styled like the real site
+      CMS.registerPreviewStyle("/assets/css/main.css");
+      CMS.registerPreviewStyle("/assets/css/advanced.css");
     </script>
   </body>
 </html>

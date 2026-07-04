@@ -137,7 +137,33 @@
                 const href = safeURL(item.link);
                 if (!href) return;
                 const li = document.createElement('li');
-                const a = el('a', null, safeText(item.label, 60));
+                let a;
+                if (href === 'index.html') {
+                    // होम -> home icon element
+                    a = document.createElement('a');
+                    a.setAttribute('aria-label', 'होम');
+                    a.title = 'होम';
+                    const NS = 'http://www.w3.org/2000/svg';
+                    const svg = document.createElementNS(NS, 'svg');
+                    svg.setAttribute('class', 'nav-home-icon');
+                    svg.setAttribute('viewBox', '0 0 24 24');
+                    svg.setAttribute('width', '18');
+                    svg.setAttribute('height', '18');
+                    svg.setAttribute('fill', 'none');
+                    svg.setAttribute('stroke', 'currentColor');
+                    svg.setAttribute('stroke-width', '2');
+                    svg.setAttribute('stroke-linecap', 'round');
+                    svg.setAttribute('stroke-linejoin', 'round');
+                    svg.setAttribute('aria-hidden', 'true');
+                    const p1 = document.createElementNS(NS, 'path');
+                    p1.setAttribute('d', 'M3 10.5 12 3l9 7.5');
+                    const p2 = document.createElementNS(NS, 'path');
+                    p2.setAttribute('d', 'M5 9.5V21h14V9.5');
+                    svg.appendChild(p1); svg.appendChild(p2);
+                    a.appendChild(svg);
+                } else {
+                    a = el('a', null, safeText(item.label, 60));
+                }
                 a.href = href;
                 if (window.location.pathname.split('/').pop() === href) a.className = 'active';
                 li.appendChild(a);
@@ -449,7 +475,7 @@
             { id: 'cms-space-grid', cat: 'अंतरिक्ष' },
             { id: 'cms-environment-grid', cat: 'पर्यावरण' },
             { id: 'cms-health-grid', cat: 'स्वास्थ्य' },
-            { id: 'cms-srijan-grid', cat: 'Srijan Robotics' }
+            { id: 'cms-srijan-grid', cat: 'सृजन रोबॉटिक्स' }
         ].forEach(function (g) {
             if (document.getElementById(g.id)) loadCMSCategoryArticles(g.id, g.cat);
         });

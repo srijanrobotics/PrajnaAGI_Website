@@ -13,11 +13,18 @@
     let w = 0, h = 0, t = 0;
 
     function resize() {
-        const stage = canvas.parentElement;
-        w = canvas.width = stage.clientWidth;
-        h = canvas.height = stage.clientHeight;
+        // DPR-aware sizing: crisp & correctly positioned on desktop/hi-DPI.
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        const rect = canvas.getBoundingClientRect();
+        w = Math.round(rect.width);
+        h = Math.round(rect.height);
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     window.addEventListener('resize', resize);
+    // re-measure after layout/fonts settle (fixes wrong desktop sizing on load)
+    window.addEventListener('load', resize);
     resize();
 
     // The line is drawn as many short segments; each higher segment

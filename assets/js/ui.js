@@ -278,3 +278,35 @@
         wireIdentity();
     }
 })();
+
+// ── REAL VISITOR COUNTER ────────────────────────────────────────────────────
+// Counts every browser once (localStorage flag) via /api/visitors (Netlify
+// Blobs). Renders the live total in Hindi units: सौ / हजार / लाख.
+(function () {
+    'use strict';
+
+    function hindiCount(n) {
+        function trim1(v) {
+            const s = (Math.round(v * 10) / 10).toFixed(1);
+            return s.endsWith('.0') ? s.slice(0, -2) : s;
+        }
+        if (n >= 10000000) return trim1(n / 10000000) + ' करोड़+';
+        if (n >= 100000) return trim1(n / 100000) + ' लाख+';
+        if (n >= 1000) return trim1(n / 1000) + ' हजार+';
+        if (n >= 100) return Math.floor(n / 100) + ' सौ+';
+        return String(n);
+    }
+
+    let first = false;
+    try { first = !localStorage.getItem('prajnaVisited'); } catch (e) { /* private mode */ }
+
+    fetch('/api/visitors' + (first ? '?hit=1' : ''))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+            if (first) { try { localStorage.setItem('prajnaVisited', '1'); } catch (e) {} }
+            const p = document.getElementById('visitorCount');
+            if (!p || !data || typeof data.count !== 'number' || data.count < 1) return;
+            p.textContent = hindiCount(data.count) + (p.dataset.suffix || ' पाठक पहले से जुड़े हैं।');
+        })
+        .catch(function () { /* offline/local — keep fallback text */ });
+})();

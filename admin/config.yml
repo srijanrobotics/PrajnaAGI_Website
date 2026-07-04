@@ -8,7 +8,91 @@ publish_mode: editorial_workflow
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
+site_url: "https://prajnaagi.com"
+display_url: "https://prajnaagi.com"
+
 collections:
+  - name: "content"
+    label: "📰 News & Content"
+    files:
+      - name: "articles"
+        label: "📝 Articles (Main News)"
+        file: "content/articles.json"
+        fields:
+          - label: "Articles List"
+            name: "articles"
+            widget: "list"
+            summary: "{{fields.title}} [{{fields.category}}]"
+            fields:
+              - { label: "Title (Hindi)", name: "title", widget: "string" }
+              - { label: "URL Slug", name: "slug", widget: "string", hint: "Example: mars-mission-2026" }
+              - { label: "Author ID", name: "author_id", widget: "string", default: "priy-ranjan", hint: "Match with Author Profile ID" }
+              - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य", "सृजन रोबॉटिक्स"] }
+              - { label: "Tag (short, e.g. TECH)", name: "tag", widget: "string", required: false }
+              - { label: "Status", name: "status", widget: "select", options: ["Published", "Draft"], default: "Published" }
+              - { label: "Cover Image", name: "image", widget: "image" }
+              - { label: "Article Summary", name: "summary", widget: "text" }
+              - { label: "Body — हिंदी (Hindi)", name: "body_hindi", widget: "markdown", required: true }
+              - { label: "Body — अवधी (Awadhi)", name: "body_awadhi", widget: "markdown", required: false }
+              - { label: "Body — English", name: "body_english", widget: "markdown", required: false }
+              - { label: "YouTube Video ID", name: "video_id", widget: "string", required: false }
+              - { label: "Publish Date", name: "date", widget: "datetime" }
+
+      - name: "ticker"
+        label: "📡 Breaking News Ticker"
+        file: "content/ticker.json"
+        fields:
+          - label: "Ticker Headlines"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Headline Text", name: "text", widget: "string" }
+
+      - name: "facts"
+        label: "💡 Facts (क्या आप जानते हैं?)"
+        file: "content/facts.json"
+        fields:
+          - label: "Facts List"
+            name: "facts"
+            widget: "list"
+            summary: "{{fields.highlight}}"
+            fields:
+              - { label: "Icon (Emoji)", name: "icon", widget: "string" }
+              - { label: "Fact Text (Hindi)", name: "fact_text", widget: "text" }
+              - { label: "Highlight (bold part)", name: "highlight", widget: "string", required: false }
+
+  - name: "srijan"
+    label: "🤖 सृजन रोबॉटिक्स"
+    files:
+      - name: "progress"
+        label: "📈 Robot Progress / Mission Control"
+        file: "content/progress.json"
+        fields:
+          - { label: "Version (e.g. PRAJNA v1.3)", name: "version", widget: "string" }
+          - { label: "Overall Progress %", name: "overall", widget: "number", min: 0, max: 100 }
+          - { label: "Project Start Date", name: "since", widget: "string", hint: "YYYY-MM-DD" }
+          - { label: "Log Count", name: "log", widget: "number" }
+          - label: "Systems (HUD strip)"
+            name: "systems"
+            widget: "list"
+            summary: "{{fields.label}}: {{fields.status}}"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Status", name: "status", widget: "select", options: ["ONLINE", "TRAINING", "OFFLINE"] }
+          - label: "Milestone Spec Sheets"
+            name: "milestones"
+            widget: "list"
+            summary: "{{fields.stack}} [{{fields.status}}]"
+            fields:
+              - { label: "Status", name: "status", widget: "select", options: ["COMPLETE", "IN PROGRESS", "PLANNED", "END GOAL"] }
+              - { label: "Stack / Tech", name: "stack", widget: "string" }
+              - label: "Progress Bars"
+                name: "bars"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Percent", name: "pct", widget: "number", min: 0, max: 100 }
+
   - name: "author_profiles"
     label: "👤 Author Profiles"
     description: "Update your team details, profile pictures, and bios here."
@@ -49,45 +133,21 @@ collections:
         label: "🌐 Site Configuration"
         file: "content/settings.json"
         fields:
+          - { label: "Site Name", name: "site_name", widget: "string" }
+          - { label: "Tagline (Hindi)", name: "tagline", widget: "string" }
+          - { label: "Logo Text", name: "logo_text", widget: "string" }
+          - { label: "Footer Copyright", name: "footer_copy", widget: "string" }
+          - label: "Social Links"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "X (Twitter)", name: "x_link", widget: "string", required: false }
+              - { label: "LinkedIn", name: "linkedin_link", widget: "string", required: false }
+              - { label: "GitHub", name: "github_link", widget: "string", required: false }
           - label: "Payments (UPI/Razorpay)"
             name: "payments"
             widget: "object"
             fields:
               - { label: "UPI ID", name: "upi_id", widget: "string" }
               - { label: "UPI QR Code Image", name: "upi_qr", widget: "image" }
-              - { label: "Razorpay / External Link", name: "pay_link", widget: "string" }
-
-  - name: "content"
-    label: "📰 News & Content"
-    files:
-      - name: "articles"
-        label: "📝 Articles (Main News)"
-        file: "content/articles.json"
-        fields:
-          - label: "Articles List"
-            name: "articles"
-            widget: "list"
-            summary: "{{fields.title}} [{{fields.category}}]"
-            fields:
-              - { label: "Title (Hindi)", name: "title", widget: "string" }
-              - { label: "URL Slug", name: "slug", widget: "string", hint: "Example: mars-mission-2026" }
-              - { label: "Author ID", name: "author_id", widget: "string", default: "priy-ranjan", hint: "Match with Author Profile ID" }
-              - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य", "Srijan Robotics"] }
-              - { label: "Status", name: "status", widget: "select", options: ["Published", "Draft"], default: "Published" }
-              - { label: "Cover Image", name: "image", widget: "image" }
-              - { label: "Article Summary", name: "summary", widget: "text" }
-              - { label: "Body — हिंदी (Hindi)", name: "body_hindi", widget: "markdown", required: true }
-              - { label: "Body — अवधी (Awadhi)", name: "body_awadhi", widget: "markdown", required: false }
-              - { label: "Body — English", name: "body_english", widget: "markdown", required: false }
-              - { label: "YouTube Video ID", name: "video_id", widget: "string", required: false }
-              - { label: "Publish Date", name: "date", widget: "datetime" }
-
-      - name: "ticker"
-        label: "📡 Breaking News Ticker"
-        file: "content/ticker.json"
-        fields:
-          - label: "Ticker Headlines"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "Headline Text", name: "text", widget: "string" }
+              - { label: "Razorpay / External Link", name: "pay_link", widget: "string", required: false }
