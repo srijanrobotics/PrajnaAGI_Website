@@ -1076,28 +1076,67 @@ body, nav, footer, .clickable-card, .newsletter-section, .ticker-wrap {
     .clickable-card:hover .card-img, .clickable-card:hover .featured-img { transform: none; }
 }
 
-/* ── FACTS: क्या आप जानते हैं? ── */
+/* ── FACTS: क्या आप जानते हैं? (3-card grid + scrollable archive) ── */
 .facts-section[hidden] { display: none; }
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
 .fact-card {
     display: flex;
     align-items: flex-start;
-    gap: 18px;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 22px 26px;
+    gap: 14px;
+    padding: 20px 22px;
     border: 1px solid var(--accent-dim);
     background: rgba(255, 215, 0, 0.05);
     border-radius: 14px;
     box-shadow: 0 10px 30px -20px rgba(0, 0, 0, 0.6);
 }
-.fact-icon { font-size: 1.9rem; line-height: 1.2; }
-.fact-text { margin: 0; line-height: 1.9; }
+.fact-icon { font-size: 1.7rem; line-height: 1.2; flex-shrink: 0; }
+.fact-text { margin: 0; line-height: 1.85; font-size: 0.95rem; }
 .fact-highlight {
     margin: 8px 0 0;
     color: var(--accent);
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
+    font-size: 0.9rem;
+}
+.facts-archive-wrap { text-align: center; margin-top: 22px; }
+.facts-archive-btn {
+    font-family: var(--font-accent);
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent-dim);
+    border-radius: 999px;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+.facts-archive-btn:hover { background: rgba(255, 215, 0, 0.08); transform: translateY(-1px); }
+.facts-archive[hidden] { display: none; }
+.facts-archive {
+    margin-top: 18px;
+    max-height: 380px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4px 6px 6px;
+    scroll-behavior: smooth;
+}
+.facts-archive::-webkit-scrollbar { width: 8px; }
+.facts-archive::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 4px; }
+@media (max-width: 900px) {
+    .facts-grid, .facts-archive { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
-    .fact-card { flex-direction: column; gap: 8px; padding: 18px; }
+    .facts-grid, .facts-archive { grid-template-columns: 1fr; }
+    .facts-archive { max-height: 320px; }
 }

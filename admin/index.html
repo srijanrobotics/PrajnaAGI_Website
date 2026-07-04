@@ -67,8 +67,50 @@
         box-shadow: 0 12px 30px -18px rgba(255, 215, 0, 0.35);
       }
 
-      /* editor pane readability */
-      [class*="ControlPaneContainer"] { max-width: 100% !important; }
+      /* ── EDITOR: full liquid-glass, readable light text everywhere ── */
+      [class*="ControlPaneContainer"], [class*="EditorContainer"],
+      [class*="PreviewPaneContainer"], [class*="EditorControlBar"] {
+        max-width: 100% !important;
+        background: transparent !important;
+      }
+      /* every card / control / widget wrapper -> glass */
+      [class*="ControlPaneContainer"] [class*="control-"],
+      [class*="card-"], [class*="Card"], [class*="ObjectControl"],
+      [class*="ListControl"], [class*="NestedObject"], [class*="widget-"],
+      [class*="Widget"], fieldset {
+        background: rgba(20, 20, 29, 0.55) !important;
+        border: 1px solid var(--pj-gold-dim) !important;
+        border-radius: 12px !important;
+        -webkit-backdrop-filter: blur(12px) saturate(1.2);
+        backdrop-filter: blur(12px) saturate(1.2);
+      }
+      /* labels + all text light */
+      [class*="ControlPaneContainer"] label,
+      [class*="ControlPaneContainer"] p,
+      [class*="ControlPaneContainer"] span,
+      [class*="ControlPaneContainer"] h1,
+      [class*="ControlPaneContainer"] h2,
+      [class*="ControlPaneContainer"] h3,
+      [class*="FieldLabel"], [class*="Label"] {
+        color: #eaeaea !important;
+      }
+      /* inputs / textareas / selects -> readable glass */
+      input, textarea, select,
+      [class*="control-"] input, [class*="control-"] textarea,
+      [contenteditable="true"], [class*="CommonEditorComponentStyles"] {
+        background: rgba(10, 10, 15, 0.55) !important;
+        color: #f4f4f4 !important;
+        border: 1px solid var(--pj-gold-dim) !important;
+        border-radius: 8px !important;
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+      input::placeholder, textarea::placeholder { color: #9a9a9a !important; }
+      /* markdown editor + its toolbar */
+      [class*="Toolbar"] { background: rgba(16,16,24,0.6) !important; }
+      [class*="Toolbar"] button, [class*="Toolbar"] svg { color: #eaeaea !important; fill: #eaeaea !important; }
+      /* preview pane text */
+      [class*="PreviewPaneContainer"] * { color: #eaeaea; }
 
       /* scrollbar */
       ::-webkit-scrollbar { width: 10px; height: 10px; background: #101018; }

@@ -324,29 +324,66 @@
         loadCMSFact();
     }, 60 * 60 * 1000);
 
-    // ── facts: क्या आप जानते हैं? (rotates every 6 hours) ────────
+    // ── facts: क्या आप जानते हैं? (3 at a time, rotates every 6h) ──
+    function factCard(fact) {
+        const card = el('div', 'fact-card');
+        card.appendChild(el('span', 'fact-icon', safeText(fact.icon, 4) || '✦'));
+        const body = el('div', 'fact-body');
+        body.appendChild(el('p', 'fact-text', safeText(fact.fact_text, 500)));
+        const hl = safeText(fact.highlight, 120);
+        if (hl) body.appendChild(el('p', 'fact-highlight', hl));
+        card.appendChild(body);
+        return card;
+    }
+
     async function loadCMSFact() {
         const section = document.getElementById('facts-section');
-        const textEl = document.getElementById('fact-text');
-        const hlEl = document.getElementById('fact-highlight');
-        const iconEl = document.getElementById('fact-icon');
-        if (!section || !textEl) return;
+        const grid = document.getElementById('facts-grid');
+        if (!section || !grid) return;
 
         const data = await fetchJSON('content/facts.json');
-        if (!data || !Array.isArray(data.facts) || data.facts.length === 0) return;
+        if (!data || !Array.isArray(data.facts)) return;
         const facts = data.facts.filter(function (f) {
             return f && typeof f.fact_text === 'string' && f.fact_text;
         });
         if (facts.length === 0) return;
 
-        // same fact for everyone within each 6-hour slot, then rotates
+        // rotating window of 3, advances every 6-hour slot
         const slot = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
-        const fact = facts[slot % facts.length];
-
-        if (iconEl) iconEl.textContent = safeText(fact.icon, 4) || '✦';
-        textEl.textContent = safeText(fact.fact_text, 500);
-        if (hlEl) hlEl.textContent = safeText(fact.highlight, 120);
+        const n = facts.length;
+        const shown = [];
+        grid.textContent = '';
+        for (let k = 0; k < Math.min(3, n); k++) {
+            const idx = ((slot + k) % n + n) % n;
+            shown.push(idx);
+            grid.appendChild(factCard(facts[idx]));
+        }
         section.hidden = false;
+
+        // archive: every OTHER fact (older ones), newest-first, scrollable
+        const archive = document.getElementById('facts-archive');
+        const btn = document.getElementById('facts-archive-btn');
+        if (archive && btn) {
+            archive.textContent = '';
+            let added = 0;
+            for (let j = 0; j < n; j++) {
+                if (shown.indexOf(j) !== -1) continue;
+                archive.appendChild(factCard(facts[j]));
+                added++;
+            }
+            if (added === 0) {
+                btn.hidden = true;
+            } else if (!btn.dataset.wired) {
+                btn.dataset.wired = '1';
+                btn.addEventListener('click', function () {
+                    const open = archive.hasAttribute('hidden');
+                    if (open) { archive.removeAttribute('hidden'); }
+                    else { archive.setAttribute('hidden', ''); }
+                    btn.setAttribute('aria-expanded', String(open));
+                    btn.textContent = open ? 'तथ्य छिपाएँ ↑' : 'पुराने रोचक तथ्य देखें ↓';
+                });
+            }
+        }
     }
 
     // re-check every 30 min so the fact flips when a new 6-hour slot starts

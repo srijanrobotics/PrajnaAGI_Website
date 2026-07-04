@@ -90,12 +90,10 @@
     <!-- ── FACTS: क्या आप जानते हैं? ── -->
     <section class="section facts-section" id="facts-section" hidden>
         <h2 class="section-title"><span class="px" aria-hidden="true">✦</span> क्या आप जानते हैं?</h2>
-        <div class="fact-card">
-            <span class="fact-icon" id="fact-icon" aria-hidden="true">✦</span>
-            <div class="fact-body">
-                <p class="fact-text" id="fact-text"></p>
-                <p class="fact-highlight" id="fact-highlight"></p>
-            </div>
+        <div class="facts-grid" id="facts-grid"></div>
+        <div class="facts-archive-wrap">
+            <button type="button" class="facts-archive-btn" id="facts-archive-btn" aria-expanded="false">पुराने रोचक तथ्य देखें ↓</button>
+            <div class="facts-archive" id="facts-archive" hidden></div>
         </div>
     </section>
 
@@ -153,9 +151,4 @@
     <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
 
     <!-- ── SCRIPTS ── -->
-    <script src="assets/js/canvas.js" defer></script>
-    <script src="assets/js/ui.js" defer></script>
-    <script src="assets/js/cms-loader.js" defer></script>
-</body>
-
-</html>
+    <script src="assets/
