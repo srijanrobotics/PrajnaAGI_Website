@@ -14,15 +14,26 @@ function = "inject-metadata"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Cross-Origin-Opener-Policy = "same-origin"
 
-# Cache static assets
+# Fonts rarely change — safe to cache long
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/*.ttf"
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
-# Admin (Decap CMS) needs a looser CSP, scoped to /admin only
+# JS/CSS: always revalidate so code updates show immediately (304 if unchanged)
 [[headers]]
-  for = "/admin/*"
+  for = "/assets/*.js"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    Content-Security-Policy = "default-src 'self' https://identity.netlify.com https://unpkg.com https://*.netlify.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src * data: blob:; connect-src 'self' https://identity.netlify.com https://*.netlify.com; frame-ancestors 'self'"
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Content JSON must always be fresh (articles/facts/ticker)
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Admin (Decap CMS) needs a loos
