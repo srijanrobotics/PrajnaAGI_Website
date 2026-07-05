@@ -66,7 +66,7 @@ STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
 {{"title": "...", "title_en": "short english slug words", "summary": "1-2 vakya Hindi",
 "body_hindi": "300-450 shabd Hindi, ### subheadings ke saath",
 "image_prompt": "short English scene description"}}"""
-    resp = model.generate_content(prompt)
+    resp = model.generate_content(prompt, request_options={"timeout": 90})
     text = resp.text.strip()
     text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.S)
     return json.loads(text)
@@ -82,7 +82,7 @@ In highlights se ALAG naya tathya: {existing_highlights[-15:]}
 
 STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
 {{"icon": "ek emoji", "fact_text": "1-2 vakya saral Hindi", "highlight": "2-4 shabd ka mukhya bindu"}}"""
-    resp = model.generate_content(prompt)
+    resp = model.generate_content(prompt, request_options={"timeout": 90})
     text = resp.text.strip()
     text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.S)
     return json.loads(text)
@@ -121,7 +121,25 @@ def main():
         sys.exit("[ERROR] GEMINI_API_KEY missing")
     import google.generativeai as genai
     genai.configure(api_key=key)
-    model = genai.GenerativeModel("gemini-2.5-flash")
+
+    # Try several model names; use the first that actually responds.
+    candidates = [
+        os.getenv("GEMINI_MODEL"),
+        "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash",
+        "gemini-1.5-flash-latest", "gemini-flash-latest",
+    ]
+    model = None
+    for name in [c for c in candidates if c]:
+        try:
+            m = genai.GenerativeModel(name)
+            m.generate_content("ping", request_options={"timeout": 30})
+            model = m
+            print(f"[MODEL] using {name}")
+            break
+        except Exception as e:
+            print(f"[MODEL] {name} unavailable → {e}")
+    if model is None:
+        sys.exit("[ERROR] koi Gemini model uplabdh nahi (key/permissions check karein)")
 
     slot = os.getenv("RUN_SLOT") or ("morning" if datetime.datetime.utcnow().hour < 6 else "evening")
 
