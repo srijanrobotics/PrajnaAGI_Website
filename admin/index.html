@@ -112,6 +112,34 @@
       /* preview pane text */
       [class*="PreviewPaneContainer"] * { color: #eaeaea; }
 
+      /* ── COLLECTION LIST VIEW: glass cards + readable light text ── */
+      /* any white/!light panel -> dark glass */
+      [class*="CollectionTop"], [class*="CollectionHeader"],
+      [class*="CardsGrid"] > *, [class*="ListCard"], [class*="EntryListing"],
+      [class*="card"], main > div > div {
+        background: rgba(20, 20, 29, 0.6) !important;
+        -webkit-backdrop-filter: blur(12px) saturate(1.2);
+        backdrop-filter: blur(12px) saturate(1.2);
+        border: 1px solid var(--pj-gold-dim) !important;
+        border-radius: 12px !important;
+      }
+      /* force ALL text in the app to a readable light tone (except gold accents) */
+      [class*="CollectionTop"], [class*="CollectionTop"] *,
+      [class*="ListCard"], [class*="ListCard"] *,
+      [class*="CardsGrid"] *, [class*="EntryListing"] *,
+      [class*="CollectionPage"] h1, [class*="CollectionPage"] h2,
+      [class*="CollectionPage"] p, [class*="CollectionPage"] span,
+      [class*="CollectionPage"] a {
+        color: #f0f0f0 !important;
+      }
+      /* keep active nav + accents gold */
+      [class*="SidebarNavLink"][class*="active"], [class*="SidebarNavLink"]:hover { color: var(--pj-gold) !important; }
+      /* search box readable */
+      [class*="CollectionSearch"] input, [class*="SearchInput"] input {
+        background: rgba(10,10,15,0.55) !important;
+        color: #f4f4f4 !important;
+      }
+
       /* scrollbar */
       ::-webkit-scrollbar { width: 10px; height: 10px; background: #101018; }
       ::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.28); border-radius: 5px; }

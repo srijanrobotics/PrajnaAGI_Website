@@ -1072,7 +1072,6 @@ body, nav, footer, .clickable-card, .newsletter-section, .ticker-wrap {
 
 @media (prefers-reduced-motion: reduce) {
     .led-blink { animation: none; }
-    .ticker-track { animation: none; }
     .clickable-card:hover .card-img, .clickable-card:hover .featured-img { transform: none; }
 }
 
