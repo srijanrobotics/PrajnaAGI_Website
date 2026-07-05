@@ -820,3 +820,62 @@
     .share-icon { width: 38px; height: 38px; }
     .share-label { width: 100%; margin-bottom: 4px; }
 }
+
+/* ── CONTACT: email line ── */
+.contact-email { margin: 6px 0 14px; font-size: 0.95rem; }
+.contact-email a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.contact-email a:hover { text-shadow: var(--glow); }
+
+/* ── SUPPORT MODAL: liquid glass + secure feel + rupee rain ── */
+.pay-overlay { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.pay-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 215, 0, 0.35) !important;
+    outline: none !important;
+    border-radius: 20px !important;
+    background: rgba(20, 20, 29, 0.55) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    max-width: 420px;
+    padding: 0 !important;
+}
+[data-theme="light"] .pay-card {
+    background: rgba(255, 255, 255, 0.55) !important;
+    border-color: rgba(184, 138, 0, 0.35) !important;
+}
+.rupee-rain {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+}
+.pay-inner {
+    position: relative;
+    z-index: 1;
+    padding: 40px 30px 34px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+}
+.pay-shield {
+    color: var(--accent);
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.45));
+    margin-bottom: 6px;
+}
+.pay-msg {
+    font-family: var(--font-head);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 4px 0 0;
+}
+.pay-sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 14px; }
+.pay-card .px-btn--ghost { margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) { .rupee-rain { display: none; } }

@@ -351,4 +351,58 @@
             p.textContent = hindiCount(data.count) + (p.dataset.suffix || ' पाठक पहले से जुड़े हैं।');
         })
         .catch(function () { /* offline/local — keep fallback text */ });
+
+    // ── SUPPORT MODAL: rupees rising upward (secure, celebratory) ──
+    (function rupeeRain() {
+        const canvas = document.querySelector('.rupee-rain');
+        const modal = document.getElementById('paymentModal');
+        if (!canvas || !modal) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const ctx = canvas.getContext('2d');
+        let W = 0, H = 0, coins = [], raf = null;
+
+        function size() {
+            const r = canvas.getBoundingClientRect();
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            W = r.width; H = r.height;
+            canvas.width = W * dpr; canvas.height = H * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        function spawn() {
+            return {
+                x: Math.random() * W,
+                y: H + Math.random() * H,
+                s: 10 + Math.random() * 14,          // font size
+                v: 0.5 + Math.random() * 1.3,        // upward speed
+                a: 0.25 + Math.random() * 0.5,       // opacity
+                drift: (Math.random() - 0.5) * 0.4
+            };
+        }
+        function start() {
+            size();
+            coins = Array.from({ length: Math.round(W / 14) }, spawn);
+            cancelAnimationFrame(raf);
+            (function frame() {
+                ctx.clearRect(0, 0, W, H);
+                ctx.font = '700 14px system-ui, sans-serif';
+                ctx.textAlign = 'center';
+                coins.forEach(function (c) {
+                    c.y -= c.v; c.x += c.drift;
+                    if (c.y < -20) { Object.assign(c, spawn()); c.y = H + 10; }
+                    ctx.font = '700 ' + c.s + 'px system-ui, sans-serif';
+                    ctx.fillStyle = 'rgba(255, 200, 40,' + c.a + ')';
+                    ctx.fillText('₹', c.x, c.y);
+                });
+                raf = requestAnimationFrame(frame);
+            })();
+        }
+        function stop() { cancelAnimationFrame(raf); }
+
+        // run only while the modal is open (class 'open')
+        const obs = new MutationObserver(function () {
+            if (modal.classList.contains('open')) start(); else stop();
+        });
+        obs.observe(modal, { attributes: true, attributeFilter: ['class'] });
+        window.addEventListener('resize', function () { if (modal.classList.contains('open')) start(); });
+    })();
 })();

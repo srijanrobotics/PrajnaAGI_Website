@@ -87,14 +87,14 @@
         <p class="footer-bottom">© 2026 PRAJNAAGI · <a href="privacy.html">PRIVACY</a> · <a href="terms.html">TERMS</a> · <a href="contact.html">CONTACT</a></p>
     </footer>
 
-    <!-- ── PAYMENT MODAL ── -->
-    <div id="paymentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
-        <div class="modal-content-main">
-            <h3 class="modal-title" id="paymentModalTitle">भुगतान करें / PAY (UPI)</h3>
-            <p id="upi-id-display" class="upi-display"></p>
-            <img id="qr-display" src="" class="qr-img-large" alt="UPI QR Code" hidden>
-            <div class="modal-footer">
-                <a href="thanks.html" class="px-btn">मैंने भुगतान कर दिया है</a>
+    <!-- ── SUPPORT MODAL (glass, secure) ── -->
+    <div id="paymentModal" class="modal-overlay pay-overlay" role="dialog" aria-modal="true" aria-label="सहयोग">
+        <div class="modal-content-main pay-card">
+            <canvas class="rupee-rain" aria-hidden="true"></canvas>
+            <div class="pay-inner">
+                <span class="pay-shield" aria-hidden="true"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5v-6L12 2.5z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></span>
+                <p class="pay-msg">माध्यम अभी उपलब्ध नहीं, खेद है।</p>
+                <p class="pay-sub">आपकी सहयोग-भावना के लिए हृदय से आभार 🙏</p>
                 <button type="button" class="px-btn px-btn--ghost" data-close-payment>बंद करें</button>
             </div>
         </div>
