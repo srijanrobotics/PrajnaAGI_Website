@@ -163,7 +163,7 @@ def main():
             "slug": slugify(str(art.get("title_en", "")), cat),
             "category": cat,
             "tag": TAGS[cat],
-            "author_id": "srijan" if cat == "सृजन रोबॉटिक्स" else "priy-ranjan",
+            "author_id": "srijan",
             "date": now,
             "summary": str(art.get("summary", "")).strip(),
             "body_hindi": str(art.get("body_hindi", "")).strip(),

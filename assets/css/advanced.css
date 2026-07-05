@@ -161,12 +161,7 @@
     gap: var(--s3);
     align-items: center;
 }
-.author-img {
-    width: 88px; height: 88px;
-    object-fit: cover;
-    border: 2px solid var(--accent);
-    image-rendering: pixelated;
-}
+.author-img { display: none !important; }
 .author-info h4 { margin: 6px 0; font-size: 1.15rem; color: var(--accent); }
 .author-role {
     font-family: var(--font-mono);
