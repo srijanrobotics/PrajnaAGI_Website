@@ -203,14 +203,56 @@
     }
 
     // ── Article share links (built from location, encoded) ──────
-    const shareWA = document.getElementById('shareWA');
-    const shareX = document.getElementById('shareX');
-    if (shareWA || shareX) {
-        const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent(document.title);
+    (function wireShare() {
+        const shareWA = document.getElementById('shareWA');
+        const shareX = document.getElementById('shareX');
+        const shareFB = document.getElementById('shareFB');
+        const shareTG = document.getElementById('shareTG');
+        const shareCopy = document.getElementById('shareCopy');
+        const shareNative = document.getElementById('shareNative');
+        if (!shareWA && !shareX && !shareCopy) return;
+
+        const rawUrl = window.location.href;
+        const rawTitle = document.title;
+        const url = encodeURIComponent(rawUrl);
+        const title = encodeURIComponent(rawTitle);
+
         if (shareWA) shareWA.href = 'https://api.whatsapp.com/send?text=' + title + '%20' + url;
         if (shareX) shareX.href = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
-    }
+        if (shareFB) shareFB.href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+        if (shareTG) shareTG.href = 'https://t.me/share/url?url=' + url + '&text=' + title;
+        [shareWA, shareX, shareFB, shareTG].forEach(function (a) { if (a) a.target = '_blank'; });
+
+        if (shareCopy) {
+            shareCopy.addEventListener('click', function () {
+                const done = function () {
+                    const old = shareCopy.getAttribute('title');
+                    shareCopy.classList.add('copied');
+                    shareCopy.setAttribute('title', 'कॉपी हो गया!');
+                    setTimeout(function () {
+                        shareCopy.classList.remove('copied');
+                        shareCopy.setAttribute('title', old || 'लिंक कॉपी करें');
+                    }, 1500);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(rawUrl).then(done).catch(done);
+                } else {
+                    const t = document.createElement('textarea');
+                    t.value = rawUrl; document.body.appendChild(t); t.select();
+                    try { document.execCommand('copy'); } catch (e) {}
+                    document.body.removeChild(t); done();
+                }
+            });
+        }
+
+        // native share sheet (phones) — reveal only if supported
+        if (shareNative && navigator.share) {
+            shareNative.hidden = false;
+            shareNative.addEventListener('click', function () {
+                navigator.share({ title: rawTitle, url: rawUrl }).catch(function () {});
+            });
+        }
+    })();
 
     // ── ADMIN BAR (Netlify Identity) ─────────────────────────────
     function initAdminBar() {

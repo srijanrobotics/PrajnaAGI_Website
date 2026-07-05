@@ -783,3 +783,40 @@
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
 }
+
+/* ── SHARE BAR: round icon buttons ── */
+.share-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.share-label {
+    font-family: var(--font-accent);
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-right: 4px;
+}
+.share-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-dim);
+    color: var(--accent);
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.share-icon:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: 0 6px 18px -8px rgba(255, 215, 0, 0.6);
+}
+.share-icon.copied {
+    background: var(--led-green);
+    border-color: var(--led-green);
+    color: #fff;
+}
+@media (max-width: 480px) {
+    .share-icon { width: 38px; height: 38px; }
+    .share-label { width: 100%; margin-bottom: 4px; }
+}
