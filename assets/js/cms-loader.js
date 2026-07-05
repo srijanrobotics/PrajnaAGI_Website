@@ -211,11 +211,28 @@
         } catch (e) { return ''; }
     }
 
+    // ── srijan robotics update strip (newest first) ──────────────
+    async function loadSrijanUpdates(containerId) {
+        const wrap = document.getElementById(containerId);
+        const section = document.getElementById('srijan-update');
+        if (!wrap) return;
+        const data = await fetchJSON('content/articles.json');
+        const all = validArticles(data) || [];
+        const srijan = all.filter(function (a) { return a.category === 'सृजन रोबॉटिक्स'; });
+        if (srijan.length === 0) { if (section) section.hidden = true; return; }
+        wrap.textContent = '';
+        srijan.slice(0, 6).forEach(function (a) { wrap.appendChild(buildCard(a)); });
+        if (section) section.hidden = false;
+    }
+
     // ── homepage ─────────────────────────────────────────────────
     async function loadCMSHome(latestContainerId) {
         const data = await fetchJSON('content/articles.json');
-        const articles = validArticles(data);
+        let articles = validArticles(data);
         if (!articles || articles.length === 0) return;
+        // सृजन रोबॉटिक्स की खबरें अपने अलग section में — यहाँ से हटाओ
+        articles = articles.filter(function (a) { return a.category !== 'सृजन रोबॉटिक्स'; });
+        if (articles.length === 0) return;
 
         const featuredGrid = document.querySelector('.featured-grid');
         if (featuredGrid) {
@@ -532,6 +549,7 @@
     // ── init ─────────────────────────────────────────────────────
     function initCMS() {
         if (document.getElementById('cms-latest-grid')) loadCMSHome('cms-latest-grid');
+        if (document.getElementById('cms-srijan-update')) loadSrijanUpdates('cms-srijan-update');
         if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
         loadCMSFact();
         if (document.getElementById('article-detail-container')) {

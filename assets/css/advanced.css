@@ -879,3 +879,23 @@
 .pay-sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 14px; }
 .pay-card .px-btn--ghost { margin-top: 6px; }
 @media (prefers-reduced-motion: reduce) { .rupee-rain { display: none; } }
+
+/* ── सृजन रोबॉटिक्स अपडेट section: support-card style glass ── */
+.srijan-update-section[hidden] { display: none; }
+.srijan-update-card {
+    position: relative;
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    border-radius: 20px;
+    background: rgba(20, 20, 29, 0.55);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+    box-shadow: 0 24px 60px -22px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    padding: 24px;
+}
+[data-theme="light"] .srijan-update-card {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(184, 138, 0, 0.35);
+}
+.srijan-update-grid { margin: 0; }
+@media (max-width: 600px) { .srijan-update-card { padding: 16px; } }
