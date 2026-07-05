@@ -29,7 +29,7 @@
         if (saved === 'light' || saved === 'dark') {
             applyTheme(saved);
         } else {
-            applyTheme('dark'); // original dark space theme is the default
+            applyTheme('light'); // Day mode is the default
         }
     }
 

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/advanced.css">
 </head>
 
-<body data-theme="dark">
+<body data-theme="light">
     <canvas id="spaceCanvas" aria-hidden="true"></canvas>
 
     <!-- ── NAVIGATION ── -->
@@ -44,11 +44,12 @@
 
     <section class="section section--pad-bottom">
         <div class="led-card led-card--narrow">
-            <span class="tag">CONTACT FORM</span>
+            <span class="tag">संपर्क व सुझाव</span>
+            <p class="contact-email">ई-मेल: <a href="mailto:srijanrobotics@gmail.com">srijanrobotics@gmail.com</a></p>
             <form class="contact-form" name="contact" method="POST" data-netlify="true" action="/success.html">
                 <label for="cf-name">नाम</label>
                 <input type="text" id="cf-name" name="name" maxlength="80" required autocomplete="name">
-                <label for="cf-email">ईमेल</label>
+                <label for="cf-email">आपका ई-मेल</label>
                 <input type="email" id="cf-email" name="email" maxlength="120" required autocomplete="email">
                 <label for="cf-message">संदेश</label>
                 <textarea id="cf-message" name="message" maxlength="2000" required></textarea>

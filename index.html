@@ -24,7 +24,7 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 </head>
 
-<body data-theme="dark" id="homepage" class="home-page">
+<body data-theme="light" id="homepage" class="home-page">
     <canvas id="spaceCanvas" aria-hidden="true"></canvas>
 
     <!-- ── NAVIGATION ── -->
@@ -130,30 +130,9 @@
                 <h4>समर्थन करें</h4>
                 <p>स्वतंत्र पत्रकारिता और AI शिक्षा को बढ़ावा देने में हमारी मदद करें।</p>
                 <button type="button" class="px-btn" data-open-payment>सपोर्ट करें</button>
-            </div>
-        </div>
-        <p class="footer-bottom">© 2026 PRAJNAAGI · <a href="privacy.html">PRIVACY</a> · <a href="terms.html">TERMS</a> · <a href="contact.html">CONTACT</a></p>
-    </footer>
-
-    <!-- ── PAYMENT MODAL ── -->
-    <div id="paymentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
-        <div class="modal-content-main">
-            <h3 class="modal-title" id="paymentModalTitle">भुगतान करें / PAY (UPI)</h3>
-            <p id="upi-id-display" class="upi-display"></p>
-            <img id="qr-display" src="" class="qr-img-large" alt="UPI QR Code" hidden>
-            <div class="modal-footer">
-                <a href="thanks.html" class="px-btn">मैंने भुगतान कर दिया है</a>
-                <button type="button" class="px-btn px-btn--ghost" data-close-payment>बंद करें</button>
-            </div>
-        </div>
-    </div>
-
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
-
-    <!-- ── SCRIPTS ── -->
-    <script src="assets/js/canvas.js" defer></script>
-    <script src="assets/js/ui.js" defer></script>
-    <script src="assets/js/cms-loader.js" defer></script>
-</body>
-
-</html>
+                <div class="social-row">
+                    <a href="https://x.com/priyrp" target="_blank" rel="noopener" class="social-btn" aria-label="X (Twitter)" title="X">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?text=PrajnaAGI%20%E2%80%94%20https://prajnaagi.com" target="_blank" rel="noopener" class="social-btn" aria-label="WhatsApp" title="WhatsApp">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.19 2.01 3.06 4.87 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.
