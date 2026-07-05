@@ -57,6 +57,9 @@
                 typeof a.title === 'string' && a.title &&
                 typeof a.category === 'string' &&
                 a.status !== 'Draft';
+        }).sort(function (a, b) {
+            // newest first, everywhere
+            return new Date(b.date || 0) - new Date(a.date || 0);
         });
     }
 
@@ -291,18 +294,19 @@
         const tickerData = results[0];
         const articles = validArticles(results[1]) || [];
 
-        // merge: curated ticker items + newest article headlines (Hindi)
+        // latest site news only — newest non-सृजन article headlines
         const items = [];
-        if (tickerData && Array.isArray(tickerData.items)) {
+        articles
+            .filter(function (a) { return a.category !== 'सृजन रोबॉटिक्स'; })
+            .slice(0, 10)
+            .forEach(function (a) { items.push(safeText(a.title, 160)); });
+
+        // fallback: curated ticker.json lines only if no articles yet
+        if (items.length === 0 && tickerData && Array.isArray(tickerData.items)) {
             tickerData.items.forEach(function (item) {
                 if (item && typeof item.text === 'string') items.push(safeText(item.text, 200));
             });
         }
-        articles
-            .slice()
-            .sort(function (a, b) { return new Date(b.date || 0) - new Date(a.date || 0); })
-            .slice(0, 6)
-            .forEach(function (a) { items.push(safeText(a.title, 160)); });
 
         if (items.length === 0) return;
 
@@ -348,27 +352,23 @@
         });
         if (facts.length === 0) return;
 
-        // rotating window of 3, advances every 6-hour slot
-        const slot = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
-        const n = facts.length;
-        const shown = [];
+        // newest facts first (auto-generated ones append to the end of the file)
+        const ordered = facts.slice().reverse();
+        const n = ordered.length;
         grid.textContent = '';
         for (let k = 0; k < Math.min(3, n); k++) {
-            const idx = ((slot + k) % n + n) % n;
-            shown.push(idx);
-            grid.appendChild(factCard(facts[idx]));
+            grid.appendChild(factCard(ordered[k]));
         }
         section.hidden = false;
 
-        // archive: every OTHER fact (older ones), newest-first, scrollable
+        // archive: the rest (older facts), newest-first, scrollable
         const archive = document.getElementById('facts-archive');
         const btn = document.getElementById('facts-archive-btn');
         if (archive && btn) {
             archive.textContent = '';
             let added = 0;
-            for (let j = 0; j < n; j++) {
-                if (shown.indexOf(j) !== -1) continue;
-                archive.appendChild(factCard(facts[j]));
+            for (let j = 3; j < n; j++) {
+                archive.appendChild(factCard(ordered[j]));
                 added++;
             }
             if (added === 0) {

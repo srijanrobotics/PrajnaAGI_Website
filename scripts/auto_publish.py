@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ARTICLES = ROOT / "content" / "articles.json"
+FACTS = ROOT / "content" / "facts.json"
 
 CATEGORIES = {
     "अंतरिक्ष": "space missions, astronomy, ISRO, NASA, telescopes, exoplanets",
@@ -71,6 +72,49 @@ STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
     return json.loads(text)
 
 
+
+def generate_fact(model, existing_highlights):
+    """One fresh science 'did-you-know' fact in Hindi. NEVER about Srijan."""
+    prompt = f"""Tu PrajnaAGI ka science educator hai.
+Ek rochak vaigyanik tathya (did-you-know) Hindi mein likho — space, physics,
+biology, technology ya nature se. सृजन/robot/Prajna ke baare mein BILKUL nahi.
+In highlights se ALAG naya tathya: {existing_highlights[-15:]}
+
+STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
+{{"icon": "ek emoji", "fact_text": "1-2 vakya saral Hindi", "highlight": "2-4 shabd ka mukhya bindu"}}"""
+    resp = model.generate_content(prompt)
+    text = resp.text.strip()
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.S)
+    return json.loads(text)
+
+
+def publish_fact(model):
+    try:
+        data = json.loads(FACTS.read_text(encoding="utf-8"))
+    except Exception:
+        data = {"facts": []}
+    facts = data.setdefault("facts", [])
+    highlights = [f.get("highlight", "") for f in facts]
+    try:
+        f = generate_fact(model, highlights)
+    except Exception as e:
+        print(f"[WARN] fact generation failed → {e}")
+        return
+    icon = str(f.get("icon", "")).strip() or "\u2726"
+    text = str(f.get("fact_text", "")).strip()
+    if not text:
+        return
+    facts.append({
+        "icon": icon,
+        "fact_text": text,
+        "highlight": str(f.get("highlight", "")).strip(),
+    })
+    # keep newest 40 facts max
+    data["facts"] = facts[-40:]
+    FACTS.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[OK] fact: {text[:50]}")
+
+
 def main():
     key = os.getenv("GEMINI_API_KEY")
     if not key:
@@ -119,6 +163,9 @@ def main():
 
     ARTICLES.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[DONE] {added} naye article jode gaye ({slot}).")
+
+    # one fresh fact each run (never about सृजन)
+    publish_fact(model)
 
 
 if __name__ == "__main__":
