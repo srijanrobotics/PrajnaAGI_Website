@@ -116,17 +116,17 @@ def publish_fact(model):
 
 
 def main():
-    key = os.getenv("GEMINI_API_KEY")
+    key = (os.getenv("GEMINI_API_KEY") or "").strip()
     if not key:
         sys.exit("[ERROR] GEMINI_API_KEY missing")
     import google.generativeai as genai
-    genai.configure(api_key=key)
+    # REST transport avoids gRPC "Illegal metadata" errors and respects timeouts
+    genai.configure(api_key=key, transport="rest")
 
     # Try several model names; use the first that actually responds.
     candidates = [
         os.getenv("GEMINI_MODEL"),
-        "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash",
-        "gemini-1.5-flash-latest", "gemini-flash-latest",
+        "gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash",
     ]
     model = None
     for name in [c for c in candidates if c]:
