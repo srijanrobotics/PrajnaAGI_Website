@@ -98,7 +98,7 @@ def publish_fact(model):
     try:
         f = generate_fact(model, highlights)
     except Exception as e:
-        print(f"[WARN] fact generation failed → {e}")
+        print(f"[WARN] fact generation failed -> {e}")
         return
     icon = str(f.get("icon", "")).strip() or "\u2726"
     text = str(f.get("fact_text", "")).strip()
@@ -116,6 +116,11 @@ def publish_fact(model):
 
 
 def main():
+    import sys
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except AttributeError:
+        pass  # python < 3.7
     key = (os.getenv("GEMINI_API_KEY") or "").strip()
     if not key:
         sys.exit("[ERROR] GEMINI_API_KEY missing")
@@ -137,7 +142,7 @@ def main():
             print(f"[MODEL] using {name}")
             break
         except Exception as e:
-            print(f"[MODEL] {name} unavailable → {e}")
+            print(f"[MODEL] {name} unavailable -> {e}")
     if model is None:
         sys.exit("[ERROR] koi Gemini model uplabdh nahi (key/permissions check karein)")
 
@@ -153,7 +158,7 @@ def main():
         try:
             art = generate(model, cat, hint, titles, slot)
         except Exception as e:
-            print(f"[WARN] {cat}: generation failed → {e}")
+            print(f"[WARN] {cat}: generation failed -> {e}")
             continue
         title = str(art.get("title", "")).strip()
         if not title:
