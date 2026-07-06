@@ -1139,3 +1139,97 @@ body, nav, footer, .clickable-card, .newsletter-section, .ticker-wrap {
     .facts-grid, .facts-archive { grid-template-columns: 1fr; }
     .facts-archive { max-height: 320px; }
 }
+
+/* ── MAINTENANCE / WEBSITE PAUSED OVERLAY ── */
+body.site-paused {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+.maintenance-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(6, 6, 9, 0.88); /* Deep half-transparent dark space background */
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    backdrop-filter: blur(12px) saturate(1.2);
+    z-index: 2147483647; /* Topmost layer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--s4);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.maintenance-card {
+    max-width: 600px;
+    width: 100%;
+    background: rgba(12, 12, 18, 0.95);
+    border: 3px solid var(--accent); /* Amaltas Gold border */
+    padding: var(--s5) var(--s4);
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.25);
+    position: relative;
+}
+
+/* Retro space dot-grid styling overlaying the maintenance card */
+.maintenance-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+    background-size: 16px 16px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.maintenance-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.maintenance-quote {
+    font-family: var(--font-head);
+    font-size: clamp(1.25rem, 3.8vw, 1.55rem);
+    line-height: 1.8;
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: var(--s4);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.maintenance-quote p {
+    margin: 0;
+}
+
+.quote-break {
+    height: var(--s3);
+}
+
+.maintenance-divider {
+    width: 80px;
+    height: 3px;
+    background: var(--accent);
+    margin: var(--s4) auto;
+    box-shadow: var(--glow);
+}
+
+.maintenance-footer {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+    color: var(--muted);
+    line-height: 1.6;
+    border-top: 1px dashed var(--line);
+    padding-top: var(--s3);
+}
+
+.maintenance-footer .code-tag {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 6px;
+    text-shadow: var(--glow);
+}

@@ -405,4 +405,75 @@
         obs.observe(modal, { attributes: true, attributeFilter: ['class'] });
         window.addEventListener('resize', function () { if (modal.classList.contains('open')) start(); });
     })();
+
+    // ── WEBSITE PAUSE OVERLAY ──
+    (function () {
+        var overlay = document.createElement('div');
+        overlay.id = 'maintenance-overlay';
+        overlay.className = 'maintenance-overlay';
+        overlay.setAttribute('role', 'alertdialog');
+        overlay.setAttribute('aria-modal', 'true');
+
+        var card = document.createElement('div');
+        card.className = 'maintenance-card';
+
+        var quote = document.createElement('div');
+        quote.className = 'maintenance-quote';
+        
+        var p1 = document.createElement('p');
+        p1.textContent = 'संभाव्यता के';
+        var p2 = document.createElement('p');
+        p2.textContent = 'विशाल महासागर में';
+        var p3 = document.createElement('p');
+        p3.textContent = 'अपरिहार्य-सा द्वीप, संयोग।';
+
+        var spacer = document.createElement('div');
+        spacer.className = 'quote-break';
+
+        var p4 = document.createElement('p');
+        p4.textContent = 'जहां';
+        var p5 = document.createElement('p');
+        p5.textContent = 'असंभव प्रतीत होने वाली';
+        var p6 = document.createElement('p');
+        p6.textContent = 'घटनाएं वास्तव में अनिवार्य हैं।';
+
+        quote.appendChild(p1);
+        quote.appendChild(p2);
+        quote.appendChild(p3);
+        quote.appendChild(spacer);
+        quote.appendChild(p4);
+        quote.appendChild(p5);
+        quote.appendChild(p6);
+
+        var divider = document.createElement('div');
+        divider.className = 'maintenance-divider';
+
+        var footer = document.createElement('div');
+        footer.className = 'maintenance-footer';
+        
+        var codeTag = document.createElement('span');
+        codeTag.className = 'code-tag';
+        codeTag.textContent = '</>';
+        
+        var footerText = document.createTextNode(' वेबसाईट निर्माणाधीन, जल्द उपलब्ध होगी। कष्ट के लिए खेद आदि।');
+        
+        footer.appendChild(codeTag);
+        footer.appendChild(footerText);
+
+        card.appendChild(quote);
+        card.appendChild(divider);
+        card.appendChild(footer);
+        overlay.appendChild(card);
+
+        function injectOverlay() {
+            if (document.body) {
+                document.body.classList.add('site-paused');
+                document.body.appendChild(overlay);
+            } else {
+                setTimeout(injectOverlay, 10);
+            }
+        }
+        injectOverlay();
+    })();
 })();
+
