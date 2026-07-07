@@ -320,19 +320,20 @@
         const tickerData = results[0];
         const articles = validArticles(results[1]) || [];
 
-        // latest site news only — newest non-सृजन article headlines
         const items = [];
-        articles
-            .filter(function (a) { return a.category !== 'सृजन रोबॉटिक्स'; })
-            .slice(0, 10)
-            .forEach(function (a) { items.push(safeText(a.title, 160)); });
 
-        // fallback: curated ticker.json lines only if no articles yet
-        if (items.length === 0 && tickerData && Array.isArray(tickerData.items)) {
+        // 1. Real-time news from ticker.json (prioritized)
+        if (tickerData && Array.isArray(tickerData.items)) {
             tickerData.items.forEach(function (item) {
                 if (item && typeof item.text === 'string') items.push(safeText(item.text, 200));
             });
         }
+
+        // 2. Append latest original articles from the site
+        articles
+            .filter(function (a) { return a.category !== 'सृजन रोबॉटिक्स'; })
+            .slice(0, 3)
+            .forEach(function (a) { items.push('PrajnaAGI विशेष: ' + safeText(a.title, 160)); });
 
         if (items.length === 0) return;
 

@@ -1,0 +1,32 @@
+name: Update News Ticker
+
+on:
+  schedule:
+    # Run at minute 0 past every hour
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-ticker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch Real-Time News
+        run: python scripts/update_ticker.py
+
+      - name: Commit & push
+        run: |
+          git config user.name "Prajna (Srijan Robotics)"
+          git config user.email "srijanrobotics@gmail.com"
+          git add content/ticker.json
+          git diff --cached --quiet && echo "no new headlines" && exit 0
+          git commit -m "🤖 Prajna auto-ticker update: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
