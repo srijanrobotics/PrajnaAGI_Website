@@ -26,7 +26,7 @@ CATEGORIES = {
     "तकनीक": "AI, robotics, gadgets, software, chips, Indian tech",
     "पर्यावरण": "climate, wildlife, rivers, renewable energy, conservation in India",
     "स्वास्थ्य": "medicine, nutrition, mental health, yoga science, public health",
-    "सृजन रोबॉटिक्स": "Srijan robot diary — first-person entry by Srijan the humanoid robot being built in India (brain: Prajna)",
+    # "सृजन रोबॉटिक्स": "Srijan robot diary — first-person entry by Srijan the humanoid robot being built in India (brain: Prajna)",
 }
 
 TAGS = {

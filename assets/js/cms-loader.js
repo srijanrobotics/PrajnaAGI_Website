@@ -207,7 +207,16 @@
     function formatDate(dateStr) {
         try {
             const d = new Date(dateStr);
-            return isNaN(d) ? '' : d.toLocaleDateString('hi-IN');
+            if (isNaN(d)) return '';
+            return d.toLocaleString('hi-IN', {
+                timeZone: 'Asia/Kolkata',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            }) + ' IST';
         } catch (e) { return ''; }
     }
 
@@ -252,7 +261,7 @@
         const latestGrid = document.getElementById(latestContainerId);
         if (latestGrid) {
             latestGrid.textContent = '';
-            articles.slice(4).forEach(function (article) {
+            articles.slice(4, 10).forEach(function (article) {
                 latestGrid.appendChild(buildCard(article));
             });
         }
@@ -549,7 +558,7 @@
     // ── init ─────────────────────────────────────────────────────
     function initCMS() {
         if (document.getElementById('cms-latest-grid')) loadCMSHome('cms-latest-grid');
-        if (document.getElementById('cms-srijan-update')) loadSrijanUpdates('cms-srijan-update');
+        // if (document.getElementById('cms-srijan-update')) loadSrijanUpdates('cms-srijan-update'); // Hidden as per request
         if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
         loadCMSFact();
         if (document.getElementById('article-detail-container')) {
