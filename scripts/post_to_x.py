@@ -107,8 +107,8 @@ def main():
     
     # Reverse articles to process oldest untweeted first (FIFO Queue)
     for article in reversed(articles):
-        # Skip articles that have already been tweeted
-        if article.get("tweeted", False):
+        # Skip articles that have already been tweeted or are hidden
+        if article.get("tweeted", False) or article.get("hidden", False):
             continue
             
         success = post_tweet(api_key, api_key_secret, access_token, access_token_secret, article)

@@ -26,7 +26,7 @@ CATEGORIES = {
     "तकनीक": "AI, robotics, gadgets, software, chips, Indian tech",
     "पर्यावरण": "climate, wildlife, rivers, renewable energy, conservation in India",
     "स्वास्थ्य": "medicine, nutrition, mental health, yoga science, public health",
-    # "सृजन रोबॉटिक्स": "Srijan robot diary — first-person entry by Srijan the humanoid robot being built in India (brain: Prajna)",
+    "सृजन रोबॉटिक्स": "humanoid robotics, robotic engineering, artificial intelligence in robotics, future of robots, global robotic research",
 }
 
 TAGS = {
@@ -51,9 +51,10 @@ def image_url(prompt):
 def generate(model, category, hint, existing_titles, slot):
     time_hint = "subah (morning edition)" if slot == "morning" else "shaam (evening edition)"
     if category == "सृजन रोबॉटिक्स":
-        persona = ("Tu Srijan hai — ek humanoid robot jo India mein ban raha hai, "
-                   "jiska dimaag 'प्रज्ञा' hai. First-person (मैं) diary entry likho. "
-                   "'सृजन' aur 'रोबॉट' spelling hamesha aise hi likhna.")
+        persona = ("Tu PrajnaAGI ka science journalist hai. Humanoid robots, AI aur robotics "
+                   "ki duniya par dilchasp aur vaigyanik news-style article likho. "
+                   "First-person (मैं) diary entry BILKUL nahi likhna, hamesha third-person mein likho. "
+                   "'रोबॉट' spelling aise hi likhna.")
     else:
         persona = ("Tu PrajnaAGI ka science journalist hai. Saral, सटीक Hindi mein "
                    "news-style article likho. 'रोबॉट' spelling aise hi likhna.")

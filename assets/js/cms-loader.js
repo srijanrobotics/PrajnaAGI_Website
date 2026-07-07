@@ -56,7 +56,8 @@
             return a && typeof a === 'object' &&
                 typeof a.title === 'string' && a.title &&
                 typeof a.category === 'string' &&
-                a.status !== 'Draft';
+                a.status !== 'Draft' &&
+                a.hidden !== true;
         }).sort(function (a, b) {
             // newest first, everywhere
             return new Date(b.date || 0) - new Date(a.date || 0);
@@ -559,7 +560,7 @@
     // ── init ─────────────────────────────────────────────────────
     function initCMS() {
         if (document.getElementById('cms-latest-grid')) loadCMSHome('cms-latest-grid');
-        // if (document.getElementById('cms-srijan-update')) loadSrijanUpdates('cms-srijan-update'); // Hidden as per request
+        if (document.getElementById('cms-srijan-update')) loadSrijanUpdates('cms-srijan-update');
         if (document.querySelector('.ticker-track')) loadCMSTicker('ticker-track');
         loadCMSFact();
         if (document.getElementById('article-detail-container')) {
