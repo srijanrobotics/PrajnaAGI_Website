@@ -53,8 +53,9 @@ export default async (request: Request, context: Context) => {
         pageImage = pageImage.split('?')[0] + "?auto=format&fit=crop&q=80&w=1200&h=630";
     }
 
-    // Ensure image is absolute
-    const absoluteImage = pageImage.startsWith('http') ? pageImage : `${baseUrl}${pageImage.startsWith('/') ? '' : '/'}${pageImage}`;
+    // Ensure image is absolute and properly URL-encoded (CDNs sometimes decode %20)
+    const rawAbsoluteImage = pageImage.startsWith('http') ? pageImage : `${baseUrl}${pageImage.startsWith('/') ? '' : '/'}${pageImage}`;
+    const absoluteImage = encodeURI(decodeURI(rawAbsoluteImage));
 
     const rewrittenResponse = new HTMLRewriter()
       .on("title", {
