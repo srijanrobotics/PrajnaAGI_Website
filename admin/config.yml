@@ -26,7 +26,14 @@ collections:
             fields:
               - { label: "Title (Hindi)", name: "title", widget: "string" }
               - { label: "URL Slug", name: "slug", widget: "string", hint: "Example: mars-mission-2026" }
-              - { label: "Author ID", name: "author_id", widget: "string", default: "priy-ranjan", hint: "Match with Author Profile ID" }
+              - label: "Author"
+                name: "author_id"
+                widget: "relation"
+                collection: "author_profiles"
+                file: "team"
+                search_fields: ["authors.*.name", "authors.*.id"]
+                value_field: "authors.*.id"
+                display_fields: ["authors.*.name"]
               - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य", "सृजन रोबॉटिक्स"] }
               - { label: "Tag (short, e.g. TECH)", name: "tag", widget: "string", required: false }
               - { label: "Status", name: "status", widget: "select", options: ["Published", "Draft"], default: "Published" }
@@ -37,6 +44,8 @@ collections:
               - { label: "Body — English", name: "body_english", widget: "markdown", required: false }
               - { label: "YouTube Video ID", name: "video_id", widget: "string", required: false }
               - { label: "Publish Date", name: "date", widget: "datetime" }
+              - { label: "Is Tweeted?", name: "tweeted", widget: "boolean", default: false, required: false }
+              - { label: "Is Hidden?", name: "hidden", widget: "boolean", default: false, required: false }
 
       - name: "ticker"
         label: "📡 Breaking News Ticker"
@@ -113,6 +122,9 @@ collections:
               - { label: "Bio / About", name: "bio", widget: "text" }
               - { label: "Profile Photo", name: "image", widget: "image" }
               - { label: "X (Twitter) Link", name: "x_link", widget: "string", required: false }
+              - { label: "LinkedIn Link", name: "linkedin_link", widget: "string", required: false }
+              - { label: "GitHub Link", name: "github_link", widget: "string", required: false }
+              - { label: "Email Address", name: "email", widget: "string", required: false }
 
   - name: "global_settings"
     label: "⚙️ Global Settings"
