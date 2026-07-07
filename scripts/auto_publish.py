@@ -175,6 +175,7 @@ def main():
             "body_awadhi": "",
             "body_english": "",
             "image": image_url(str(art.get("image_prompt", title))),
+            "tweeted": False
         }
         articles.append(entry)
         titles.append(title)

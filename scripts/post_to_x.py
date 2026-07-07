@@ -90,11 +90,20 @@ def main():
         print("[ERROR] No articles found to tweet.")
         return
 
-    # Post the latest articles that were just created in this run
-    # (usually the last 6 since 6 categories are generated per slot)
-    last_run_articles = articles[-6:]
-    for article in last_run_articles:
-        post_tweet(api_key, api_key_secret, access_token, access_token_secret, article)
+    changed = False
+    for article in articles:
+        # Skip articles that have already been tweeted
+        if article.get("tweeted", False):
+            continue
+            
+        success = post_tweet(api_key, api_key_secret, access_token, access_token_secret, article)
+        if success:
+            article["tweeted"] = True
+            changed = True
+            
+    if changed:
+        ARTICLES_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        print("[DONE] Updated articles.json with tweeted status.")
 
 if __name__ == "__main__":
     main()
