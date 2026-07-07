@@ -15,10 +15,18 @@ ROOT = Path(__file__).resolve().parent.parent
 TICKER_FILE = ROOT / "content" / "ticker.json"
 
 def fetch_real_news():
-    # Query: अंतरिक्ष OR विज्ञान OR तकनीक OR पर्यावरण OR स्वास्थ्य (in Hindi)
-    query = "अंतरिक्ष OR विज्ञान OR तकनीक OR पर्यावरण OR स्वास्थ्य"
+    # Query: Only Science related in Hindi
+    query = "विज्ञान OR वैज्ञानिक"
     encoded_query = urllib.parse.quote(query)
     url = f"https://news.google.com/rss/search?q={encoded_query}&hl=hi&gl=IN&ceid=IN:hi"
+    
+    # Trusted Hindi news sources
+    reliable_sources = [
+        "BBC", "NDTV", "Navbharat Times", "Aaj Tak", 
+        "Jagran", "Amar Ujala", "Hindustan", "News18", 
+        "ABP", "TV9", "Jansatta", "Patrika", "Zee", "India TV",
+        "Punjab Kesari", "Prabhat Khabar", "Naidunia"
+    ]
     
     items_list = []
     
@@ -32,10 +40,37 @@ def fetch_real_news():
             for item in root.findall(".//item"):
                 title_elem = item.find("title")
                 if title_elem is not None and title_elem.text:
-                    text = title_elem.text.strip()
-                    # Optionally remove trailing source if it looks like "- SourceName"
-                    # text = text.rsplit(" - ", 1)[0]
-                    items_list.append({"text": text})
+                    full_text = title_elem.text.strip()
+                    
+                    # Google News usually formats as: "Headline - Source Name"
+                    parts = full_text.rsplit(" - ", 1)
+                    if len(parts) == 2:
+                        headline = parts[0].strip()
+                        source = parts[1].strip()
+                        
+                        # Check if source is reliable
+                        is_reliable = any(rs.lower() in source.lower() for rs in reliable_sources)
+                        
+                        if is_reliable:
+                            # Shorten source name for a cleaner ticker
+                            short_source = source
+                            if "BBC" in source.upper(): short_source = "BBC"
+                            elif "NDTV" in source.upper(): short_source = "NDTV"
+                            elif "Navbharat" in source: short_source = "NBT"
+                            elif "Aaj Tak" in source: short_source = "Aaj Tak"
+                            elif "Jagran" in source: short_source = "Jagran"
+                            elif "Ujala" in source: short_source = "Amar Ujala"
+                            elif "Hindustan" in source: short_source = "Hindustan"
+                            elif "News18" in source.upper(): short_source = "News18"
+                            elif "ABP" in source.upper(): short_source = "ABP"
+                            elif "TV9" in source.upper(): short_source = "TV9"
+                            elif "Zee" in source.upper(): short_source = "Zee News"
+                            
+                            formatted_text = f"{headline} ({short_source})"
+                            
+                            # Avoid duplicates
+                            if not any(x['text'] == formatted_text for x in items_list):
+                                items_list.append({"text": formatted_text})
                     
                 if len(items_list) >= 15:  # Limit to top 15 news items
                     break
