@@ -1,5 +1,6 @@
 // @ts-nocheck
 import type { Context } from "https://edge.netlify.com";
+import { HTMLRewriter } from "https://ghuc.cc/worker-tools/html-rewriter/index.ts";
 
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
