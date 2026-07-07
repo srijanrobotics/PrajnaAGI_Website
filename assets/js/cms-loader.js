@@ -460,8 +460,8 @@
 
         currentArticle = article;
 
-        // Update share links dynamically with article summary as caption
-        const shareTitle = safeText(article.summary || article.title, 200);
+        // Update share links dynamically with article headline (title) as caption
+        const shareTitle = safeText(article.title, 200);
         const shareUrl = encodeURIComponent(window.location.href);
         const shareText = encodeURIComponent(shareTitle);
         
