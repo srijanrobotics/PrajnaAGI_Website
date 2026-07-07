@@ -15,8 +15,8 @@ ROOT = Path(__file__).resolve().parent.parent
 TICKER_FILE = ROOT / "content" / "ticker.json"
 
 def fetch_real_news():
-    # Query: Only Science related in Hindi
-    query = "विज्ञान OR वैज्ञानिक"
+    # Query: Space, ISRO, NASA, Robots, Technology, Smartphones, AI in Hindi
+    query = 'अंतरिक्ष OR इसरो OR नासा OR रोबोट OR तकनीक OR स्मार्टफोन OR एआई OR "कृत्रिम बुद्धिमत्ता"'
     encoded_query = urllib.parse.quote(query)
     url = f"https://news.google.com/rss/search?q={encoded_query}&hl=hi&gl=IN&ceid=IN:hi"
     

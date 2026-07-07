@@ -338,10 +338,11 @@
 
         if (items.length === 0) return;
 
+        // Ensure the track has enough content to loop seamlessly on all screens
+        const repeatCount = items.length < 6 ? 4 : 2;
         tracks.forEach(function (track) {
             track.textContent = '';
-            // duplicate content so the loop animation is seamless
-            for (let round = 0; round < 2; round++) {
+            for (let round = 0; round < repeatCount; round++) {
                 items.forEach(function (text) {
                     track.appendChild(el('span', null, text));
                     track.appendChild(el('span', null, '●'));

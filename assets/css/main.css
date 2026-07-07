@@ -406,7 +406,8 @@ nav {
 .ticker-track {
     display: inline-flex;
     white-space: nowrap;
-    animation: ticker 80s linear infinite; /* slow, smooth, continuous */
+    flex-shrink: 0;
+    animation: ticker 120s linear infinite; /* slow, smooth, continuous */
     font-family: var(--font-mono);
     color: var(--accent);
     text-shadow: var(--glow);
@@ -975,7 +976,8 @@ body { line-height: 1.7; }
 }
 /* smooth TV crawl + faded edges like a broadcast strip */
 .ticker-track {
-    animation: ticker 80s linear infinite;
+    animation: ticker 120s linear infinite;
+    flex-shrink: 0;
     font-family: var(--font-body);
     font-weight: 500;
     font-size: 0.9rem;
