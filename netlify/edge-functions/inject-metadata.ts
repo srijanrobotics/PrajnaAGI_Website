@@ -55,7 +55,7 @@ export default async (request: Request, context: Context) => {
 
     // Ensure image is absolute and properly URL-encoded (CDNs sometimes decode %20)
     const rawAbsoluteImage = pageImage.startsWith('http') ? pageImage : `${baseUrl}${pageImage.startsWith('/') ? '' : '/'}${pageImage}`;
-    const absoluteImage = encodeURI(decodeURI(rawAbsoluteImage));
+    const absoluteImage = encodeURI(decodeURIComponent(rawAbsoluteImage));
 
     const rewrittenResponse = new HTMLRewriter()
       .on("title", {
