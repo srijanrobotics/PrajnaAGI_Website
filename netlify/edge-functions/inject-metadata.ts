@@ -16,12 +16,19 @@ export default async (request: Request, context: Context) => {
 
   try {
     const baseUrl = url.origin;
+    
+    // Check if Deno has HTMLRewriter
+    const hasRewriter = typeof HTMLRewriter !== 'undefined' ? 'yes' : 'no';
+    
     // Use a cache-busting param to ensure we get fresh JSON
     const articlesResponse = await fetch(`${baseUrl}/content/articles.json?v=${Date.now()}`);
     
     if (!articlesResponse.ok) {
       console.error("Failed to fetch articles.json:", articlesResponse.status);
-      return;
+      const res = await context.next();
+      res.headers.set("x-prajna-edge", `fetch-failed-${articlesResponse.status}`);
+      res.headers.set("x-prajna-rewriter", hasRewriter);
+      return res;
     }
     
     const data = await articlesResponse.json();
@@ -112,6 +119,12 @@ export default async (request: Request, context: Context) => {
 
   } catch (error) {
     console.error("Edge Function Exception:", error);
-    return;
+    try {
+      const res = await context.next();
+      res.headers.set("x-prajna-edge", `exception-${error.message || error}`);
+      return res;
+    } catch (_) {
+      return new Response("Edge Function Error", { status: 500 });
+    }
   }
 };
