@@ -52,13 +52,26 @@ def post_tweet(api_key, api_key_secret, access_token, access_token_secret, artic
             os.remove(temp_img_path)
 
     # 4. Format Tweet Text
+    # 4. Format Tweet Text
     title = article.get("title")
+    summary = article.get("summary")
     slug = article.get("slug")
     category = article.get("category")
     link = f"https://prajnaagi.com/article.html?id={slug}"
     
-    # 280 character limit handling
-    tweet_text = f"📢 {category}: {title}\n\nविस्तार से पढ़ें: {link}"
+    # Map category to Hindi equivalent
+    cat_names = {
+        "science": "विज्ञान",
+        "space": "अंतरिक्ष",
+        "tech": "तकनीक",
+        "environment": "पर्यावरण",
+        "health": "स्वास्थ्य"
+    }
+    cat_hindi = cat_names.get(category, "अपडेट")
+    
+    # Using summary if available, else fallback to title (no emojis)
+    main_text = summary if summary else title
+    tweet_text = f"{cat_hindi} पर नई जानकारी:\n\n{main_text}\n\nपूरी रिपोर्ट पढ़ें: {link}"
     print(f"Posting tweet: {tweet_text}")
 
     # 5. Post Tweet V2
@@ -91,7 +104,9 @@ def main():
         return
 
     changed = False
-    for article in articles:
+    
+    # Reverse articles to process oldest untweeted first (FIFO Queue)
+    for article in reversed(articles):
         # Skip articles that have already been tweeted
         if article.get("tweeted", False):
             continue
@@ -100,6 +115,7 @@ def main():
         if success:
             article["tweeted"] = True
             changed = True
+            break # ONLY process 1 article per run
             
     if changed:
         ARTICLES_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")

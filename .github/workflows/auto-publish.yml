@@ -38,11 +38,4 @@ jobs:
           git commit -m "🤖 Prajna auto-publish: $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
 
-      - name: Post to X.com
-        env:
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-        run: python scripts/post_to_x.py
 

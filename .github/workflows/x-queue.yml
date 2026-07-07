@@ -1,0 +1,40 @@
+name: Prajna X Queue
+
+on:
+  schedule:
+    # Runs every hour at minute 0
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install tweepy requests
+
+      - name: Post to X.com
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: python scripts/post_to_x.py
+
+      - name: Commit & push
+        run: |
+          git config user.name "Prajna (Srijan Robotics)"
+          git config user.email "srijanrobotics@gmail.com"
+          git add content/articles.json
+          git diff --cached --quiet && echo "no changes" && exit 0
+          git commit -m "🤖 Prajna X Queue: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
