@@ -473,7 +473,7 @@
                 setTimeout(injectOverlay, 10);
             }
         }
-        injectOverlay();
+        // injectOverlay(); // Uncomment to enable maintenance mode
     })();
 })();
 
