@@ -460,6 +460,19 @@
 
         currentArticle = article;
 
+        // Update share links dynamically with article summary as caption
+        const shareTitle = safeText(article.summary || article.title, 200);
+        const shareUrl = encodeURIComponent(window.location.href);
+        const shareText = encodeURIComponent(shareTitle);
+        
+        const shareWA = document.getElementById('shareWA');
+        const shareX = document.getElementById('shareX');
+        const shareTG = document.getElementById('shareTG');
+        
+        if (shareWA) shareWA.href = 'https://api.whatsapp.com/send?text=' + shareText + '%20' + shareUrl;
+        if (shareX) shareX.href = 'https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl;
+        if (shareTG) shareTG.href = 'https://t.me/share/url?url=' + shareUrl + '&text=' + shareText;
+
         const hero = document.getElementById('article-hero');
         if (hero) setBgImage(hero, article.image);
 
