@@ -5,6 +5,9 @@ on:
     # 7:00 IST = 01:30 UTC (morning) · 17:00 IST = 11:30 UTC (evening)
     - cron: "30 1 * * *"
     - cron: "30 11 * * *"
+  push:
+    paths:
+      - 'content/suggestions.json'
   workflow_dispatch: {}
 
 permissions:
@@ -33,9 +36,9 @@ jobs:
         run: |
           git config user.name "Prajna (Srijan Robotics)"
           git config user.email "srijanrobotics@gmail.com"
-          git add content/articles.json content/facts.json
+          git add content/articles.json content/facts.json content/suggestions.json
           git diff --cached --quiet && echo "no changes" && exit 0
-          git commit -m "🤖 Prajna auto-publish: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git commit -m "🤖 Prajna auto-publish: $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]"
           git push
 
 

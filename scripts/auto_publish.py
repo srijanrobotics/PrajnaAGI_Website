@@ -73,6 +73,32 @@ STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
     return json.loads(text)
 
 
+def generate_custom(model, category, topic, notes, existing_titles):
+    if category == "सृजन रोबॉटिक्स":
+        persona = ("Tu PrajnaAGI ka science journalist hai. Humanoid robots, AI aur robotics "
+                   "ki duniya par dilchasp aur vaigyanik news-style article likho. "
+                   "First-person (मैं) diary entry BILKUL nahi likhna, hamesha third-person mein likho. "
+                   "'रोबॉट' spelling aise hi likhna.")
+    else:
+        persona = ("Tu PrajnaAGI ka science journalist hai. Saral, सटीक Hindi mein "
+                   "news-style article likho. 'रोबॉट' spelling aise hi likhna.")
+    notes_str = f"Additional Guidelines/Context: {notes}" if notes else ""
+    prompt = f"""{persona}
+Category: {category}
+Specific Topic to write about: {topic}
+{notes_str}
+Date: {datetime.date.today().isoformat()}
+
+Write a high-quality news-style article in Hindi on the specific topic.
+STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
+{{"title": "...", "title_en": "short english slug words", "summary": "1-2 vakya Hindi",
+"body_hindi": "300-450 shabd Hindi, ### subheadings ke saath",
+"image_prompt": "short English scene description"}}"""
+    resp = model.generate_content(prompt, request_options={"timeout": 90})
+    text = resp.text.strip()
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.S)
+    return json.loads(text)
+
 
 def generate_fact(model, existing_highlights):
     """One fresh science 'did-you-know' fact in Hindi. NEVER about Srijan."""
@@ -154,13 +180,48 @@ def main():
     titles = [a.get("title", "") for a in articles]
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
-    added = 0
-    for cat, hint in CATEGORIES.items():
+    # Load suggestions if they exist
+    SUGGESTIONS = ROOT / "content" / "suggestions.json"
+    suggestions_data = {"suggestions": []}
+    if SUGGESTIONS.exists():
         try:
-            art = generate(model, cat, hint, titles, slot)
+            suggestions_data = json.loads(SUGGESTIONS.read_text(encoding="utf-8"))
         except Exception as e:
-            print(f"[WARN] {cat}: generation failed -> {e}")
-            continue
+            print(f"[WARN] suggestions.json load failed -> {e}")
+
+    suggestions_list = suggestions_data.setdefault("suggestions", [])
+    added = 0
+    suggestions_modified = False
+
+    for cat, hint in CATEGORIES.items():
+        # Find first pending suggestion for this category
+        suggestion = None
+        for s in suggestions_list:
+            if s.get("category") == cat and s.get("status") == "Pending":
+                suggestion = s
+                break
+
+        art = None
+        if suggestion:
+            print(f"[QUEUE] Found pending suggestion for {cat}: {suggestion.get('topic')}")
+            try:
+                art = generate_custom(model, cat, suggestion.get("topic"), suggestion.get("notes"), titles)
+                # Mark as completed
+                suggestion["status"] = "Completed"
+                suggestion["completed_at"] = now
+                suggestions_modified = True
+            except Exception as e:
+                print(f"[WARN] Custom article for {cat} failed -> {e}")
+                # We do not fall back to random generation if custom fails, so it stays pending
+                continue
+        else:
+            # Fall back to standard auto-generation
+            try:
+                art = generate(model, cat, hint, titles, slot)
+            except Exception as e:
+                print(f"[WARN] {cat}: generation failed -> {e}")
+                continue
+
         title = str(art.get("title", "")).strip()
         if not title:
             continue
@@ -189,9 +250,12 @@ def main():
     ARTICLES.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[DONE] {added} naye article jode gaye ({slot}).")
 
+    if suggestions_modified:
+        SUGGESTIONS.write_text(json.dumps(suggestions_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        print("[QUEUE] suggestions.json updated with completed status.")
+
     # one fresh fact each run (never about सृजन)
     publish_fact(model)
-
 
 if __name__ == "__main__":
     main()

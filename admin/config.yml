@@ -163,3 +163,22 @@ collections:
               - { label: "UPI ID", name: "upi_id", widget: "string" }
               - { label: "UPI QR Code Image", name: "upi_qr", widget: "image" }
               - { label: "Razorpay / External Link", name: "pay_link", widget: "string", required: false }
+
+  - name: "topic_queue"
+    label: "🤖 Srijan Topic Queue"
+    delete: false
+    files:
+      - name: "queue"
+        label: "Manage Suggestions"
+        file: "content/suggestions.json"
+        fields:
+          - label: "Suggested Topics"
+            name: "suggestions"
+            widget: "list"
+            summary: "{{fields.topic}} [{{fields.category}}] ({{fields.status}})"
+            fields:
+              - { label: "Category", name: "category", widget: "select", options: ["तकनीक", "विज्ञान", "अंतरिक्ष", "पर्यावरण", "स्वास्थ्य", "सृजन रोबॉटिक्स"] }
+              - { label: "Topic / Title Hint (English or Hindi)", name: "topic", widget: "string" }
+              - { label: "Additional Notes / Outline", name: "notes", widget: "text", required: false }
+              - { label: "Status", name: "status", widget: "select", options: ["Pending", "Completed", "Cancelled"], default: "Pending" }
+              - { label: "Created At", name: "created_at", widget: "datetime", default: "" }
