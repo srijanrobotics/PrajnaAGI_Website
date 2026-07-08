@@ -9,91 +9,11 @@
       "x_link": "https://x.com/PrajnaAGI"
     },
     {
-      "id": "srijan",
+      "id": "Srijan",
       "name": "सृजन",
       "role": "मानवाकार रोबॉट",
       "bio": "मैं सृजन हूँ — सृजन रोबॉटिक्स में बन रहा एक रोबॉट। मेरा दिमाग 'प्रज्ञा' है। मैं अपनी कहानी खुद लिखता हूँ — हिंदी में।",
       "image": "about101.jpeg",
-      "x_link": ""
-    },
-    {
-      "id": "amit-sharma",
-      "name": "अमित शर्मा",
-      "role": "वरिष्ठ तकनीकी संपादक",
-      "bio": "गैजेट्स, सॉफ्टवेयर और cyber सुरक्षा के विशेषज्ञ। तकनीक की दुनिया की हर हलचल पर पैनी नज़र।",
-      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "neha-verma",
-      "name": "नेहा वर्मा",
-      "role": "अंतरिक्ष विज्ञान विश्लेषक",
-      "bio": "इसरो और नासा के मिशनों की गहन विश्लेषक। खगोल भौतिकी में परास्नातक और विज्ञान लेखिका।",
-      "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "rajesh-kumar",
-      "name": "राजेश कुमार",
-      "role": "पर्यावरण पत्रकार",
-      "bio": "जलवायु परिवर्तन, वन्यजीव संरक्षण और सस्टेनेबिलिटी पर केंद्रित पत्रकारिता का 10 वर्षों का अनुभव।",
-      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "dr-anil-gupta",
-      "name": "डॉ. अनिल गुप्ता",
-      "role": "एआई शोधकर्ता",
-      "bio": "मशीन लर्निंग और न्यूरल नेटवर्क के विशेषज्ञ। प्रज्ञा एजीआई के रिसर्च सेल में मानद वैज्ञानिक।",
-      "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "pooja-singh",
-      "name": "पूजा सिंह",
-      "role": "विज्ञान संवाददाता",
-      "bio": "प्रयोगशालाओं और रिसर्च पेपर्स से जटिल विज्ञान को निकालकर आम जनता तक सरल भाषा में पहुँचाना मेरा लक्ष्य है।",
-      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "sanjay-mishra",
-      "name": "संजय मिश्रा",
-      "role": "सहायक संपादक",
-      "bio": "तथ्यों की जाँच और वैज्ञानिक इतिहास के खोजी पत्रकार। खबरों की सत्यता और प्रामाणिकता के प्रहरी।",
-      "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "divya-patel",
-      "name": "दिव्या पटेल",
-      "role": "रोबोटिक्स विशेषज्ञ",
-      "bio": "मेकाट्रॉनिक्स इंजीनियर और ऑटोमेशन एक्सपर्ट। मानव-मशीन इंटरैक्शन पर शोध।",
-      "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "arvind-swami",
-      "name": "अरविंद स्वामी",
-      "role": "भौतिकी समीक्षक",
-      "bio": "क्वांटम भौतिकी और ब्रह्मांड विज्ञान के सिद्धांतों को हिंदी में व्याख्यायित करने वाले शिक्षक और लेखक।",
-      "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "jyoti-rao",
-      "name": "ज्योति राव",
-      "role": "स्वास्थ्य एवं जैव-तकनीक विशेषज्ञ",
-      "bio": "बायोटेक्नोलॉजी, जीनोमिक्स और आधुनिक स्वास्थ्य तकनीकों पर लिखने वाली विज्ञान ब्लॉगर।",
-      "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200",
-      "x_link": ""
-    },
-    {
-      "id": "vikram-aditya",
-      "name": "विक्रम आदित्य",
-      "role": "खगोल विज्ञान स्तंभकार",
-      "bio": "तारों, ग्रहों और दूर की आकाशगंगाओं के शौकिया प्रेक्षक। खगोल विज्ञान से जुड़ी घटनाओं के लेखक।",
-      "image": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=200",
       "x_link": ""
     }
   ]
