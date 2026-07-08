@@ -66,6 +66,7 @@ In titles se ALAG naya topic chuno: {existing_titles[-12:]}
 STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
 {{"title": "...", "title_en": "short english slug words", "summary": "1-2 vakya Hindi",
 "body_hindi": "300-450 shabd Hindi, ### subheadings ke saath",
+"body_english": "English translation of the Hindi body, with ### subheadings",
 "image_prompt": "short English scene description"}}"""
     resp = model.generate_content(prompt, request_options={"timeout": 90})
     text = resp.text.strip()
@@ -93,6 +94,7 @@ Write a high-quality news-style article in Hindi on the specific topic.
 STRICT OUTPUT — sirf ek JSON object, koi markdown fence nahi:
 {{"title": "...", "title_en": "short english slug words", "summary": "1-2 vakya Hindi",
 "body_hindi": "300-450 shabd Hindi, ### subheadings ke saath",
+"body_english": "English translation of the Hindi body, with ### subheadings",
 "image_prompt": "short English scene description"}}"""
     resp = model.generate_content(prompt, request_options={"timeout": 90})
     text = resp.text.strip()
@@ -235,7 +237,7 @@ def main():
             "summary": str(art.get("summary", "")).strip(),
             "body_hindi": str(art.get("body_hindi", "")).strip(),
             "body_awadhi": "",
-            "body_english": "",
+            "body_english": str(art.get("body_english", "")).strip(),
             "image": image_url(str(art.get("image_prompt", title))),
             "tweeted": False
         }
