@@ -166,7 +166,7 @@ def main():
     # Try several model names; use the first that actually responds.
     candidates = [
         os.getenv("GEMINI_MODEL"),
-        "gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash",
+        "gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash-exp",
     ]
     model = None
     for name in [c for c in candidates if c]:
