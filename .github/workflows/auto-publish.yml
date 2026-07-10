@@ -6,6 +6,8 @@ on:
     - cron: "30 1 * * *"
     - cron: "30 11 * * *"
   push:
+    branches:
+      - master
     paths:
       - 'content/suggestions.json'
   workflow_dispatch: {}

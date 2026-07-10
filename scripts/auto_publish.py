@@ -152,6 +152,12 @@ def main():
         pass  # python < 3.7
     key = (os.getenv("GEMINI_API_KEY") or "").strip()
     if not key:
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            ref = os.getenv("GITHUB_REF", "")
+            event = os.getenv("GITHUB_EVENT_NAME", "")
+            if ref != "refs/heads/master" or event == "pull_request":
+                print(f"[INFO] Skipping auto-publish: running on {ref or 'unknown ref'} ({event}) without GEMINI_API_KEY.")
+                sys.exit(0)
         sys.exit("[ERROR] GEMINI_API_KEY missing")
     import google.generativeai as genai
     # REST transport avoids gRPC "Illegal metadata" errors and respects timeouts
