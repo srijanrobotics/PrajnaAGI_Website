@@ -1,115 +1,107 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>संपर्क करें — PrajnaAGI</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="description" content="संपर्क करें — PrajnaAGI">
-    <meta name="robots" content="index, follow">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/advanced.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>संपर्क — PrajnaAGI</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="PrajnaAGI से संपर्क करें — सुझाव, सहयोग और सवाल।">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/category.css">
+<style>
+.contact-wrap{max-width:640px;margin:0 auto;padding:4px 24px 20px;position:relative;z-index:2}
+.ccard{background:var(--panel);border:1px solid var(--brd);border-radius:24px;box-shadow:var(--shadow);backdrop-filter:blur(16px);padding:30px}
+.ccard .tagp{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cc);font-weight:700}
+.ccard .email{margin:10px 0 6px;font-size:15px;color:var(--ink-soft)}.ccard .email a{color:var(--gold);text-decoration:none}
+.cform label{display:block;font-family:'Palanquin Dark';font-size:13px;color:var(--ink-soft);margin:14px 0 5px}
+.cform input,.cform textarea{width:100%;background:var(--panel-2);border:1px solid var(--brd);border-radius:12px;padding:11px 14px;color:var(--ink);font-family:'Manrope';font-size:14px;outline:none;transition:.2s}
+.cform input:focus,.cform textarea:focus{border-color:var(--gold)}
+.cform textarea{min-height:110px;resize:vertical}
+.cform .send{margin-top:18px;background:var(--gold);color:#04040f;border:none;border-radius:999px;padding:12px 28px;font-family:'Palanquin Dark';font-size:15px;cursor:pointer;transition:.2s}
+.cform .send:hover{transform:translateY(-2px)}
+.chr{border:none;border-top:1px solid var(--brd);margin:22px 0 16px}
+.csocial{display:flex;gap:10px;flex-wrap:wrap}
+.csocial a{width:44px;height:44px;border-radius:50%;border:1px solid var(--brd);display:grid;place-items:center;color:var(--ink-soft);background:var(--panel-2);transition:.2s}
+.csocial a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}.csocial svg{width:19px;height:19px}
+</style>
 </head>
-
 <body data-theme="light">
-    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
-
-    <!-- ── NAVIGATION ── -->
-    <nav>
-        <div class="nav-inner">
-            <div class="brand-container">
-                <canvas id="headerBlackHole" aria-hidden="true"></canvas>
-                <a href="index.html" class="logo">Prajna<span class="brand">AGI</span></a>
-                <ul class="menu-tabs"><!-- Loaded via CMS --></ul>
-            </div>
-            <div class="nav-controls">
-                <button type="button" id="theme-toggle" aria-label="थीम बदलें">☀️ दिन</button>
-                <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <div class="mobile-menu" id="mobileMenu">
-        <ul><!-- Loaded via CMS --></ul>
+<div id="load"><div class="r"></div></div>
+<canvas id="spaceCanvas" aria-hidden="true"></canvas>
+<header class="top">
+  <a class="logo" href="index.html">
+    <span class="lm"><svg viewBox="0 0 120 92" fill="none">
+      <defs>
+        <radialGradient id="bhGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFDE8A" stop-opacity=".55"/><stop offset="55%" stop-color="#E9930C" stop-opacity=".3"/><stop offset="100%" stop-color="#E9930C" stop-opacity="0"/></radialGradient>
+        <linearGradient id="diskG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C8760A"/><stop offset=".25" stop-color="#FFE9A6"/><stop offset=".5" stop-color="#FFF7DA"/><stop offset=".75" stop-color="#FFE9A6"/><stop offset="1" stop-color="#C8760A"/></linearGradient>
+        <radialGradient id="bhSphere" cx="42%" cy="36%" r="68%"><stop offset="0%" stop-color="#1b1510"/><stop offset="58%" stop-color="#0a0705"/><stop offset="100%" stop-color="#000000"/></radialGradient>
+        <filter id="b1" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.5"/></filter>
+        <filter id="b2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
+      </defs>
+      <ellipse cx="60" cy="47" rx="56" ry="18" fill="url(#bhGlow)" filter="url(#b2)"/>
+      <g filter="url(#b1)">
+        <ellipse class="spinA" cx="60" cy="47" rx="50" ry="12.5" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".82"/>
+        <ellipse class="spinB" cx="60" cy="47" rx="41" ry="9.5" fill="none" stroke="#FFE7A0" stroke-width="4.5" opacity=".85"/>
+      </g>
+      <path d="M16 47 A44 33 0 0 1 104 47" fill="none" stroke="url(#diskG)" stroke-width="5.5" filter="url(#b1)" stroke-linecap="round" opacity=".95"/>
+      <circle cx="60" cy="47" r="20" fill="url(#bhSphere)"/>
+      <circle cx="60" cy="47" r="20.6" fill="none" stroke="#FFE7A0" stroke-width="1.6" opacity=".85"/>
+      <g filter="url(#b1)">
+        <path class="spinA" d="M10 47 A50 12.5 0 0 0 110 47" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".98" stroke-linecap="round"/>
+        <path class="spinB" d="M19 47 A41 9.5 0 0 0 101 47" fill="none" stroke="#FFF7DA" stroke-width="4.5" opacity=".98" stroke-linecap="round"/>
+      </g>
+    </svg></span><span class="txt">Prajna<b>AGI</b></span>
+  </a>
+  <nav class="nav" id="nav">
+    <a class="hi" href="index.html" data-hi="होम" data-aw="होम" data-en="Home">होम</a><a class="hi" href="science.html" data-hi="विज्ञान" data-aw="विज्ञान" data-en="Science">विज्ञान</a><a class="hi" href="tech.html" data-hi="तकनीक" data-aw="तकनीक" data-en="Tech">तकनीक</a>
+    <a class="hi" href="environment.html" data-hi="पर्यावरण" data-aw="पर्यावरन" data-en="Environment">पर्यावरण</a><a class="hi" href="health.html" data-hi="स्वास्थ्य" data-aw="सेहत" data-en="Health">स्वास्थ्य</a><a class="hi active" href="contact.html" data-hi="संपर्क" data-aw="संपर्क" data-en="Contact">संपर्क</a>
+  </nav>
+  <div class="tools"><button id="theme-toggle">☀️ दिन</button><button id="lang-toggle" aria-label="भाषा">🌐 <span id="langlabel">हिंदी</span></button></div>
+</header>
+<section class="hero">
+  <a class="back hi" href="index.html">← ब्रह्मांड पर लौटें</a>
+  <div class="eyebrow">संपर्क · GET IN TOUCH</div>
+  <h1 class="hi">संपर्क</h1>
+  <div class="sub">हम आपसे सुनना चाहते हैं — आमतौर पर 24–48 घंटों में जवाब।</div>
+</section>
+<main class="contact-wrap">
+  <div class="ccard">
+    <span class="tagp">संपर्क व सुझाव</span>
+    <p class="email">ई-मेल: <a href="mailto:srijanrobotics@gmail.com">srijanrobotics@gmail.com</a></p>
+    <form class="cform" name="contact" method="POST" data-netlify="true" action="/success.html">
+      <input type="hidden" name="form-name" value="contact">
+      <label for="cf-name">नाम</label>
+      <input type="text" id="cf-name" name="name" maxlength="80" required autocomplete="name" placeholder="आपका नाम">
+      <label for="cf-email">आपका ई-मेल</label>
+      <input type="email" id="cf-email" name="email" maxlength="120" required autocomplete="email" placeholder="you@example.com">
+      <label for="cf-message">संदेश</label>
+      <textarea id="cf-message" name="message" maxlength="2000" required placeholder="अपना संदेश लिखें…"></textarea>
+      <button type="submit" class="send">भेजें →</button>
+    </form>
+    <hr class="chr">
+    <span class="tagp">हमें फ़ॉलो करें</span>
+    <div class="csocial" style="margin-top:12px">
+      <a href="https://x.com/PrajnaAGI" target="_blank" rel="noopener" aria-label="PrajnaAGI on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://twitter.com/priyrp" target="_blank" rel="noopener" aria-label="Priy on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://api.whatsapp.com/send?text=PrajnaAGI%20%E2%80%94%20https://prajnaagi.com" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.19 2.01 3.06 4.87 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4 2.51 0 4.87.98 6.64 2.76a9.34 9.34 0 0 1 2.75 6.65c-.01 5.18-4.22 9.41-9.4 9.41z"/></svg></a>
+      <a href="https://youtube.com/@prajnaagi" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://instagram.com/prajnaagi" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 3.675a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
     </div>
-
-    <section class="hero">
-        <h1><span class="hindi-line">संपर्क करें</span></h1>
-        <hr class="dot-rule">
-        <p>हम आपसे सुनना चाहते हैं — हम आमतौर पर 24-48 घंटों के भीतर जवाब देते हैं।</p>
-    </section>
-
-    <section class="section section--pad-bottom">
-        <div class="led-card led-card--narrow">
-            <span class="tag">संपर्क व सुझाव</span>
-            <p class="contact-email">ई-मेल: <a href="mailto:srijanrobotics@gmail.com">srijanrobotics@gmail.com</a></p>
-            <form class="contact-form" name="contact" method="POST" data-netlify="true" action="/success.html">
-                <label for="cf-name">नाम</label>
-                <input type="text" id="cf-name" name="name" maxlength="80" required autocomplete="name">
-                <label for="cf-email">आपका ई-मेल</label>
-                <input type="email" id="cf-email" name="email" maxlength="120" required autocomplete="email">
-                <label for="cf-message">संदेश</label>
-                <textarea id="cf-message" name="message" maxlength="2000" required></textarea>
-                <button type="submit" class="px-btn">भेजें</button>
-            </form>
-            <hr class="dot-rule">
-            <p class="card-meta">EMAIL · contact@prajnaagi.com</p>
-            <div class="social-row" aria-label="सोशल मीडिया">
-                <a href="https://x.com/PrajnaAGI" class="social-btn" aria-label="X (Twitter)" rel="noopener" target="_blank">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://facebook.com/prajnaagi" class="social-btn" aria-label="Facebook" rel="noopener" target="_blank">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </a>
-                <a href="https://instagram.com/prajnaagi" class="social-btn" aria-label="Instagram" rel="noopener" target="_blank">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                </a>
-                <a href="https://youtube.com/@prajnaagi" class="social-btn" aria-label="YouTube" rel="noopener" target="_blank">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ── FOOTER ── -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="footer-logo">PrajnaAGI</div>
-                <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
-            </div>
-            <div class="footer-col">
-                <h4>श्रेणियां</h4>
-                <ul>
-                    <li><a href="space.html">अंतरिक्ष</a></li>
-                    <li><a href="science.html">विज्ञान</a></li>
-                    <li><a href="tech.html">तकनीक</a></li>
-                    <li><a href="environment.html">पर्यावरण</a></li>
-                    <li><a href="health.html">स्वास्थ्य</a></li>
-                    <li><a href="srijan.html">सृजन रोबॉटिक्स</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>महत्वपूर्ण लिंक</h4>
-                <ul>
-                    <li><a href="contact.html">संपर्क करें</a></li>
-                    <li><a href="privacy.html">गोपनीयता नीति</a></li>
-                    <li><a href="terms.html">उपयोग की शर्तें</a></li>
-                </ul>
-            </div>
-        </div>
-        <p class="footer-bottom">© 2026 PRAJNAAGI. सर्वाधिकार सुरक्षित।</p>
-    </footer>
-
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
-
-    <script src="assets/js/canvas.js" defer></script>
-    <script src="assets/js/ui.js" defer></script>
-    <script src="assets/js/cms-loader.js" defer></script>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="fcols">
+    <div class="fcol"><div class="flogo">Prajna<b>AGI</b></div><p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p></div>
+    <div class="fcol"><h4>श्रेणियाँ</h4><ul><li><a href="space.html">अंतरिक्ष</a></li><li><a href="science.html">विज्ञान</a></li><li><a href="tech.html">तकनीक</a></li><li><a href="environment.html">पर्यावरण</a></li><li><a href="health.html">स्वास्थ्य</a></li><li><a href="srijan.html">सृजन रोबॉटिक्स</a></li></ul></div>
+    <div class="fcol"><h4>महत्वपूर्ण लिंक</h4><ul><li><a href="contact.html">संपर्क करें</a></li><li><a href="privacy.html">गोपनीयता नीति</a></li><li><a href="terms.html">उपयोग की शर्तें</a></li></ul></div>
+  </div>
+  <div class="fbottom">© 2026 PRAJNAAGI · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a></div>
+</footer>
+<script src="assets/js/lang.js" defer></script>
+<script src="assets/js/prajna-3d.js" defer></script>
+<script>
+(function(){document.body.style.setProperty('--cc','#6ad5ff');var b=document.getElementById('theme-toggle');function night(){return document.body.getAttribute('data-theme')!=='light';}function lab(){b.textContent=night()?'🌙 रात':'☀️ दिन';}try{var s=localStorage.getItem('theme');if(s)document.body.setAttribute('data-theme',s);}catch(e){}lab();b.addEventListener('click',function(){document.body.setAttribute('data-theme',night()?'light':'dark');try{localStorage.setItem('theme',document.body.getAttribute('data-theme'));}catch(e){}lab();});var lo=document.getElementById('load');if(lo)setTimeout(function(){lo.classList.add('hide');},500);})();
+</script>
 </body>
-
 </html>

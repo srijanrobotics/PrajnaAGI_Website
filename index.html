@@ -1,173 +1,162 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrajnaAGI — ब्रह्मांड की हर खबर</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत (PrajnaAGI)">
-    <meta name="robots" content="index, follow">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrajnaAGI — ब्रह्मांड की हर खबर</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत (PrajnaAGI)">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website"><meta property="og:site_name" content="PrajnaAGI">
+<meta property="og:title" content="PrajnaAGI — ब्रह्मांड की हर खबर">
+<meta property="og:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत।">
+<meta property="og:url" content="https://prajnaagi.com"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@priyrp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Palanquin Dark';src:url('assets/Palanquin_Dark/PalanquinDark-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Palanquin Dark';src:url('assets/Palanquin_Dark/PalanquinDark-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Palanquin Dark';src:url('assets/Palanquin_Dark/PalanquinDark-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Palanquin Dark';src:url('assets/Palanquin_Dark/PalanquinDark-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+body{--bg1:#05060f;--bg2:#0a0c1c;--bg3:#070912;--panel:rgba(18,23,48,.55);--panel-2:rgba(24,30,60,.5);--brd:rgba(150,175,255,.16);--ink:#eef2ff;--ink-soft:#c4ccec;--muted:#8b97bd;--gold:#ffc24d;--shadow:0 20px 60px rgba(0,0,0,.55)}
+body[data-theme="light"]{--bg1:#f6f2e9;--bg2:#ece5d6;--bg3:#f9f6ef;--panel:#ffffff;--panel-2:#fbf9f4;--brd:rgba(40,36,28,.09);--ink:#2c2a24;--ink-soft:#54503f;--muted:#8f8a79;--gold:#e7a417;--shadow:0 18px 50px rgba(60,50,30,.14)}
+*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);overflow:hidden;background:radial-gradient(120% 120% at 50% 0%,var(--bg3),var(--bg1) 45%,var(--bg2));transition:background .6s,color .4s}
+.hi{font-family:'Palanquin Dark','Manrope',sans-serif}.serif{font-family:'Fraunces',serif}
+canvas#spaceCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;display:block}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px}
+.logo{display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none}
+.lm svg{height:42px;width:auto;filter:drop-shadow(0 0 13px rgba(245,179,1,.5))}
+.spinA{stroke-dasharray:22 12;animation:diskflowA 1.7s linear infinite}
+.spinB{stroke-dasharray:12 8;animation:diskflowB 1.1s linear infinite}
+@keyframes diskflowA{to{stroke-dashoffset:-68}}
+@keyframes diskflowB{to{stroke-dashoffset:-60}}
 
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="PrajnaAGI">
-    <meta property="og:title" content="PrajnaAGI — ब्रह्मांड की हर खबर">
-    <meta property="og:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत।">
-    <meta property="og:url" content="https://prajnaagi.com">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@priyrp">
-    <meta name="twitter:title" content="PrajnaAGI — ब्रह्मांड की हर खबर">
-    <meta name="twitter:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत।">
 
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/advanced.css">
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+.logo .txt{font-family:'Space Grotesk','Manrope',sans-serif;font-weight:700;font-size:23px;color:var(--ink);letter-spacing:.4px}.logo .txt b{color:var(--gold)}
+.nav{display:flex;gap:2px;background:var(--panel);border:1px solid var(--brd);border-radius:999px;padding:6px 8px;backdrop-filter:blur(14px);box-shadow:var(--shadow)}
+.nav a{font-family:'Palanquin Dark';color:var(--ink-soft);text-decoration:none;font-size:15px;padding:7px 15px;border-radius:999px;transition:.2s;white-space:nowrap}
+.nav a:hover{background:var(--panel-2);color:var(--ink)}.nav a.active{background:var(--gold);color:#04040f}
+.tools{display:flex;align-items:center;gap:10px}
+#theme-toggle,#lang-toggle{border:1px solid var(--brd);background:var(--panel);color:var(--ink);border-radius:999px;padding:9px 15px;cursor:pointer;font-size:13px;box-shadow:var(--shadow);transition:.2s;font-family:'Palanquin Dark'}
+#theme-toggle:hover,#lang-toggle:hover{border-color:var(--gold);transform:translateY(-1px)}
+.profile{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--brd);border-radius:999px;padding:6px 14px 6px 6px;box-shadow:var(--shadow)}
+.profile .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#ff7d45)}
+.profile small{display:block;color:var(--muted);font-size:11px}.profile b{font-size:13px;color:var(--ink)}
+@media(max-width:1150px){.nav{display:none}}
+.sidebar{position:fixed;left:20px;top:84px;bottom:26px;width:288px;z-index:35;display:flex;flex-direction:column;gap:12px;overflow-y:auto;overflow-x:hidden}
+.card{background:var(--panel);border:1px solid var(--brd);border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+.sb-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
+.sb-head h3{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700}
+.sbtog{border:1px solid var(--brd);background:var(--panel-2);color:var(--ink-soft);width:28px;height:28px;border-radius:9px;cursor:pointer;font-size:12px}
+.sb-list{flex:none;padding:7px;display:flex;flex-direction:column;gap:6px}
+.sb-list::-webkit-scrollbar{width:5px}.sb-list::-webkit-scrollbar-thumb{background:var(--brd);border-radius:3px}
+.sidebar.collapsed .sb-list{display:none}.sidebar.collapsed{bottom:auto}
+.row{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:16px;cursor:pointer;border:1.5px solid transparent;transition:.2s}
+.row:hover{background:var(--panel-2)}.row.sel{background:var(--panel-2);border-color:var(--rc)}
+.row .orb{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;color:var(--rc);background:color-mix(in srgb,var(--rc) 15%,var(--panel-2));border:1px solid color-mix(in srgb,var(--rc) 42%,transparent);box-shadow:0 0 16px -6px var(--rc)}
+.row .orb svg{width:22px;height:22px}
+.row .meta b{font-family:'Palanquin Dark';font-size:15px;display:block;line-height:1.15}.row .meta small{color:var(--muted);font-size:12px}
+.row .go{margin-left:auto;color:var(--muted);font-size:20px;padding:0 4px}
+.discovery{padding:11px 15px;flex:none}.discovery b{font-family:'Fraunces';font-size:15.5px;color:var(--ink)}
+.discovery .tagline{display:block;font-size:11px;color:var(--muted);letter-spacing:1.5px;margin:2px 0 7px}
+.discovery p{color:var(--ink-soft);font-size:12.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.stage-title{position:fixed;left:340px;top:100px;z-index:34;max-width:420px;pointer-events:none}
+.stage-title .eyebrow{font-size:12px;letter-spacing:3px;color:var(--rc);font-weight:700;text-transform:uppercase}
+.stage-title h1{font-family:'Palanquin Dark';font-size:clamp(38px,4.6vw,70px);line-height:1.16;margin:6px 0 4px;color:var(--ink);text-shadow:0 2px 30px var(--bg1)}
+.stage-title .sub{font-family:'Fraunces';font-style:italic;color:var(--ink-soft);font-size:20px}
+.stage-title .tags{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap;pointer-events:auto}
+.chip{background:var(--panel);border:1px solid var(--brd);border-radius:999px;padding:7px 13px;font-size:12.5px;color:var(--ink-soft);box-shadow:var(--shadow)}
+.overview{position:fixed;right:20px;top:84px;width:334px;z-index:35;display:flex;flex-direction:column;gap:12px;max-height:calc(100vh - 110px);overflow-y:auto}
+.overview::-webkit-scrollbar{width:5px}.overview::-webkit-scrollbar-thumb{background:var(--brd);border-radius:3px}
+.ov-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px 6px}
+.ov-head h3{font-size:12px;letter-spacing:1.5px;color:var(--muted);font-weight:700}.ov-head .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.factlist{padding:2px 8px 6px}
+.fact{display:flex;gap:11px;padding:10px;border-radius:12px}.fact:hover{background:var(--panel-2)}
+.fact .fi{font-size:19px;line-height:1.3;flex:none}
+.fact p{font-size:12.8px;color:var(--ink-soft);line-height:1.5;font-family:'Palanquin Dark'}
+.fact em{font-style:normal;color:var(--gold);font-weight:600;font-size:12px;display:block;margin-top:3px}
+.morebtn{margin:2px 14px 14px;padding:9px 0;width:calc(100% - 28px);border:1px solid var(--brd);background:var(--panel-2);color:var(--ink);border-radius:12px;cursor:pointer;font-size:13px;font-family:'Palanquin Dark'}
+.morebtn:hover{border-color:var(--gold)}
+.hl{padding:6px 12px 12px}.hl h3{font-size:12px;letter-spacing:1.5px;color:var(--muted);font-weight:700;padding:8px 6px}
+.hl a{display:flex;gap:11px;align-items:flex-start;padding:10px;border-radius:14px;text-decoration:none;transition:.2s;cursor:pointer}.hl a:hover{background:var(--panel-2)}
+.hl .ic{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;background:var(--rc)}.hl .ic svg{width:15px;height:15px}
+.hl b{font-size:13px;color:var(--ink);display:block}.hl small{font-size:12px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
+.dock{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:36;display:flex;gap:6px;background:var(--panel);border:1px solid var(--brd);border-radius:999px;padding:7px;box-shadow:var(--shadow)}
+.dock button{border:none;background:transparent;color:var(--ink-soft);font-family:'Palanquin Dark';font-size:15px;padding:11px 24px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.2s}
+.dock button.primary{background:var(--gold);color:#04040f}.dock button:hover:not(.primary){background:var(--panel-2)}
+.moonlab{position:fixed;z-index:32;pointer-events:none;text-align:center;transform:translate(-50%,-120%);font-size:11px;color:var(--ink-soft);transition:opacity .3s;opacity:0}
+.moonlab b{font-family:'Fraunces';font-size:13px;display:block;color:var(--ink)}
+#load{position:fixed;inset:0;z-index:90;display:grid;place-items:center;background:var(--bg1);transition:opacity .7s}#load.hide{opacity:0;pointer-events:none}
+#load .r{width:44px;height:44px;border-radius:50%;border:3px solid var(--brd);border-top-color:var(--gold);animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:920px){.overview{display:none}.stage-title{left:24px;right:24px;max-width:none}}
+.row{transition:.25s cubic-bezier(.6,0,.2,1)}.row .orb{transition:.25s}
+.row:hover{transform:translateX(4px)}.row:hover .orb{transform:scale(1.1)}
+.row .go{transition:.2s}.row:hover .go{transform:translateX(3px);color:var(--rc)}
+.chip{transition:.2s}.chip:hover{border-color:var(--gold);transform:translateY(-2px);color:var(--ink)}
+.hl a{transition:.22s}.hl .ic{transition:.25s}.hl a:hover{transform:translateX(4px)}.hl a:hover .ic{transform:scale(1.12) rotate(-6deg)}
+.fact{transition:.2s}.fact:hover .fi{transform:scale(1.15)}.fact .fi{transition:.2s;display:inline-block}
+.discovery{transition:.25s}.discovery:hover{border-color:var(--gold);transform:translateY(-2px)}
+.dock button{transition:.2s}.dock button:hover:not(.primary){transform:translateY(-2px)}.dock button.primary:hover{transform:translateY(-2px);box-shadow:0 10px 26px -6px var(--gold)}
+.profile{display:none!important}
+</style>
 </head>
+<body data-theme="light" id="homepage">
+<div id="load"><div class="r"></div></div>
+<canvas id="spaceCanvas" aria-hidden="true"></canvas>
 
-<body data-theme="light" id="homepage" class="home-page">
-    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
+<header class="top">
+  <a class="logo" href="index.html">
+    <span class="lm"><svg viewBox="0 0 120 92" fill="none">
+      <defs>
+        <radialGradient id="bhGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFDE8A" stop-opacity=".55"/><stop offset="55%" stop-color="#E9930C" stop-opacity=".3"/><stop offset="100%" stop-color="#E9930C" stop-opacity="0"/></radialGradient>
+        <linearGradient id="diskG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C8760A"/><stop offset=".25" stop-color="#FFE9A6"/><stop offset=".5" stop-color="#FFF7DA"/><stop offset=".75" stop-color="#FFE9A6"/><stop offset="1" stop-color="#C8760A"/></linearGradient>
+        <radialGradient id="bhSphere" cx="42%" cy="36%" r="68%"><stop offset="0%" stop-color="#1b1510"/><stop offset="58%" stop-color="#0a0705"/><stop offset="100%" stop-color="#000000"/></radialGradient>
+        <filter id="b1" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.5"/></filter>
+        <filter id="b2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
+      </defs>
+      <ellipse cx="60" cy="47" rx="56" ry="18" fill="url(#bhGlow)" filter="url(#b2)"/>
+      <g filter="url(#b1)">
+        <ellipse class="spinA" cx="60" cy="47" rx="50" ry="12.5" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".82"/>
+        <ellipse class="spinB" cx="60" cy="47" rx="41" ry="9.5" fill="none" stroke="#FFE7A0" stroke-width="4.5" opacity=".85"/>
+      </g>
+      <path d="M16 47 A44 33 0 0 1 104 47" fill="none" stroke="url(#diskG)" stroke-width="5.5" filter="url(#b1)" stroke-linecap="round" opacity=".95"/>
+      <circle cx="60" cy="47" r="20" fill="url(#bhSphere)"/>
+      <circle cx="60" cy="47" r="20.6" fill="none" stroke="#FFE7A0" stroke-width="1.6" opacity=".85"/>
+      <g filter="url(#b1)">
+        <path class="spinA" d="M10 47 A50 12.5 0 0 0 110 47" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".98" stroke-linecap="round"/>
+        <path class="spinB" d="M19 47 A41 9.5 0 0 0 101 47" fill="none" stroke="#FFF7DA" stroke-width="4.5" opacity=".98" stroke-linecap="round"/>
+      </g>
+    </svg></span><span class="txt">Prajna<b>AGI</b></span>
+  </a>
+  <nav class="nav" id="nav">
+    <a class="hi" href="index.html" data-hi="होम" data-aw="होम" data-en="Home">होम</a>
+    <a class="hi" data-k="science" href="science.html" data-hi="विज्ञान" data-aw="विज्ञान" data-en="Science">विज्ञान</a>
+    <a class="hi" data-k="tech" href="tech.html" data-hi="तकनीक" data-aw="तकनीक" data-en="Tech">तकनीक</a>
+    <a class="hi" data-k="environment" href="environment.html" data-hi="पर्यावरण" data-aw="पर्यावरन" data-en="Environment">पर्यावरण</a>
+    <a class="hi" data-k="health" href="health.html" data-hi="स्वास्थ्य" data-aw="सेहत" data-en="Health">स्वास्थ्य</a>
+    <a class="hi" href="contact.html" data-hi="संपर्क" data-aw="संपर्क" data-en="Contact">संपर्क</a>
+  </nav>
+  <div class="tools">
+    <button id="theme-toggle">☀️ दिन</button>
+    <button id="lang-toggle" aria-label="भाषा">🌐 <span id="langlabel">हिंदी</span></button>
+  </div>
+</header>
 
-    <!-- ── NAVIGATION ── -->
-    <nav>
-        <div class="nav-inner">
-            <div class="brand-container">
-                <canvas id="headerBlackHole" aria-hidden="true"></canvas>
-                <a href="index.html" class="logo">Prajna<span class="brand">AGI</span></a>
-                <ul class="menu-tabs">
-                    <!-- Loaded via CMS -->
-                </ul>
-            </div>
-            <div class="nav-controls">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="खोजें..." maxlength="80" aria-label="खोजें">
-                    <button type="button" class="search-btn" aria-label="खोजें">⌕</button>
-                </div>
-                <button type="button" id="theme-toggle" aria-label="थीम बदलें">☀️ दिन</button>
-                <button type="button" class="subscribe-nav-btn" data-scroll-to="newsletter">सदस्यता</button>
-                <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+<aside class="sidebar">
+  <div class="card sb-head"><h3 data-hi="श्रेणियाँ · CATEGORIES" data-aw="श्रेणी · CATEGORIES" data-en="CATEGORIES">श्रेणियाँ · CATEGORIES</h3><button id="sbToggle" class="sbtog" aria-label="टॉगल">▾</button></div>
+  <div class="card sb-list" id="sbList"></div>
+  <div class="card discovery"><b class="serif" data-hi="इसरो · भारत" data-aw="इसरो · भारत" data-en="ISRO · India">इसरो · भारत</b><span class="tagline" data-hi="आज की खबर" data-aw="आज क खबर" data-en="Today\u2019s update">आज की खबर</span><p class="hi" id="discText">लोड हो रहा है…</p></div>
+</aside>
 
-    <!-- ── MOBILE DROPDOWN ── -->
-    <div class="mobile-menu" id="mobileMenu">
-        <ul><!-- Loaded via CMS --></ul>
-    </div>
+<div class="stage-title" id="stageTitle"></div>
+<aside class="overview" id="overview"></aside>
 
-    <!-- ── LED TICKER BOARD ── -->
-    <div class="ticker-wrap">
-        <div class="ticker-label"><span class="led-blink" aria-hidden="true"></span>LIVE</div>
-        <div class="ticker-inner">
-            <div class="ticker-track"><span>लोड हो रहा है...</span></div>
-        </div>
-    </div>
+<div class="dock">
+  <button class="hi primary" id="exploreBtn">➤ <span data-hi="एक्सप्लोर" data-aw="एक्सप्लोर" data-en="Explore">एक्सप्लोर</span></button>
+  <button class="hi" onclick="location.href='srijan.html'">✦ <span data-hi="सृजन रोबॉटिक्स" data-aw="सृजन रोबॉटिक्स" data-en="Srijan Robotics">सृजन रोबॉटिक्स</span></button>
+</div>
 
-    <!-- ── HERO ── -->
-    <section class="hero">
-        <h1>ब्रह्मांड की हर खबर<span class="hindi-line">हिंदी में</span></h1>
-        <hr class="dot-rule">
-        <p>विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खोजों का विश्वसनीय स्रोत</p>
-    </section>
-
-    <!-- ── FEATURED ── -->
-    <section class="section">
-        <h2 class="section-title"><span class="px" aria-hidden="true">★</span> मुख्य समाचार</h2>
-        <div class="featured-grid">
-            <div class="loading-box">लोड हो रहा है...</div>
-        </div>
-    </section>
-
-    <!-- ── LATEST ── -->
-    <section class="section">
-        <h2 class="section-title"><span class="px" aria-hidden="true">»</span> ताज़ा खबरें</h2>
-        <div class="card-grid" id="cms-latest-grid">
-            <div class="loading-box">लोड हो रहा है...</div>
-        </div>
-    </section>
-
-    <section class="section srijan-update-section" id="srijan-update">
-        <h2 class="section-title"><span class="px" aria-hidden="true">🤖</span> सृजन रोबॉटिक्स अपडेट</h2>
-        <div class="srijan-update-card">
-            <div class="card-grid srijan-update-grid" id="cms-srijan-update"></div>
-        </div>
-    </section>
-
-    <!-- ── FACTS: क्या आप जानते हैं? ── -->
-    <section class="section facts-section" id="facts-section" hidden>
-        <h2 class="section-title"><span class="px" aria-hidden="true">✦</span> क्या आप जानते हैं?</h2>
-        <div class="facts-grid" id="facts-grid"></div>
-        <div class="facts-archive-wrap">
-            <button type="button" class="facts-archive-btn" id="facts-archive-btn" aria-expanded="false">पुराने रोचक तथ्य देखें ↓</button>
-            <div class="facts-archive" id="facts-archive" hidden></div>
-        </div>
-    </section>
-
-    <!-- ── NEWSLETTER ── -->
-    <section class="newsletter-section" id="newsletter">
-        <h2><span class="px" aria-hidden="true">▚</span> अंतरिक्ष की खबरें सीधे Inbox में</h2>
-        <p class="text-muted mt-1">हर हफ्ते नई साइंस न्यूज़ और मिशन अपडेट पाएं।</p>
-        <form class="newsletter-input-group" name="newsletter" method="POST" data-netlify="true" action="/success.html">
-            <input type="email" class="newsletter-input" name="email" placeholder="आपका ईमेल पता लिखें..." maxlength="120" autocomplete="email">
-            <button type="submit" class="subscribe-btn">सदस्यता लें</button>
-        </form>
-        <p class="text-accent mt-1" id="visitorCount" data-suffix=" पाठक पहले से जुड़े हैं।">पाठक जुड़ रहे हैं…</p>
-    </section>
-
-    <!-- ── FOOTER ── -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="footer-logo">PrajnaAGI</div>
-                <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
-            </div>
-            <div class="footer-col">
-                <h4>श्रेणियां</h4>
-                <ul>
-                    <li><a href="space.html">अंतरिक्ष</a></li>
-                    <li><a href="science.html">विज्ञान</a></li>
-                    <li><a href="tech.html">तकनीक</a></li>
-                    <li><a href="environment.html">पर्यावरण</a></li>
-                    <li><a href="health.html">स्वास्थ्य</a></li>
-                    <li><a href="srijan.html">सृजन रोबॉटिक्स</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>समर्थन करें</h4>
-                <p>आपका सहयोग ‘सृजन मानवाकार रोबॉट’ के निर्माण तथा इस वेबसाइट के विज्ञापन-मुक्त (Ad-Free) संचालन और रखरखाव में महत्वपूर्ण योगदान देगा।</p>
-                <button type="button" class="px-btn" data-open-payment>सपोर्ट करें</button>
-                <div class="social-row">
-                    <a href="https://x.com/PrajnaAGI" target="_blank" rel="noopener" class="social-btn" aria-label="X (Twitter)" title="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                    <a href="https://api.whatsapp.com/send?text=PrajnaAGI%20%E2%80%94%20https://prajnaagi.com" target="_blank" rel="noopener" class="social-btn" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.19 2.01 3.06 4.87 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4 2.51 0 4.87.98 6.64 2.76a9.34 9.34 0 0 1 2.75 6.65c-.01 5.18-4.22 9.41-9.4 9.41zm8-17.4A11.32 11.32 0 0 0 12.05.8C5.8.8.72 5.88.72 12.12c0 2 .52 3.95 1.52 5.67L.63 23.6l5.95-1.56a11.3 11.3 0 0 0 5.46 1.39h.01c6.24 0 11.32-5.08 11.33-11.32 0-3.03-1.18-5.87-3.32-8.01z"/></svg></a>
-                </div>
-            </div>
-        </div>
-        <p class="footer-bottom">© 2026 PRAJNAAGI · <a href="privacy.html">PRIVACY</a> · <a href="terms.html">TERMS</a> · <a href="contact.html">CONTACT</a></p>
-    </footer>
-
-    <!-- ── SUPPORT MODAL (glass, secure) ── -->
-    <div id="paymentModal" class="modal-overlay pay-overlay" role="dialog" aria-modal="true" aria-label="सहयोग">
-        <div class="modal-content-main pay-card">
-            <canvas class="rupee-rain" aria-hidden="true"></canvas>
-            <div class="pay-inner">
-                <span class="pay-shield" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5v-6L12 2.5z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>
-                </span>
-                <p class="pay-msg">माध्यम अभी उपलब्ध नहीं, खेद है।</p>
-                <p class="pay-sub">आपकी सहयोग-भावना के लिए हृदय से आभार 🙏</p>
-                <button type="button" class="px-btn px-btn--ghost" data-close-payment>बंद करें</button>
-            </div>
-        </div>
-    </div>
-
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
-
-    <!-- ── SCRIPTS ── -->
-    <script src="assets/js/canvas.js" defer></script>
-    <script src="assets/js/ui.js" defer></script>
-    <script src="assets/js/cms-loader.js" defer></script>
+<script src="assets/js/lang.js" defer></script>
+<script src="assets/js/home-explorer.js" defer></script>
 </body>
-
 </html>
-             
