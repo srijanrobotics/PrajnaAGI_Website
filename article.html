@@ -1,139 +1,132 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrajnaAGI — लेख</title>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-
-    <!-- SEO & Social Preview (rewritten per-article by Netlify edge function) -->
-    <meta name="description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
-    <meta property="og:type" content="article">
-    <meta property="og:site_name" content="PrajnaAGI">
-    <meta property="og:title" content="PrajnaAGI">
-    <meta property="og:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
-    <meta property="og:image" content="https://prajnaagi.com/assets/images/default-share.jpg">
-    <meta property="og:url" content="https://prajnaagi.com/article.html">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="PrajnaAGI">
-    <meta name="twitter:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
-    <meta name="twitter:image" content="https://prajnaagi.com/assets/images/default-share.jpg">
-
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/advanced.css">
-
-    <!-- Self-hosted markdown renderer + sanitizer -->
-    <script src="assets/js/vendor/marked.min.js" defer></script>
-    <script src="assets/js/vendor/purify.min.js" defer></script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrajnaAGI — लेख</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article"><meta property="og:site_name" content="PrajnaAGI">
+<meta property="og:title" content="PrajnaAGI"><meta property="og:description" content="विज्ञान, अंतरिक्ष और तकनीक की ताज़ा खबरें — PrajnaAGI">
+<meta property="og:image" content="https://prajnaagi.com/assets/images/default-share.jpg">
+<meta property="og:url" content="https://prajnaagi.com/article.html">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@PrajnaAGI">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/category.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script src="assets/js/vendor/marked.min.js" defer></script>
+<script src="assets/js/vendor/purify.min.js" defer></script>
 </head>
-
 <body data-theme="light">
-    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
-
-    <!-- ── NAVIGATION ── -->
-    <nav>
-        <div class="nav-inner">
-            <div class="brand-container">
-                <canvas id="headerBlackHole" aria-hidden="true"></canvas>
-                <a href="index.html" class="logo">Prajna<span class="brand">AGI</span></a>
-                <ul class="menu-tabs"><!-- Loaded via CMS --></ul>
-            </div>
-            <div class="nav-controls">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="खोजें..." maxlength="80" aria-label="खोजें">
-                    <button type="button" class="search-btn" aria-label="खोजें">⌕</button>
-                </div>
-                <button type="button" id="theme-toggle" aria-label="थीम बदलें">☀️ दिन</button>
-                <button type="button" class="hamburger" id="hamburger" aria-label="मेनू खोलें">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <div class="mobile-menu" id="mobileMenu">
-        <ul><!-- Loaded via CMS --></ul>
+<canvas id="spaceCanvas" aria-hidden="true"></canvas>
+<header class="top">
+  <a class="logo" href="index.html"><span class="lm"><svg viewBox="0 0 120 92" fill="none"><defs><radialGradient id="bhGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFDE8A" stop-opacity=".55"/><stop offset="55%" stop-color="#E9930C" stop-opacity=".3"/><stop offset="100%" stop-color="#E9930C" stop-opacity="0"/></radialGradient><linearGradient id="diskG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C8760A"/><stop offset=".25" stop-color="#FFE9A6"/><stop offset=".5" stop-color="#FFF7DA"/><stop offset=".75" stop-color="#FFE9A6"/><stop offset="1" stop-color="#C8760A"/></linearGradient><radialGradient id="bhSphere" cx="42%" cy="36%" r="68%"><stop offset="0%" stop-color="#1b1510"/><stop offset="58%" stop-color="#0a0705"/><stop offset="100%" stop-color="#000000"/></radialGradient><filter id="b1" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.5"/></filter><filter id="b2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter></defs><ellipse cx="60" cy="47" rx="56" ry="18" fill="url(#bhGlow)" filter="url(#b2)"/><g filter="url(#b1)"><ellipse class="spinA" cx="60" cy="47" rx="50" ry="12.5" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".82"/><ellipse class="spinB" cx="60" cy="47" rx="41" ry="9.5" fill="none" stroke="#FFE7A0" stroke-width="4.5" opacity=".85"/></g><path d="M16 47 A44 33 0 0 1 104 47" fill="none" stroke="url(#diskG)" stroke-width="5.5" filter="url(#b1)" stroke-linecap="round" opacity=".95"/><circle cx="60" cy="47" r="20" fill="url(#bhSphere)"/><circle cx="60" cy="47" r="20.6" fill="none" stroke="#FFE7A0" stroke-width="1.6" opacity=".85"/><g filter="url(#b1)"><path class="spinA" d="M10 47 A50 12.5 0 0 0 110 47" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".98" stroke-linecap="round"/><path class="spinB" d="M19 47 A41 9.5 0 0 0 101 47" fill="none" stroke="#FFF7DA" stroke-width="4.5" opacity=".98" stroke-linecap="round"/></g></svg></span><span class="txt">Prajna<b>AGI</b></span></a>
+  <nav class="nav" id="nav">
+    <a class="hi" href="index.html" data-hi="होम" data-aw="होम" data-en="Home">होम</a>
+    <a class="hi" href="science.html" data-hi="विज्ञान" data-aw="विज्ञान" data-en="Science">विज्ञान</a>
+    <a class="hi" href="tech.html" data-hi="तकनीक" data-aw="तकनीक" data-en="Tech">तकनीक</a>
+    <a class="hi" href="environment.html" data-hi="पर्यावरण" data-aw="पर्यावरन" data-en="Environment">पर्यावरण</a>
+    <a class="hi" href="health.html" data-hi="स्वास्थ्य" data-aw="सेहत" data-en="Health">स्वास्थ्य</a>
+    <a class="hi" href="contact.html" data-hi="संपर्क" data-aw="संपर्क" data-en="Contact">संपर्क</a>
+  </nav>
+  <div class="tools"><button id="theme-toggle">☀️ दिन</button>
+    <button id="lang-toggle" aria-label="भाषा">🌐 <span id="langlabel">हिंदी</span></button></div>
+</header>
+<section class="hero">
+  <a class="back hi" href="index.html">← ब्रह्मांड पर लौटें</a>
+  <div class="eyebrow" id="artEyebrow">लेख</div>
+  <h1 class="hi" id="artTitle">लेख लोड हो रहा है…</h1>
+  <div class="sub" id="artSummary"></div>
+  <div class="meta" id="artMeta" style="font-family:'Space Grotesk';font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:10px"></div>
+</section>
+<main id="article-detail-container">
+  <div class="artbody" id="artBody"><p class="lang-unavailable">ब्रह्मांड से जानकारी जुटाई जा रही है…</p></div>
+  <div class="sharebar">
+    <span class="lbl hi">शेयर करें:</span>
+    <a href="#" id="shareWA" class="share-icon" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.19 2.01 3.06 4.87 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4 2.51 0 4.87.98 6.64 2.76a9.34 9.34 0 0 1 2.75 6.65c-.01 5.18-4.22 9.41-9.4 9.41z"/></svg></a>
+    <a href="#" id="shareX" class="share-icon" rel="noopener" aria-label="X" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="#" id="shareTG" class="share-icon" rel="noopener" aria-label="Telegram" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.94 0C5.35 0 0 5.37 0 12s5.35 12 11.94 12S24 18.63 24 12 18.63 0 11.94 0zm5.55 8.16-1.86 8.78c-.14.62-.51.77-1.03.48l-2.85-2.1-1.37 1.32c-.15.15-.28.28-.57.28l.2-2.9 5.28-4.77c.23-.2-.05-.32-.35-.12L8.4 13.06l-2.81-.88c-.61-.19-.62-.61.13-.9l10.99-4.24c.51-.19.96.12.79.12z"/></svg></a>
+    <a href="index.html" class="pbtn ghost hi" style="margin-left:auto">और लेख पढ़ें</a>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="fcols">
+    <div class="fcol">
+      <div class="flogo">Prajna<b>AGI</b></div>
+      <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
+      <div class="fsocial">
+        <a href="https://x.com/PrajnaAGI" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://api.whatsapp.com/send?text=PrajnaAGI%20%E2%80%94%20https://prajnaagi.com" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.19 2.01 3.06 4.87 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4 2.51 0 4.87.98 6.64 2.76a9.34 9.34 0 0 1 2.75 6.65c-.01 5.18-4.22 9.41-9.4 9.41z"/></svg></a>
+      </div>
     </div>
-
-    <!-- ── ARTICLE HERO ── -->
-    <header class="article-hero" id="article-hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-text-content">
-            <span class="tag" id="article-meta">लोड हो रहा है...</span>
-            <div class="lang-toggle" id="lang-toggle" role="group" aria-label="भाषा चुनें">
-                <button type="button" class="lang-btn active" data-lang="hindi">हिंदी</button>
-                <button type="button" class="lang-btn" data-lang="awadhi">अवधी</button>
-                <button type="button" class="lang-btn" data-lang="english">English</button>
-            </div>
-            <h1 id="article-title">लेख लोड हो रहा है...</h1>
-        </div>
-    </header>
-
-    <!-- ── MAIN CONTENT ── -->
-    <main class="article-container" id="article-detail-container">
-        <div class="article-body" id="markdown-content">
-            <div class="loading-state">ब्रह्मांड से जानकारी जुटाई जा रही है...</div>
-        </div>
-
-        <div class="share-bar">
-            <span class="share-label">शेयर करें:</span>
-            <a href="#" id="shareWA" class="share-icon" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.19 2.01 3.06 4.87 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4 2.51 0 4.87.98 6.64 2.76a9.34 9.34 0 0 1 2.75 6.65c-.01 5.18-4.22 9.41-9.4 9.41zm8-17.4A11.32 11.32 0 0 0 12.05.8C5.8.8.72 5.88.72 12.12c0 2 .52 3.95 1.52 5.67L.63 23.6l5.95-1.56a11.3 11.3 0 0 0 5.46 1.39h.01c6.24 0 11.32-5.08 11.33-11.32 0-3.03-1.18-5.87-3.32-8.01z"/></svg></a>
-            <a href="#" id="shareX" class="share-icon" rel="noopener" aria-label="X" title="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-            <a href="#" id="shareFB" class="share-icon" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
-            <a href="#" id="shareTG" class="share-icon" rel="noopener" aria-label="Telegram" title="Telegram"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M11.94 0C5.35 0 0 5.37 0 12s5.35 12 11.94 12S24 18.63 24 12 18.63 0 11.94 0zm5.55 8.16-1.86 8.78c-.14.62-.51.77-1.03.48l-2.85-2.1-1.37 1.32c-.15.15-.28.28-.57.28l.2-2.9 5.28-4.77c.23-.2-.05-.32-.35-.12L8.4 13.06l-2.81-.88c-.61-.19-.62-.61.13-.9l10.99-4.24c.51-.19.96.12.79.12z"/></svg></a>
-            <button type="button" id="shareCopy" class="share-icon" aria-label="लिंक कॉपी करें" title="लिंक कॉपी करें"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
-            <button type="button" id="shareNative" class="share-icon" aria-label="और विकल्प" title="और शेयर विकल्प" hidden><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
-            <button type="button" class="px-btn px-btn--ghost" data-open-payment>सपोर्ट करें</button>
-        </div>
-    </main>
-
-    <!-- ── FOOTER ── -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="footer-logo">PrajnaAGI</div>
-                <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
-            </div>
-            <div class="footer-col">
-                <h4>श्रेणियां</h4>
-                <ul>
-                    <li><a href="space.html">अंतरिक्ष</a></li>
-                    <li><a href="science.html">विज्ञान</a></li>
-                    <li><a href="tech.html">तकनीक</a></li>
-                    <li><a href="environment.html">पर्यावरण</a></li>
-                    <li><a href="health.html">स्वास्थ्य</a></li>
-                    <li><a href="srijan.html">सृजन रोबॉटिक्स</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>समर्थन करें</h4>
-                <p>आपका सहयोग ‘सृजन मानवाकार रोबॉट’ के निर्माण तथा इस वेबसाइट के विज्ञापन-मुक्त (Ad-Free) संचालन और रखरखाव में महत्वपूर्ण योगदान देगा।</p>
-                <button type="button" class="px-btn" data-open-payment>सपोर्ट करें</button>
-            </div>
-        </div>
-        <p class="footer-bottom">© 2026 PRAJNAAGI · <a href="privacy.html">PRIVACY</a> · <a href="terms.html">TERMS</a> · <a href="contact.html">CONTACT</a></p>
-    </footer>
-
-    <!-- ── SUPPORT MODAL (glass, secure) ── -->
-    <div id="paymentModal" class="modal-overlay pay-overlay" role="dialog" aria-modal="true" aria-label="सहयोग">
-        <div class="modal-content-main pay-card">
-            <canvas class="rupee-rain" aria-hidden="true"></canvas>
-            <div class="pay-inner">
-                <span class="pay-shield" aria-hidden="true"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5v-6L12 2.5z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></span>
-                <p class="pay-msg">माध्यम अभी उपलब्ध नहीं, खेद है।</p>
-                <p class="pay-sub">आपकी सहयोग-भावना के लिए हृदय से आभार 🙏</p>
-                <button type="button" class="px-btn px-btn--ghost" data-close-payment>बंद करें</button>
-            </div>
-        </div>
-    </div>
-
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">▲</button>
-
-    <script src="assets/js/canvas.js" defer></script>
-    <script src="assets/js/ui.js" defer></script>
-    <script src="assets/js/cms-loader.js" defer></script>
+    <div class="fcol"><h4>श्रेणियाँ</h4><ul>
+      <li><a href="space.html">अंतरिक्ष</a></li><li><a href="science.html">विज्ञान</a></li><li><a href="tech.html">तकनीक</a></li>
+      <li><a href="environment.html">पर्यावरण</a></li><li><a href="health.html">स्वास्थ्य</a></li><li><a href="srijan.html">सृजन रोबॉटिक्स</a></li>
+    </ul></div>
+    <div class="fcol"><h4>महत्वपूर्ण लिंक</h4><ul>
+      <li><a href="about.html">हमारे बारे में</a></li><li><a href="contact.html">संपर्क करें</a></li>
+      <li><a href="privacy.html">गोपनीयता नीति</a></li><li><a href="terms.html">उपयोग की शर्तें</a></li>
+    </ul></div>
+  </div>
+  <div class="fbottom">© 2026 PRAJNAAGI · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a></div>
+</footer>
+<script src="assets/js/lang.js" defer></script>
+<script src="assets/js/prajna-3d.js" defer></script>
+<script>(function(){var b=document.getElementById('theme-toggle');function n(){return document.body.getAttribute('data-theme')!=='light';}function lab(){if(b)b.textContent=n()?'🌙 रात':'☀️ दिन';}try{var s=localStorage.getItem('theme');if(s)document.body.setAttribute('data-theme',s);}catch(e){}lab();if(b)b.addEventListener('click',function(){document.body.setAttribute('data-theme',n()?'light':'dark');try{localStorage.setItem('theme',document.body.getAttribute('data-theme'));}catch(e){}lab();});})();</script>
+<script>
+(function(){
+  function esc(s){var d=document.createElement('div');d.textContent=(s==null?'':String(s));return d.innerHTML;}
+  function safeText(s,n){s=(s==null?'':String(s));return s.slice(0,n||300);}
+  function fmtDate(d){if(!d)return '';var t=new Date(d);if(isNaN(t))return '';var M=['जन','फ़र','मार्च','अप्रैल','मई','जून','जुल','अग','सित','अक्तू','नव','दिस'];return t.getDate()+' '+M[t.getMonth()]+' '+t.getFullYear();}
+  function md(text){
+    if(!text)return '';
+    var html;
+    if(window.marked&&marked.parse){html=marked.parse(text);}else{return '<p>'+esc(text).replace(/\n{2,}/g,'</p><p>')+'</p>';}
+    if(window.DOMPurify)return DOMPurify.sanitize(html,{ALLOWED_TAGS:['p','br','strong','em','b','i','u','h2','h3','h4','ul','ol','li','blockquote','code','pre','a','hr','img','table','thead','tbody','tr','th','td'],ALLOWED_ATTR:['href','src','alt','title']});
+    return '<p>'+esc(text)+'</p>';
+  }
+  var article=null;
+  function bodyFor(L){
+    if(!article)return '';
+    var map={hi:'body_hindi',aw:'body_awadhi',en:'body_english'};
+    var t=article[map[L]||'body_hindi'];
+    if(L==='hi'&&(!t||!t.trim())&&typeof article.body==='string')t=article.body;
+    if(!t||!t.trim())return '<p class="lang-unavailable">यह लेख अभी इस भाषा में उपलब्ध नहीं है।</p>';
+    return md(t);
+  }
+  function renderBody(){var e=document.getElementById('artBody');if(e&&article)e.innerHTML=bodyFor(window.PLANG||'hi');}
+  function load(){
+    var id=null;try{id=new URL(location.href).searchParams.get('id');}catch(e){}
+    var bodyEl=document.getElementById('artBody');
+    if(!id){if(bodyEl)bodyEl.innerHTML='<p class="lang-unavailable">लेख का पता नहीं चला (Missing ID)।</p>';return;}
+    Promise.all([
+      fetch('content/articles.json').then(function(r){return r.json();}).catch(function(){return null;}),
+      fetch('content/authors.json').then(function(r){return r.json();}).catch(function(){return null;})
+    ]).then(function(res){
+      var data=res[0],authors=res[1];
+      var list=(data&&Array.isArray(data.articles))?data.articles.filter(function(a){return a&&a.title&&a.category&&a.status!=='Draft'&&a.hidden!==true;}):null;
+      if(!list){if(bodyEl)bodyEl.innerHTML='<p class="lang-unavailable">डेटा लोड करने में असमर्थ।</p>';return;}
+      article=list.find(function(a){return a.slug===id||a.title===id;});
+      if(!article){if(bodyEl)bodyEl.innerHTML='<p class="lang-unavailable">क्षमा करें, यह लेख हमारी लाइब्रेरी में नहीं मिला।</p>';return;}
+      var tt=document.getElementById('artTitle');if(tt)tt.textContent=safeText(article.title,300);
+      var ey=document.getElementById('artEyebrow');if(ey)ey.textContent=safeText(article.category,40);
+      var su=document.getElementById('artSummary');if(su)su.textContent=safeText(article.summary,300);
+      var mt=document.getElementById('artMeta');if(mt){var ds=fmtDate(article.date);mt.textContent=safeText(article.tag||'NEWS',40)+(ds?' · '+ds:'');}
+      document.title=safeText(article.title,150)+' — PrajnaAGI';
+      var url=encodeURIComponent(location.href),txt=encodeURIComponent(safeText(article.title,200));
+      var wa=document.getElementById('shareWA');if(wa)wa.href='https://api.whatsapp.com/send?text='+txt+'%20'+url;
+      var sx=document.getElementById('shareX');if(sx)sx.href='https://twitter.com/intent/tweet?text='+txt+'&url='+url;
+      var tg=document.getElementById('shareTG');if(tg)tg.href='https://t.me/share/url?url='+url+'&text='+txt;
+      if(typeof article.image==='string'&&/^https:\/\//.test(article.image)){var b=document.createElement('img');b.className='art-banner';b.src=article.image;b.alt='';if(bodyEl)bodyEl.parentNode.insertBefore(b,bodyEl);}
+      renderBody();
+      if(typeof article.video_id==='string'&&/^[A-Za-z0-9_-]{6,20}$/.test(article.video_id)){var vc=document.createElement('div');vc.className='video-container';var ifr=document.createElement('iframe');ifr.src='https://www.youtube-nocookie.com/embed/'+article.video_id;ifr.setAttribute('allowfullscreen','');ifr.title='YouTube video';vc.appendChild(ifr);if(bodyEl)bodyEl.parentNode.insertBefore(vc,bodyEl.nextSibling);}
+      if(article.author_id&&authors&&Array.isArray(authors.authors)){var au=authors.authors.find(function(a){return a&&a.id===article.author_id;});if(au&&au.name){var card=document.createElement('div');card.className='author-card';if(typeof au.image==='string'&&/^https?:\/\/|^\//.test(au.image)){var im=document.createElement('img');im.className='author-img';im.src=au.image;im.alt=safeText(au.name,100);card.appendChild(im);}var info=document.createElement('div');info.className='author-info';var role=document.createElement('span');role.className='author-role';role.textContent='लेखक परिचय';var h4=document.createElement('h4');h4.textContent=safeText(au.name,100);var bio=document.createElement('p');bio.className='author-bio';bio.textContent=safeText(au.bio,500);info.appendChild(role);info.appendChild(h4);info.appendChild(bio);card.appendChild(info);if(bodyEl)bodyEl.parentNode.appendChild(card);}}
+    });
+  }
+  document.addEventListener('plang',renderBody);
+  if(document.readyState!=='loading')load();else document.addEventListener('DOMContentLoaded',load);
+})();
+</script>
 </body>
-
 </html>
