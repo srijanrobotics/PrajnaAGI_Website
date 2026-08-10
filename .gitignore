@@ -4,3 +4,4 @@ patch_subscribe.py
 *.tmp
 .DS_Store
 __pycache__/
+publish.bat

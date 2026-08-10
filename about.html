@@ -1,179 +1,82 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <meta charset="UTF-8">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>हमारे बारे में — PrajnaAGI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <style>
-        #spaceCanvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; width: 100%; height: 100%; }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 4rem auto; padding: 0 2rem; align-items: center; }
-        .about-img { width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid var(--border); }
-        .about-text h2 { color: var(--accent); margin-bottom: 1.5rem; font-size: 2rem; }
-        .about-text p { line-height: 1.8; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem; }
-        
-        @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-        }
-    </style>
-    
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>हमारे बारे में — PrajnaAGI</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="PrajnaAGI: ज्ञान और विज्ञान का संगम — संस्थापक प्रिय रंजन पाण्डेय।">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/category.css"><link rel="stylesheet" href="assets/css/pages.css">
 </head>
-
 <body data-theme="light">
-    <canvas id="spaceCanvas"></canvas>
-
-    <!-- ── NAVIGATION ── -->
-    <nav>
-        <div class="nav-inner">
-            <div class="brand-container">
-                <canvas id="headerBlackHole"></canvas>
-                <a href="index.html" class="logo"><span>PrajnaAGI</span></a>
-                <ul class="menu-tabs">
-                    <!-- Loaded via CMS -->
-                </ul>
-            </div>
-            <div class="nav-controls">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="खोजें...">
-                    <button class="search-btn" aria-label="खोजें">🔍</button>
-                </div>
-                <button id="theme-toggle">☀️ दिन</button>
-                <button class="hamburger" id="hamburger" aria-label="मेनू खोलें">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ── MOBILE DROPDOWN ── -->
-    <div class="mobile-menu" id="mobileMenu">
-        <ul>
-            <!-- Loaded via CMS -->
-        </ul>
+<canvas id="spaceCanvas" aria-hidden="true"></canvas>
+<header class="top">
+  <a class="logo" href="index.html"><span class="lm"><svg viewBox="0 0 120 92" fill="none"><defs><radialGradient id="bhGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFDE8A" stop-opacity=".55"/><stop offset="55%" stop-color="#E9930C" stop-opacity=".3"/><stop offset="100%" stop-color="#E9930C" stop-opacity="0"/></radialGradient><linearGradient id="diskG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C8760A"/><stop offset=".25" stop-color="#FFE9A6"/><stop offset=".5" stop-color="#FFF7DA"/><stop offset=".75" stop-color="#FFE9A6"/><stop offset="1" stop-color="#C8760A"/></linearGradient><radialGradient id="bhSphere" cx="42%" cy="36%" r="68%"><stop offset="0%" stop-color="#1b1510"/><stop offset="58%" stop-color="#0a0705"/><stop offset="100%" stop-color="#000000"/></radialGradient><filter id="b1" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.5"/></filter><filter id="b2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter></defs><ellipse cx="60" cy="47" rx="56" ry="18" fill="url(#bhGlow)" filter="url(#b2)"/><g filter="url(#b1)"><ellipse class="spinA" cx="60" cy="47" rx="50" ry="12.5" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".82"/><ellipse class="spinB" cx="60" cy="47" rx="41" ry="9.5" fill="none" stroke="#FFE7A0" stroke-width="4.5" opacity=".85"/></g><path d="M16 47 A44 33 0 0 1 104 47" fill="none" stroke="url(#diskG)" stroke-width="5.5" filter="url(#b1)" stroke-linecap="round" opacity=".95"/><circle cx="60" cy="47" r="20" fill="url(#bhSphere)"/><circle cx="60" cy="47" r="20.6" fill="none" stroke="#FFE7A0" stroke-width="1.6" opacity=".85"/><g filter="url(#b1)"><path class="spinA" d="M10 47 A50 12.5 0 0 0 110 47" fill="none" stroke="url(#diskG)" stroke-width="7" opacity=".98" stroke-linecap="round"/><path class="spinB" d="M19 47 A41 9.5 0 0 0 101 47" fill="none" stroke="#FFF7DA" stroke-width="4.5" opacity=".98" stroke-linecap="round"/></g></svg></span><span class="txt">Prajna<b>AGI</b></span></a>
+  <nav class="nav" id="nav">
+    <a class="hi" href="index.html" data-hi="होम" data-aw="होम" data-en="Home">होम</a>
+    <a class="hi" href="science.html" data-hi="विज्ञान" data-aw="विज्ञान" data-en="Science">विज्ञान</a>
+    <a class="hi" href="tech.html" data-hi="तकनीक" data-aw="तकनीक" data-en="Tech">तकनीक</a>
+    <a class="hi" href="environment.html" data-hi="पर्यावरण" data-aw="पर्यावरन" data-en="Environment">पर्यावरण</a>
+    <a class="hi" href="health.html" data-hi="स्वास्थ्य" data-aw="सेहत" data-en="Health">स्वास्थ्य</a>
+    <a class="hi" href="contact.html" data-hi="संपर्क" data-aw="संपर्क" data-en="Contact">संपर्क</a>
+  </nav>
+  <div class="tools"><button id="theme-toggle">☀️ दिन</button>
+    <button id="lang-toggle" aria-label="भाषा">🌐 <span id="langlabel">हिंदी</span></button></div>
+</header>
+<section class="hero">
+  <a class="back hi" href="index.html">← ब्रह्मांड पर लौटें</a>
+  <div class="eyebrow">हमारे बारे में</div>
+  <h1 class="hi">ज्ञान और विज्ञान का संगम</h1>
+  <div class="sub">PrajnaAGI — ब्रह्मांड को हिंदी में</div>
+</section>
+<main class="pwrap">
+  <div class="about-grid">
+    <div><img src="about101.jpeg" alt="प्रिय रंजन पाण्डेय" class="about-img" loading="lazy"></div>
+    <div class="about-text">
+      <h2 class="hi">प्रिय रंजन पाण्डेय</h2>
+      <p>PrajnaAGI के संस्थापक, प्रिय रंजन पाण्डेय का उद्देश्य जटिल वैज्ञानिक अवधारणाओं को सरल हिंदी भाषा में आम जनमानस तक पहुँचाना है।</p>
+      <p>हमारा मानना है कि ज्ञान की कोई सीमा नहीं होनी चाहिए, और मातृभाषा में सीखने से विषय की समझ और भी गहरी होती है।</p>
+      <h3 class="hi">हमारा लक्ष्य</h3>
+      <p>भारत में एक ऐसी वैज्ञानिक चेतना विकसित करना जहाँ हर बच्चा ब्रह्मांड के रहस्यों को अपनी भाषा में समझ सके।</p>
     </div>
-
-    <section class="hero">
-        <h1>हमारे बारे में</h1>
-        <p class="text-muted">PrajnaAGI: ज्ञान और विज्ञान का संगम</p>
-    </section>
-
-    <div class="about-grid">
-        <div class="about-img-container">
-            <img src="about101.jpeg" alt="प्रिय रंजन पाण्डेय" class="about-img">
-        </div>
-        <div class="about-text">
-            <h2>प्रिय रंजन पाण्डेय</h2>
-            <p>PrajnaAGI के संस्थापक, प्रिय रंजन पाण्डेय का उद्देश्य जटिल वैज्ञानिक अवधारणाओं को सरल हिंदी भाषा में आम जनमानस तक पहुँचाना है।</p>
-            <p>हमारा मानना है कि ज्ञान की कोई सीमा नहीं होनी चाहिए, और मातृभाषा में सीखने से विषय की समझ और भी गहरी होती है।</p>
-            <div class="about-text-extra">
-                <h3>हमारा लक्ष्य</h3>
-                <p>भारत में एक ऐसी वैज्ञानिक चेतना विकसित करना जहाँ हर बच्चा ब्रह्मांड के रहस्यों को अपनी भाषा में समझ सके।</p>
-            </div>
-        </div>
+  </div>
+  <div class="mvgrid">
+    <div class="mvcard"><h3 class="hi">मिशन</h3><p>सटीक और विश्वसनीय वैज्ञानिक जानकारी को सरल हिंदी में प्रस्तुत करना ताकि शिक्षा और जागरूकता का प्रसार हो सके।</p></div>
+    <div class="mvcard"><h3 class="hi">विजन</h3><p>भविष्य की पीढ़ियों को प्रेरित करना कि वे विज्ञान और तकनीक के क्षेत्र में नए प्रतिमान स्थापित करें।</p></div>
+  </div>
+  <div class="support-card">
+    <h2 class="hi">PrajnaAGI का समर्थन करें</h2>
+    <p>हमारा उद्देश्य हिंदी भाषी समाज को आधुनिक तकनीक और अंतरिक्ष विज्ञान की गहरी समझ प्रदान करना है। यदि आप हमारे इस मिशन को उपयोगी पाते हैं, तो आप हमारे स्वतंत्र प्रयास का समर्थन कर सकते हैं।</p>
+    <div class="support-actions">
+      <a href="contact.html" class="pbtn hi">संपर्क करें</a>
+      <a href="index.html" class="pbtn ghost hi">होमपेज पर जाएं</a>
     </div>
-
-    <section class="section about-section">
-        <h2 class="section-title">हमारा मिशन और विजन</h2>
-        <div class="card-grid mission-vision-grid">
-            <div class="clickable-card mission-vision-card">
-                <h3>मिशन</h3>
-                <p>सटीक और विश्वसनीय वैज्ञानिक जानकारी को सरल हिंदी में प्रस्तुत करना ताकि शिक्षा और जागरूकता का प्रसार हो सके।</p>
-            </div>
-            <div class="clickable-card mission-vision-card">
-                <h3>विजन</h3>
-                <p>भविष्य की पीढ़ियों को प्रेरित करना कि वे विज्ञान और तकनीक के क्षेत्र में नए प्रतिमान स्थापित करें।</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Support Section -->
-    <section class="section support-section" id="support">
-        <div class="support-box support-card">
-            <h2>PrajnaAGI का समर्थन करें</h2>
-            <p>हमारा उद्देश्य हिंदी भाषी समाज को आधुनिक तकनीक और अंतरिक्ष विज्ञान की गहरी समझ प्रदान करना है। यदि आप हमारे इस मिशन को उपयोगी पाते हैं, तो आप हमारे स्वतंत्र पत्रकारिता के प्रयास का समर्थन कर सकते हैं।</p>
-            <div class="support-actions">
-                <a href="contact.html" class="subscribe-btn no-decoration">संपर्क करें (Contact)</a>
-                <a href="index.html" class="tag support-link bg-none-border-accent">होमपेज पर जाएं</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ── FOOTER ── -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="footer-logo">🌌 PrajnaAGI</div>
-                <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
-            </div>
-            <div class="footer-col">
-                <h4>श्रेणियां</h4>
-                <ul>
-                    <li><a href="space.html">🌌 अंतरिक्ष</a></li>
-                    <li><a href="science.html">🔬 विज्ञान</a></li>
-                    <li><a href="tech.html">💻 तकनीक</a></li>
-                    <li><a href="environment.html">🌿 पर्यावरण</a></li>
-                    <li><a href="health.html">❤️ स्वास्थ्य</a></li>
-                    <li><a href="srijan.html">🤖 सृजन रोबॉटिक्स</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>महत्वपूर्ण लिंक</h4>
-                <ul>
-                    <li><a href="about.html">🙏 हमारे बारे में</a></li>
-                    <li><a href="contact.html">📞 संपर्क करें</a></li>
-                    <li><a href="privacy.html">🔒 गोपनीयता नीति</a></li>
-                    <li><a href="terms.html">📋 उपयोग की शर्तें</a></li>
-                </ul>
-            </div>
-        </div>
-        <p class="footer-bottom">© 2026 PrajnaAGI. सर्वाधिकार सुरक्षित।</p>
-    </footer>
-
-    <button id="backToTop" class="back-to-top" aria-label="ऊपर जाएं">↑</button>
-
-    <div id="paymentModal" onclick="closePayment()" class="modal-overlay">
-        <div class="modal-content modal-content-main" onclick="event.stopPropagation()">
-            <h3 class="modal-title">भुगतान करें / Pay (UPI)</h3>
-            <p id="upi-id-display" class="upi-display"></p>
-            <img id="qr-display" src="" class="qr-img-large" alt="UPI QR Code">
-            <div class="modal-footer">
-                <a href="thanks.html" class="tag support-confirm-btn">मैंने भुगतान कर दिया है</a>
-                <button type="button" onclick="closePayment()" class="tag modal-btn">बंद करें</button>
-            </div>
-        </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="fcols">
+    <div class="fcol">
+      <div class="flogo">Prajna<b>AGI</b></div>
+      <p>ब्रह्मांड को हिंदी में समझें। अंतरिक्ष, विज्ञान और तकनीक की हर खबर — सरल और सटीक।</p>
+      <div class="fsocial">
+        <a href="https://x.com/PrajnaAGI" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://api.whatsapp.com/send?text=PrajnaAGI%20%E2%80%94%20https://prajnaagi.com" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.19 2.01 3.06 4.87 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4 2.51 0 4.87.98 6.64 2.76a9.34 9.34 0 0 1 2.75 6.65c-.01 5.18-4.22 9.41-9.4 9.41z"/></svg></a>
+      </div>
     </div>
-
-    <!-- ── SCRIPTS ── -->
-    <script src="assets/js/canvas.js"></script>
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/cms-loader.js"></script>
-    <script>
-        async function initGlobalPayments() {
-            try {
-                const resp = await fetch('content/settings.json');
-                const settings = await resp.json();
-                if (settings && settings.payments && settings.payments.upi_id) {
-                    const upi = settings.payments.upi_id;
-                    document.getElementById('upi-id-display').innerText = upi;
-                    document.getElementById('qr-display').src = settings.payments.upi_qr || 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=' + upi;
-                }
-            } catch(e) { console.error(e); }
-        }
-        function openPayment() { document.getElementById('paymentModal').style.display = 'flex'; }
-        function closePayment() { document.getElementById('paymentModal').style.display = 'none'; }
-        initGlobalPayments();
-    </script>
+    <div class="fcol"><h4>श्रेणियाँ</h4><ul>
+      <li><a href="space.html">अंतरिक्ष</a></li><li><a href="science.html">विज्ञान</a></li><li><a href="tech.html">तकनीक</a></li>
+      <li><a href="environment.html">पर्यावरण</a></li><li><a href="health.html">स्वास्थ्य</a></li><li><a href="srijan.html">सृजन रोबॉटिक्स</a></li>
+    </ul></div>
+    <div class="fcol"><h4>महत्वपूर्ण लिंक</h4><ul>
+      <li><a href="about.html">हमारे बारे में</a></li><li><a href="contact.html">संपर्क करें</a></li>
+      <li><a href="privacy.html">गोपनीयता नीति</a></li><li><a href="terms.html">उपयोग की शर्तें</a></li>
+    </ul></div>
+  </div>
+  <div class="fbottom">© 2026 PRAJNAAGI · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a></div>
+</footer>
+<script src="assets/js/lang.js" defer></script>
+<script src="assets/js/prajna-3d.js" defer></script>
+<script>(function(){var b=document.getElementById('theme-toggle');function n(){return document.body.getAttribute('data-theme')!=='light';}function lab(){if(b)b.textContent=n()?'🌙 रात':'☀️ दिन';}try{var s=localStorage.getItem('theme');if(s)document.body.setAttribute('data-theme',s);}catch(e){}lab();if(b)b.addEventListener('click',function(){document.body.setAttribute('data-theme',n()?'light':'dark');try{localStorage.setItem('theme',document.body.getAttribute('data-theme'));}catch(e){}lab();});})();</script>
 </body>
-
 </html>
-
-
-
-
-
-
