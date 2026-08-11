@@ -258,6 +258,19 @@ def main():
     ARTICLES.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[DONE] {added} naye article jode gaye ({slot}).")
 
+    # --- performance: slim listing index (metadata only, no article bodies) ---
+    # Listing pages (home + category) load this instead of the full 5MB+ file.
+    try:
+        _idx_fields = ("title", "slug", "category", "tag", "author_id",
+                       "date", "summary", "image", "hidden", "status", "tweeted")
+        _index = [{k: a[k] for k in _idx_fields if k in a}
+                  for a in data.get("articles", [])]
+        (ROOT / "content" / "articles-index.json").write_text(
+            json.dumps({"articles": _index}, ensure_ascii=False), encoding="utf-8")
+        print(f"[INDEX] articles-index.json written ({len(_index)} items).")
+    except Exception as _e:
+        print(f"[WARN] index generation skipped: {_e}")
+
     if suggestions_modified:
         SUGGESTIONS.write_text(json.dumps(suggestions_data, ensure_ascii=False, indent=2), encoding="utf-8")
         print("[QUEUE] suggestions.json updated with completed status.")

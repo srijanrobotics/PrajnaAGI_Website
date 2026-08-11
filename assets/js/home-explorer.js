@@ -26,9 +26,10 @@
   function daysAgo(d){ if(!d) return ''; var t=(Date.now()-new Date(d).getTime())/86400000; if(t<1)return 'आज'; if(t<2)return 'कल'; return Math.floor(t)+' दिन पहले'; }
   function openArticle(s){ if(s) location.href='article.html?id='+encodeURIComponent(s); }
   function goCat(k){ location.href=CAT[k].url; }
-  async function jget(p){ try{ return await (await fetch(p,{cache:'no-store'})).json(); }catch(e){ return null; } }
+  async function jget(p){ try{ return await (await fetch(p)).json(); }catch(e){ return null; } }
+  async function jarts(){ return (await jget('content/articles-index.json')) || (await jget('content/articles.json')); }
   async function loadContent(){
-    var r=await Promise.all([jget('content/articles.json'),jget('content/facts.json'),jget('content/ticker.json')]);
+    var r=await Promise.all([jarts(),jget('content/facts.json'),jget('content/ticker.json')]);
     var arts=(r[0]&&r[0].articles)||[]; FACTS=(r[1]&&r[1].facts)||[]; TICK=(r[2]&&r[2].items)||[];
     ORDER.forEach(function(k){byCat[k]=[];});
     arts.filter(function(a){return !a.hidden;}).sort(function(a,b){return (b.date||'').localeCompare(a.date||'');})

@@ -29,7 +29,7 @@
         +'<div class="foot"><span class="hi">'+ago(a.date)+'</span><span class="read hi">'+P('पढ़ें →','पढ़ीं →','Read →')+'</span></div></div></a>';});
     g.innerHTML=h;}
   async function boot(){setHero();initTheme();
-    try{var data=await (await fetch('content/articles.json',{cache:'no-store'})).json();
+    try{var data;try{var res=await fetch('content/articles-index.json');if(!res.ok)throw 0;data=await res.json();}catch(_ie){data=await (await fetch('content/articles.json')).json();}
       ARTS=(data.articles||[]).filter(function(a){return H2K[a.category]===k&&!a.hidden;}).sort(function(a,b){return (b.date||'').localeCompare(a.date||'');});
       render();}catch(e){var g=document.getElementById('catGrid');if(g)g.innerHTML='<p class="empty hi">लेख लोड नहीं हो सके।</p>';}
     var lo=document.getElementById('load');if(lo)setTimeout(function(){lo.classList.add('hide');},400);}
