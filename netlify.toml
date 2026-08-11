@@ -1,3 +1,12 @@
+# ── BUILD ─────────────────────────────────────────────────────────
+# Skip Netlify builds for content-only commits (auto-ticker / auto-publish).
+# Site content is fetched from the GitHub API at runtime, so those ~25 daily
+# bot commits don't need a rebuild. This stops the deploy queue from being
+# constantly superseded and conserves build minutes. Real code changes
+# (anything outside content/) still trigger a normal build.
+[build]
+  ignore = "! git diff --name-only HEAD^ HEAD | grep -qv '^content/'"
+
 [[edge_functions]]
 path = "/article*"
 function = "inject-metadata"

@@ -75,9 +75,9 @@ def fetch_real_news():
                 if len(items_list) >= 15:  # Limit to top 15 news items
                     break
     except Exception as e:
-        print(f"[ERROR] Failed to fetch or parse RSS: {e}")
-        sys.exit(1)
-        
+        print(f"[WARN] Failed to fetch or parse RSS: {e} — keeping previous ticker.")
+        return items_list
+
     return items_list
 
 def main():
@@ -90,8 +90,8 @@ def main():
     news_items = fetch_real_news()
     
     if not news_items:
-        print("[ERROR] No news fetched, aborting.")
-        sys.exit(1)
+        print("[WARN] No fresh news fetched — leaving existing ticker.json unchanged.")
+        return
         
     print(f"[OK] Fetched {len(news_items)} real-time headlines.")
     
