@@ -1,11 +1,13 @@
 # ── BUILD ─────────────────────────────────────────────────────────
-# Skip Netlify builds for content-only commits (auto-ticker / auto-publish).
-# Site content is fetched from the GitHub API at runtime, so those ~25 daily
-# bot commits don't need a rebuild. This stops the deploy queue from being
-# constantly superseded and conserves build minutes. Real code changes
-# (anything outside content/) still trigger a normal build.
+# Skip a build ONLY when the news ticker is the sole thing that changed.
+# Articles/facts still deploy normally (the site serves content from the
+# deploy, so article commits MUST build). The hourly ticker alone was
+# triggering ~24 builds/day, flooding the deploy queue and burning build
+# minutes; the ticker simply refreshes on the next real deploy instead.
+# Fail-safe: if the refs are missing or git errors, the command exits
+# non-zero and the build RUNS.
 [build]
-  ignore = "! git diff --name-only HEAD^ HEAD | grep -qv '^content/'"
+  ignore = "[ -n \"$CACHED_COMMIT_REF\" ] && git diff --quiet \"$CACHED_COMMIT_REF\" \"$COMMIT_REF\" -- . ':(exclude)content/ticker.json'"
 
 [[edge_functions]]
 path = "/article*"

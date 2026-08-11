@@ -2,8 +2,9 @@ name: Update News Ticker
 
 on:
   schedule:
-    # Run at minute 0 past every hour
-    - cron: "0 * * * *"
+    # Every 3 hours (was hourly). Hourly runs created ~24 commits/day, which
+    # flooded the Netlify deploy queue and burned build minutes.
+    - cron: "0 */3 * * *"
   workflow_dispatch: {}
 
 permissions:
